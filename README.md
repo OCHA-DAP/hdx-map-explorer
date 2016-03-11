@@ -19,10 +19,11 @@ npm install -g bower
 ## Getting the project
 Simply checkout the project on your machine and afterwards you need to follow these steps to download all of the
 dependencies:
+
 1. change directory to the root of the checked-out git project
-1. dependencies for the task runner will be downloaded in the directory `node_modules` - **run**:   `npm install`
-1. project dependencies are downloaded in the `vendor` directory - **run**: `bower install`
-1. build the project - **run**: `grunt default`
+2. dependencies for the task runner will be downloaded in the directory `node_modules` - **run**:   `npm install`
+3. project dependencies are downloaded in the `vendor` directory - **run**: `bower install`
+4. build the project - **run**: `grunt default`
 
 ## Running the project locally
 Grunt will run a small HTTP server serving the project files on the port 9000. For this you have to start it up using:
