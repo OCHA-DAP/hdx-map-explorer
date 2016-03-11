@@ -1,0 +1,22 @@
+{
+    "name": "hdx.map.explorer",
+    "version": "0.0.1",
+    "_comment": "Any dependencies added here require a manual edit to vendor_files in /Gruntfile.js and (??? verify the following) /build/karma-unit.js (e.g 'vendor/angular-resource/angular-resource.js')",
+    "devDependencies": {
+        "angular": "1.5.0",
+        "angular-resource": "1.5.0",
+        "angular-mocks": "1.5.0",
+        "bootstrap": "~3.3",
+        "angular-bootstrap": "^1.2.1",
+        "angular-ui-router": "~0.2.18",
+        "jquery": "^2.2.1",
+        "leaflet": "^0.7.7"
+    },
+    "dependencies": {},
+    "resolutions": {
+        "angular": "1.5.0",
+        "angular-bootstrap": "1.2.1"
+    }
+
+}
+
