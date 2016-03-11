@@ -12,7 +12,6 @@
 
 }(angular.module("hdx.map.explorer", [
     'hdx.map.explorer.home',
-    'hdx.map.explorer.about',
     'templates-app',
     'templates-common',
     'ui.router.state',
