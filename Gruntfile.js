@@ -450,7 +450,7 @@ module.exports = function(grunt) {
             devServer: {
                 options: {
                     port: 9000,
-                    hostname: 'localhost',
+                    hostname: '0.0.0.0',
                     serverreload: false,
                     bases: 'build',
                     livereload: true
