@@ -642,12 +642,22 @@ module.exports = function(grunt) {
     // The default task is to build and compile.
     grunt.registerTask('default', [ 'build', 'compile' ]);
 
+    // The default task is to build and compile.
+    grunt.registerTask('default-no-tests', [ 'build-no-tests', 'compile' ]);
+
     // The 'build' task gets your app ready to run for development and testing.
     grunt.registerTask('build', [
         'clean:all', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
         'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'ngAnnotate:build', 'index:build', 'karmaconfig',
         'karma:continuous'
+    ]);
+
+    // The 'build' task gets your app ready to run for development and testing.
+    grunt.registerTask('build-no-tests', [
+        'clean:all', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
+        'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'ngAnnotate:build', 'index:build'
     ]);
 
     // just like build, but includes testing resources for using $httpBackend and switches to mock application in index.html
