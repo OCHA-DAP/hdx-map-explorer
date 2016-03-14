@@ -17,6 +17,5 @@
     'ui.router',
     //pages
     'hdx.map.explorer.home',
-    'hdx.map.explorer.about',
     'hdx.map.explorer.util',
 ])));
