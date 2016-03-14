@@ -1,7 +1,7 @@
 (function(module) {
     module.config(function ($stateProvider) {
         $stateProvider.state('home', {
-            url: '/home',
+            url: '/',
             views: {
                 "main": {
                     controller: 'HomeController as model',

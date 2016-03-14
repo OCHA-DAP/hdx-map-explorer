@@ -11,9 +11,12 @@
     });
 
 }(angular.module("hdx.map.explorer", [
-    'hdx.map.explorer.home',
     'templates-app',
     'templates-common',
     'ui.router.state',
     'ui.router',
+    //pages
+    'hdx.map.explorer.home',
+    'hdx.map.explorer.about',
+    'hdx.map.explorer.util',
 ])));

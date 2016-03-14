@@ -13,20 +13,8 @@
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 </head>
 <body>
-    <header>
-        <nav class="container navbar-default">
-            <ul class="nav navbar-nav">
-                <li ui-sref-active="active">
-                    <a ui-sref="home">Home</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="container" ui-view="main"></div>
+    <div class="full-height" ui-view="main"></div>
 
-    <footer class="container">
-        (c) <%= date %> <%= author %>
-    </footer>
 </body>
 </html>
