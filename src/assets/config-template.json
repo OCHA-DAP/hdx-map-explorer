@@ -1,0 +1,61 @@
+{
+  "name": "IDPS Template",
+  "url": "http://",
+  "map": {
+    "shapefile": {
+      "url": "http://",
+      "join-column": "admin1"
+    },
+    "layers": [
+      {
+        "join-column": "admin1",
+        "value-column": "values",
+        "operations": [
+          {
+            "type": "url-params",
+            "options": {
+              "value": "a=b"
+            }
+          },
+          {
+            "type": "sum/min/max/count",
+            "options": {
+              "group-by": [
+                "adm1",
+                "adm2"
+              ],
+              "value": "deaths"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "options": {
+        "y-column": "values",
+        "x-column": "year"
+      },
+      "type": "bar/chart/area",
+      "operations": [
+        {
+          "type": "url-params",
+          "options": {
+            "value": "a=b"
+          }
+        },
+        {
+          "type": "sum/min/max/count",
+          "options": {
+            "group-by": [
+              "adm1",
+              "adm2"
+            ],
+            "value": "deaths"
+          }
+        }
+      ]
+    }
+  ]
+}
