@@ -36,6 +36,7 @@
         ret.getFilteredDataByParamList = function (originalUrl, paramList) {
             var url = urlPrefix + 'url=' + originalUrl;
             for (var i=0; i<paramList.length; i++) {
+                url += '&' + paramList[i];
             }
             return $http.get(url);
 
