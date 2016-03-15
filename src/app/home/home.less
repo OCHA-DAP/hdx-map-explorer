@@ -9,3 +9,51 @@ html, body, .full-height {
 #map {
   height: 100%;
 }
+
+#datasets, #charts {
+  position: absolute;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 10000;
+}
+
+#datasets {
+  left: 0;
+  &.slide-left {
+    left: -100%;
+    .toggle {
+      position: fixed;
+      left: 0;
+      .glyphicon-chevron-left {
+        display: none;
+      }
+      .glyphicon-chevron-right{
+        display: block;
+      }
+    }
+  }
+  .toggle {
+    position: absolute;
+    background-color: @blue;
+    height: 40px;
+    width: 21px;
+    right: -21px;
+    top: 80px;
+
+    color: white;
+    font-size: 20px;
+    padding: 8px 0;
+
+    .glyphicon-chevron-left {
+      display: block;
+    }
+    .glyphicon-chevron-right{
+      display: none;
+    }
+  }
+}
+
+#charts {
+  right: 0;
+}
+

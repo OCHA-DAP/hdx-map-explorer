@@ -45,6 +45,7 @@
             baselayers.CartoDB_DarkMatter.addTo(map);
             L.control.layers(baselayers, null, {collapsed: false}).addTo(map);
             console.log("done");
+
         }
 
     });
