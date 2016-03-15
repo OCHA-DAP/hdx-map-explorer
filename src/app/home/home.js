@@ -65,7 +65,7 @@
 
             var map = L.map("map").setView([51.505, -0.09], 7);
             baselayers.CartoDB_DarkMatter.addTo(map);
-            L.control.layers(baselayers, null, {collapsed: false}).addTo(map);
+            L.control.layers(baselayers, null, {collapsed: true, position: "bottomleft"}).addTo(map);
             console.log("done");
 
         }

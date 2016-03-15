@@ -1,0 +1,51 @@
+{
+  "name": "IDPs at adm1",
+  "url": "http://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/c51b69a0-5f2c-4598-aded-dc63095380fe/download/hdxsprint-dtm-adm1.csv",
+  "map": {
+    "shapefile": {
+      "url": "http://data.hdx.rwlabs.org/dataset/0a42c636-a88a-4c60-9ac5-063fbe591604/resource/b933abbc-8635-4fd0-afaa-98003408c9ff/download/gadm28_LCR_adm1.geojson",
+      "join-column": "NAME_1"
+    },
+    "layers": [
+      {
+        "join-column": "#adm1+name",
+        "value-column": "#affected+displaced+sum",
+        "operations": [
+          {
+            "type": "url-params",
+            "options": {
+              "value": "rename-newtag05=affected%2Bdisplaced%2Bsum&filter04=cut&rename-oldtag05=meta%2Bsum&filter05=rename&filter03=count&cut-include-tags04=adm1%2Bname%2Cmeta%2Bsum&count-aggregate-tag03=affected%2Bdisplaced&select-query01-01=%23affected%2Btype%3Didp&rename-header05=Total+people+displaced&count-tags03=adm1%2Bname&filter02=select&filter01=select&select-query02-01=%23date%3E%3D2015-01-01"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "options": {
+        "x-column": "#date",
+        "y-column": "#affected+displaced"
+      },
+      "type": "bar|chart|area",
+      "operations": [
+        {
+          "type": "url-params",
+          "options": {
+            "value": "a=b"
+          }
+        },
+        {
+          "type": "sum/min/max/count",
+          "options": {
+            "group-by": [
+              "adm1",
+              "adm2"
+            ],
+            "value": "deaths"
+          }
+        }
+      ]
+    }
+  ]
+}
