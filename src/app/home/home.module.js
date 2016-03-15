@@ -12,5 +12,6 @@
         });
     });
 }(angular.module("hdx.map.explorer.home", [
-    'ui.router'
+    'ui.router',
+    'hdx.map.explorer.util'
 ])));
