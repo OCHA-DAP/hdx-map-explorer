@@ -18,7 +18,7 @@
             }
           },
           {
-            "type": "sum/min/max/count",
+            "type": "sum|min|max|count",
             "options": {
               "group-by": [
                 "adm1",
@@ -34,10 +34,10 @@
   "charts": [
     {
       "options": {
-        "y-column": "values",
-        "x-column": "year"
+        "x-column": "year",
+        "y-column": "values"
       },
-      "type": "bar/chart/area",
+      "type": "bar|chart|area",
       "operations": [
         {
           "type": "url-params",
