@@ -37,7 +37,7 @@
 
         function init() {
 
-            loadJson('/assets/config-template.json').then(
+            loadJson('/assets/idps.json').then(
                 function(data) {
                     buildMap(data.data);
                     buildChart(data.data);
