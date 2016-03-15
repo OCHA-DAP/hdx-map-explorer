@@ -8,7 +8,7 @@
 
         var ret = {};
 
-        ret.getData = function (originalUrl, selectKey, selectValue){
+        ret.getFilteredDataBy1Value = function (originalUrl, selectKey, selectValue){
             var urlValue = encodeURIComponent(originalUrl);
             var hxlUrl = urlPrefix + 'url=' + urlValue;
             if (selectKey && selectValue) {
@@ -31,6 +31,14 @@
             //deferred.reject(ret);
 
             return deferred.promise;
+        };
+
+        ret.getFilteredDataByParamList = function (originalUrl, paramList) {
+            var url = urlPrefix + 'url=' + originalUrl;
+            for (var i=0; i<paramList.length; i++) {
+            }
+            return $http.get(url);
+
         };
 
         return ret;

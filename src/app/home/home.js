@@ -1,5 +1,5 @@
 (function(module) {
-    module.controller('HomeController', function ($scope) {
+    module.controller('HomeController', function ($scope, $http, DataFetcher) {
         var model = this;
         var baselayers = {
             OpenStreetMap_BlackAndWhite: L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
@@ -36,16 +36,55 @@
         init();
 
         function init() {
-            buildMap();
+
+            loadJson('/assets/config-template.json').then(
+                function(data) {
+                    buildMap(data.data);
+                    buildChart(data.data);
+                }
+            );
+
+            //var hxlPromise = DataFetcher.getData('http://popstats.unhcr.org/en/demographics.hxl', '#country+residence', 'Slovenia');
+            //hxlPromise.then(
+            //  function(data) {
+            //      model.result = data;
+            //  }
+            //);
+
 
         }
 
-        function buildMap(){
+        function loadJson(url) {
+            return $http.get(url);
+        }
+
+        function buildMap(data){
+            var mapData = data.map;
+            var paramList = buildUrlFilterList(mapData.layers[0].operations);
+            var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+
             var map = L.map("map").setView([51.505, -0.09], 7);
             baselayers.CartoDB_DarkMatter.addTo(map);
             L.control.layers(baselayers, null, {collapsed: false}).addTo(map);
             console.log("done");
 
+        }
+
+        function buildChart(data) {
+            buildUrlFilterList(data[0].operations);
+        }
+
+        function buildUrlFilterList(operations) {
+            var params = [];
+            if ( operations ) {
+                for (var i=0; i<operations.length; i++) {
+                    var op = operations[i];
+                    if (op.type == 'url-params') {
+                        params.push(op.options.value);
+                    }
+                }
+            }
+            return params;
         }
 
     });
