@@ -85,10 +85,14 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-utils/modules/route/route.js',
 
                 'vendor/leaflet/dist/leaflet.js',
-                'vendor/jquery/dist/jquery.min.js'
+                'vendor/jquery/dist/jquery.min.js',
+
+                'vendor/d3/d3.min.js',
+                'vendor/c3/c3.js'
             ],
             css: [
-                'vendor/leaflet/dist/leaflet.css'
+                'vendor/leaflet/dist/leaflet.css',
+                'vendor/c3/c3.min.css'
             ],
             assets: [
                 'vendor/bootstrap/fonts/*'
