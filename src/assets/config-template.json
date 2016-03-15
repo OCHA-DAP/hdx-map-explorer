@@ -4,12 +4,12 @@
   "map": {
     "shapefile": {
       "url": "http://",
-      "join-column": "admin1"
+      "joinColumn": "admin1"
     },
     "layers": [
       {
-        "join-column": "admin1",
-        "value-column": "values",
+        "joinColumn": "admin1",
+        "valueColumn": "values",
         "operations": [
           {
             "type": "url-params",
@@ -20,7 +20,7 @@
           {
             "type": "sum|min|max|count",
             "options": {
-              "group-by": [
+              "groupBy": [
                 "adm1",
                 "adm2"
               ],
@@ -34,8 +34,8 @@
   "charts": [
     {
       "options": {
-        "x-column": "year",
-        "y-column": "values"
+        "xColumn": "year",
+        "yColumn": "values"
       },
       "type": "bar|chart|area",
       "operations": [
@@ -48,7 +48,7 @@
         {
           "type": "sum/min/max/count",
           "options": {
-            "group-by": [
+            "groupBy": [
               "adm1",
               "adm2"
             ],

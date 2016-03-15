@@ -3,13 +3,13 @@
   "url": "http://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/c51b69a0-5f2c-4598-aded-dc63095380fe/download/hdxsprint-dtm-adm1.csv",
   "map": {
     "shapefile": {
-      "url": "http://data.hdx.rwlabs.org/dataset/0a42c636-a88a-4c60-9ac5-063fbe591604/resource/b933abbc-8635-4fd0-afaa-98003408c9ff/download/gadm28_LCR_adm1.geojson",
-      "join-column": "NAME_1"
+      "url": "/assets/json/gadm28_LCR_adm1.geojson",
+      "joinColumn": "NAME_1"
     },
     "layers": [
       {
-        "join-column": "#adm1+name",
-        "value-column": "#affected+displaced+sum",
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#affected+displaced+sum",
         "operations": [
           {
             "type": "url-params",
@@ -24,8 +24,8 @@
   "charts": [
     {
       "options": {
-        "x-column": "#date",
-        "y-column": "#affected+displaced"
+        "xColumn": "#date",
+        "yColumn": "#affected+displaced"
       },
       "type": "bar|chart|area",
       "operations": [
@@ -38,7 +38,7 @@
         {
           "type": "sum/min/max/count",
           "options": {
-            "group-by": [
+            "groupBy": [
               "adm1",
               "adm2"
             ],
