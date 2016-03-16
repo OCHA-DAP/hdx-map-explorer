@@ -36,22 +36,23 @@
         init();
 
         function init() {
-
+            loadData();
             loadJson('/assets/idps.json').then(
                 function(data) {
                     buildMap(data.data);
                     buildChart(data.data);
                 }
             );
+        }
 
-            //var hxlPromise = DataFetcher.getData('http://popstats.unhcr.org/en/demographics.hxl', '#country+residence', 'Slovenia');
-            //hxlPromise.then(
-            //  function(data) {
-            //      model.result = data;
-            //  }
-            //);
-
-
+        function loadData(){
+            model.datasets = [];
+            $http.get('/assets/datasets.json')
+                .then(
+                    function(result){
+                        model.datasets = result.data;
+                    }
+                );
         }
 
         function loadJson(url) {
@@ -179,15 +180,25 @@
             var paramList = buildUrlFilterList(chartData.operations);
             var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
             promise.then(
-                function(data){
+                function(result){
+                    var data = result.data;
+                    var limitedData = [];
+                    for (var i = 1; i < data.length; i++){
+                        limitedData.push(data[i]);
+                    }
                     var chart = c3.generate({
                         bindto: "#zaChart",
                         data: {
-                            rows: [
-
-                            ],
-                            type: 'bar'
+                            x: chartData.options.xColumn,
+                            rows: limitedData,
+                            type: chartData.type
+                        },
+                        axis: {
+                            x: {
+                                type: 'category'
+                            }
                         }
+
                     });
                 },
                 function (error){

@@ -13,7 +13,7 @@ html, body, .full-height {
 #datasets, #charts {
   position: absolute;
   height: 100%;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   z-index: 10000;
 }
 
@@ -51,9 +51,32 @@ html, body, .full-height {
       display: none;
     }
   }
+
+  .type {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    .type-title {
+      margin-bottom: 5px;
+    }
+    .dataset {
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+      margin-top: -1px;
+      padding: 5px;
+
+      .content {
+        padding-left: 20px;
+
+        .title {
+          color: @blue;
+        }
+      }
+    }
+  }
 }
 
 #charts {
   right: 0;
 }
+
 
