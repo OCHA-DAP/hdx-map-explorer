@@ -33,6 +33,8 @@
             })
         };
 
+        var chartData, mapData;
+
         init();
 
         function init() {
@@ -60,9 +62,10 @@
         }
 
         function buildMap(data){
-            var mapData = data.map;
-            var paramList = buildUrlFilterList(mapData.layers[0].operations);
-            var promise1 = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+            mapData = data.map;
+            //var paramList = buildUrlFilterList(mapData.layers[0].operations);
+            //var promise1 = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+            var promise1 = fetchData(data.url, mapData.layers[0]);
             var promise2 = $http.get(mapData.shapefile.url);
 
 
@@ -175,10 +178,29 @@
             );
         }
 
+        function fetchData(url, data, additionalFilters){
+            var operations = data.operations;
+            var paramList = buildUrlFilterList(operations);
+            if (additionalFilters && additionalFilters.length > 0) {
+                operations = operations.slice(0);
+                var currentIndex = data.nextIndex;
+                for (var i=0; i<additionalFilters.length; i++){
+                    var filter = additionalFilters[0];
+                    var param = DataFetcher.buildNewParam(filter.key, filter.value, currentIndex);
+                    currentIndex++;
+                    paramList.push(param);
+                }
+            }
+            var promise = DataFetcher.getFilteredDataByParamList(url, paramList);
+            return promise;
+        }
+
         function buildChart(data) {
-            var chartData = data.charts[0];
-            var paramList = buildUrlFilterList(chartData.operations);
-            var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+            chartData = data.charts[0];
+            //var paramList = buildUrlFilterList(chartData.operations);
+            //var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+            //var promise = fetchData(data.url, chartData, [{key:'#country+name', value: 'Chad'}]);
+            var promise = fetchData(data.url, chartData);
             promise.then(
                 function(result){
                     var data = result.data;
