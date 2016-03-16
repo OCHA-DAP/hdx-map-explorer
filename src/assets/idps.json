@@ -10,8 +10,8 @@
       {
         "joinColumn": "#adm1+name",
         "valueColumn": "#affected+displaced+sum",
-        "threshold": null,
-        "colors": ["rgb(215,25,28)", "rgb(253,174,97)", "rgb(255,255,191)", "rgb(171,221,164)", "rgb(43,131,186)"],
+        "threshold": [1000,10000,50000,100000,500000,1000000],
+        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"],
         "operations": [
           {
             "type": "url-params",
