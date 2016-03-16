@@ -86,14 +86,17 @@
                 function(promiseValues){
                     var data = promiseValues[0].data,
                         geojson = promiseValues[1].data;
-
+                    var onlyLayer = mapData.layers[0];
                     var values = generatePcodeValueMap(data);
                     var stepCount = 10;
                     var colors = ["rgb(215,25,28)", "rgb(253,174,97)", "rgb(255,255,191)", "rgb(171,221,164)", "rgb(43,131,186)"];
                     var step = (values.max - values.min) / stepCount;
-                    var thresholds = [];
-                    for (var sIdx = 0; sIdx < stepCount; sIdx++){
-                        thresholds.push(values.min + sIdx*step);
+                    var threshold = onlyLayer.threshold;
+                    if (!threshold){
+                        threshold = [];
+                        for (var sIdx = 0; sIdx < stepCount; sIdx++){
+                            threshold.push(values.min + sIdx*step);
+                        }
                     }
 
 
@@ -110,9 +113,9 @@
                         var labels = [],
                             from, to;
 
-                        for (var i = 0; i < thresholds.length; i++) {
-                            from = thresholds[i];
-                            to = thresholds[i + 1];
+                        for (var i = 0; i < threshold.length; i++) {
+                            from = threshold[i];
+                            to = threshold[i + 1];
 
                             //labels.push(
                             //    '<li><span class="swatch" style="background:' + getColor(from + 1) + '"></span> ' +
@@ -126,10 +129,10 @@
                         var pcodeIndex, valueIndex;
                         var hxlRow = data[1];
                         for (var i = 0; i < hxlRow.length; i++){
-                            if (hxlRow[i] == mapData.layers[0].joinColumn){
+                            if (hxlRow[i] == onlyLayer.joinColumn){
                                 pcodeIndex = i;
                             }
-                            if (hxlRow[i] == mapData.layers[0].valueColumn){
+                            if (hxlRow[i] == onlyLayer.valueColumn){
                                 valueIndex = i;
                             }
                         }
@@ -216,7 +219,7 @@
                         }
 
                         for (var i = 0; i < stepCount; i++){
-                            if (value < thresholds[i]){
+                            if (value < threshold[i]){
                                 return colors[i];
                             }
                         }
