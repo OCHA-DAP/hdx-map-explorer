@@ -32,21 +32,25 @@
                 maxZoom: 19
             })
         };
-
+        var map, layerGroup = new L.LayerGroup(), popup = new L.Popup({ autoPan: false, offset: L.point(1, -6) }), closeTooltip;
         var chartData, mapData;
 
         init();
 
         function init() {
             loadData();
-            loadJson('/assets/idps.json').then(
+            buildBaseMap();
+            $scope.toggleDataset = toggleDataset;
+        }
+
+        function toggleDataset(url){
+            loadJson(url).then(
                 function(data) {
                     buildMap(data.data);
                     buildChart(data.data);
                 }
             );
         }
-
         function loadData(){
             model.datasets = [];
             $http.get('/assets/datasets.json')
@@ -61,18 +65,20 @@
             return $http.get(url);
         }
 
+        function buildBaseMap(){
+            map = L.map("map").setView([51.505, -0.09], 7);
+            baselayers.CartoDB_DarkMatter.addTo(map);
+            L.control.layers(baselayers, null, {collapsed: true, position: "bottomleft"}).addTo(map);
+            layerGroup.addTo(map);
+        }
+
         function buildMap(data){
             mapData = data.map;
+            layerGroup.clearLayers();
             //var paramList = buildUrlFilterList(mapData.layers[0].operations);
             //var promise1 = DataFetcher.getFilteredDataByParamList(data.url, paramList);
             var promise1 = fetchData(data.url, mapData.layers[0]);
             var promise2 = $http.get(mapData.shapefile.url);
-
-
-            var map = L.map("map").setView([51.505, -0.09], 7);
-            baselayers.CartoDB_DarkMatter.addTo(map);
-            L.control.layers(baselayers, null, {collapsed: true, position: "bottomleft"}).addTo(map);
-            console.log("done");
 
             $q.all([promise1, promise2]).then(
                 function(promiseValues){
@@ -93,7 +99,7 @@
                         style: getStyle,
                         onEachFeature: onEachFeature
                     });
-                    geoLayer.addTo(map);
+                    geoLayer.addTo(layerGroup);
                     map.fitBounds(geoLayer.getBounds());
 
                     //map.legendControl.addLegend(getLegendHTML());
@@ -146,7 +152,27 @@
                         };
                     }
                     function onEachFeature(feature, layer){
-                        //interactivity
+                        layer.on({
+                            mousemove: function(e){
+                                var layer = e.target;
+                                popup.setLatLng(e.latlng);
+                                var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
+                                popup.setContent("<div><strong>"+ pcode +"</strong>: "+ values.map[pcode] +"</div>");
+                                if (!popup._map) {
+                                    popup.openOn(map);
+                                }
+                                window.clearTimeout(closeTooltip);
+                                if (!L.Browser.ie && !L.Browser.opera) {
+                                    layer.bringToFront();
+                                }
+                            },
+                            mouseout: function (e){
+                                console.log("closing");
+                                closeTooltip = window.setTimeout(function(){
+                                    map.closePopup();
+                                }, 100);
+                            }
+                        });
                     }
                     function getColor(pcode){
                         //console.log(pcode);
@@ -209,24 +235,14 @@
                     for (var i = 1; i < data.length; i++){
                         limitedData.push(data[i]);
                     }
-                    var chart = c3.generate({
+                    var options = $.extend(true, chartData.options, {
                         bindto: "#zaChart",
                         data: {
-                            x: chartData.options.xColumn,
-                            rows: limitedData,
-                            type: chartData.type
-                        },
-                        axis: {
-                            x: {
-                                type: 'timeseries',
-                                tick: {
-                                    //format: function(x) {return x.getFullYear(); }
-                                    format: "%B %Y"
-                                }
-                            }
+                            rows: limitedData
                         }
-
                     });
+
+                    var chart = c3.generate(options);
                 },
                 function (error){
                     console.error(error);

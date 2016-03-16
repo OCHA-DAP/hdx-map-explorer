@@ -4,13 +4,13 @@
     "datasets": [
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
-        "description": "This is a test dataset for #HDXSprint. Original datasets and their metadata can be found here: https://data.hdx.rwlabs.org/dataset/cameroon-round-1-dtm-data https://data.hdx.rwlabs.org/dataset/nigeria-iom-dtm-datasets",
+        "description": "Choropleth + area chart",
         "url": "/assets/idps.json"
       },
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
-        "description": "This is a test dataset for #HDXSprint.",
-        "url": "/assets/idps.json"
+        "description": "Choropleth + bar chart",
+        "url": "/assets/idps2.json"
       }
     ]
   },

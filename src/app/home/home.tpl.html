@@ -4,7 +4,9 @@
             <div class="type-title">{{type.type}}[{{type.datasets.length}}]</div>
             <div class="dataset" ng-repeat="dataset in type.datasets">
                 <label for="radio-{{$parent.$index}}-{{$index}}">
-                    <input id="radio-{{$parent.$index}}-{{$index}}" type="radio" ng-model="model.selection" value="radio-{{$parent.$index}}-{{$index}}" class="selector pull-left" />
+                    <input id="radio-{{$parent.$index}}-{{$index}}" type="radio" ng-model="model.selection"
+                           value="radio-{{$parent.$index}}-{{$index}}" class="selector pull-left"
+                           ng-change="toggleDataset('{{dataset.url}}')"/>
                     <div class="content">
                         <div class="title" ng-bind="dataset.name"></div>
                         <div ng-bind="dataset.description"></div>
