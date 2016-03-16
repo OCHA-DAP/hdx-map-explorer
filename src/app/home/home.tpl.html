@@ -3,8 +3,8 @@
         <div class="type" ng-repeat="type in model.datasets">
             <div class="type-title">{{type.type}}[{{type.datasets.length}}]</div>
             <div class="dataset" ng-repeat="dataset in type.datasets">
-                <label for="">
-                    <input type="radio" class="selector pull-left" />
+                <label for="radio-{{$parent.$index}}-{{$index}}">
+                    <input id="radio-{{$parent.$index}}-{{$index}}" type="radio" ng-model="model.selection" value="radio-{{$parent.$index}}-{{$index}}" class="selector pull-left" />
                     <div class="content">
                         <div class="title" ng-bind="dataset.name"></div>
                         <div ng-bind="dataset.description"></div>

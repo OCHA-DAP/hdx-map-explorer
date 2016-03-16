@@ -19,6 +19,7 @@ html, body, .full-height {
 
 #datasets {
   left: 0;
+  overflow-y: scroll;
   &.slide-left {
     left: -100%;
     .toggle {
@@ -64,6 +65,10 @@ html, body, .full-height {
       margin-top: -1px;
       padding: 5px;
 
+      label {
+        cursor: pointer;
+        font-weight: normal;
+      }
       .content {
         padding-left: 20px;
 

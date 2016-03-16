@@ -217,7 +217,11 @@
                         },
                         axis: {
                             x: {
-                                type: 'category'
+                                type: 'timeseries',
+                                tick: {
+                                    //format: function(x) {return x.getFullYear(); }
+                                    format: "%B %Y"
+                                }
                             }
                         }
 
