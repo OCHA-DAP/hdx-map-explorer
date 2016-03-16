@@ -39,11 +39,12 @@
           }
         }
       },
+      "nextIndex": "02",
       "operations": [
         {
           "type": "url-params",
           "options": {
-            "value": "rename-newtag05=affected%2Bdisplaced%2Bsum&filter04=cut&rename-oldtag05=meta%2Bsum&cut-include-tags04=date%2Bbin%2Cmeta%2Bsum&filter05=rename&sort-tags02=%23date%2Bbin&filter03=count&filter02=sort&count-aggregate-tag03=%23affected%2Bdisplaced&select-query01-01=%23affected%2Btype%3Didp&count-tags03=%23date%2Bbin&filter01=select"
+            "value": "filter01=select&select-query01-01=%23affected%2Btype%3Didp&filter03=sort&sort-tags03=%23date%2Bbin&filter04=count&count-tags04=%23date%2Bbin&count-spec04=&count-aggregate-tag04=%23affected%2Bdisplaced&filter05=cut&cut-include-tags05=date%2Bbin%2Cmeta%2Bsum&cut-exclude-tags05=&filter06=rename&rename-oldtag06=meta%2Bsum&rename-newtag06=affected%2Bdisplaced%2Bsum&rename-header06=&select-query02-03=&rename-oldtag05=meta%2Bsum&sheet=&select-query02-04=&select-query01-05=&select-query01-02=&select-query01-04=&count-aggregate-tag04=%23affected%2Bdisplaced&select-query01-03=&count-tags04=%23date%2Bbin&count-spec04=&cut-include-tags05=date%2Bbin%2Cmeta%2Bsum&cut-exclude-tags05=&rename-newtag05=affected%2Bdisplaced%2Bsum&filter04=count&filter05=cut&filter03=sort"
           }
         },
         {

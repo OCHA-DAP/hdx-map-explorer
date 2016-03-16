@@ -10,6 +10,7 @@
       {
         "joinColumn": "#adm1+name",
         "valueColumn": "#affected+displaced+sum",
+        "threshold": null,
         "operations": [
           {
             "type": "url-params",

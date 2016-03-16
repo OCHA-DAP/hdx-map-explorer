@@ -32,8 +32,9 @@
                 maxZoom: 19
             })
         };
-        var map, layerGroup = new L.LayerGroup(), popup = new L.Popup({ autoPan: false, offset: L.point(1, -6) }), closeTooltip;
-        var chartData, mapData;
+        var map, layerGroup = new L.LayerGroup(), popup = new L.Popup({ autoPan: false, offset: L.point(1, -6) }),
+            closeTooltip, currentLayer;
+        var chart, chartData, mapData, dataUrl;
 
         init();
 
@@ -48,6 +49,7 @@
                 function(data) {
                     buildMap(data.data);
                     buildChart(data.data);
+                    dataUrl = data.data.url;
                 }
             );
         }
@@ -86,7 +88,7 @@
                         geojson = promiseValues[1].data;
 
                     var values = generatePcodeValueMap(data);
-                    var stepCount = 4;
+                    var stepCount = 10;
                     var colors = ["rgb(215,25,28)", "rgb(253,174,97)", "rgb(255,255,191)", "rgb(171,221,164)", "rgb(43,131,186)"];
                     var step = (values.max - values.min) / stepCount;
                     var thresholds = [];
@@ -162,16 +164,48 @@
                                     popup.openOn(map);
                                 }
                                 window.clearTimeout(closeTooltip);
-                                if (!L.Browser.ie && !L.Browser.opera) {
-                                    layer.bringToFront();
-                                }
+                                //if (!L.Browser.ie && !L.Browser.opera) {
+                                //    layer.bringToFront();
+                                //}
                             },
                             mouseout: function (e){
                                 console.log("closing");
                                 closeTooltip = window.setTimeout(function(){
                                     map.closePopup();
                                 }, 100);
+                            },
+                            click: function(e){
+                                if (currentLayer){
+                                    geoLayer.resetStyle(currentLayer);
+                                }
+                                var layer = e.target;
+                                currentLayer = layer;
+                                var newStyle = $.extend(getStyle(layer.feature), {
+                                    weight: 6,
+                                    opacity: 1,
+                                    color: "red"
+                                });
+                                layer.setStyle(newStyle);
+
+                                fetchData(dataUrl, chartData, [
+                                        {
+                                            key: mapData.layers[0].joinColumn,
+                                            value: layer.feature.properties[mapData.shapefile.joinColumn]
+                                        }
+                                    ])
+                                    .then(function(result){
+                                        var data = result.data;
+                                        if (data.length <= 2){
+                                            chart.unload();
+                                        } else {
+                                            chart.load({
+                                                rows: data.slice(1)
+                                            });
+                                        }
+
+                                    });
                             }
+
                         });
                     }
                     function getColor(pcode){
@@ -242,7 +276,7 @@
                         }
                     });
 
-                    var chart = c3.generate(options);
+                    chart = c3.generate(options);
                 },
                 function (error){
                     console.error(error);
