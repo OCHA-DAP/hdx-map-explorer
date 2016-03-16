@@ -89,7 +89,7 @@
                     var onlyLayer = mapData.layers[0];
                     var values = generatePcodeValueMap(data);
                     var stepCount = 10;
-                    var colors = ["rgb(215,25,28)", "rgb(253,174,97)", "rgb(255,255,191)", "rgb(171,221,164)", "rgb(43,131,186)"];
+                    var colors = onlyLayer.colors;
                     var step = (values.max - values.min) / stepCount;
                     var threshold = onlyLayer.threshold;
                     if (!threshold){
