@@ -99,15 +99,50 @@
                         }
                     }
 
+                    function getMarkerStyle(geo) {
+                        var pcode = geo.properties[mapData.shapefile.joinColumn];
+                        return {
+                            stroke: true,
+                            weight: 1,
+                            color: getColor(pcode),
+                            radius: (getThresholdIndex(pcode) + 1) * 3
+                        };
+                    }
+                    var mainLayer;
+                    if (onlyLayer.type == "choropleth"){
+                        mainLayer = L.geoJson(geojson, {
+                            style: getStyle,
+                            onEachFeature: onEachFeature
+                        });
+                    } else {
 
-                    var geoLayer = L.geoJson(geojson, {
-                        style: getStyle,
-                        onEachFeature: onEachFeature
-                    });
-                    geoLayer.addTo(layerGroup);
-                    map.fitBounds(geoLayer.getBounds());
+                        var markers = [];
+                        $.each(geojson.features, function(idx, geo){
+                            var poly = L.geoJson(geo);
+                            var marker = L.circleMarker(poly.getBounds().getCenter(), getMarkerStyle(geo));
 
-                    //map.legendControl.addLegend(getLegendHTML());
+                            markers.push(marker);
+                            marker.feature = geo;
+                            marker.on("click", onLayerClick);
+                            marker.on("mousemove", onLayerMouseMove);
+                            marker.on("mouseout", onLayerMouseOut);
+                            //marker.addTo(map);
+                        });
+                        mainLayer = L.featureGroup(markers);
+                        mainLayer.resetStyle = function(layer){
+                            layer.setStyle(getMarkerStyle(layer.feature));
+                        };
+                    }
+                    mainLayer.addTo(layerGroup);
+
+                    map.fitBounds(mainLayer.getBounds());
+
+                    //var legend = L.control({ position: "topleft" });
+                    //legend.onAdd = function(map){
+                    //    this._div = getLegendHTML();
+                    //    return this._div;
+                    //};
+                    //legend.addTo(map);
 
                     function getLegendHTML() {
                         var labels = [],
@@ -156,74 +191,86 @@
                             max: max
                         };
                     }
-                    function onEachFeature(feature, layer){
-                        layer.on({
-                            mousemove: function(e){
-                                var layer = e.target;
-                                popup.setLatLng(e.latlng);
-                                var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
-                                popup.setContent("<div><strong>"+ pcode +"</strong>: "+ values.map[pcode] +"</div>");
-                                if (!popup._map) {
-                                    popup.openOn(map);
-                                }
-                                window.clearTimeout(closeTooltip);
-                                //if (!L.Browser.ie && !L.Browser.opera) {
-                                //    layer.bringToFront();
-                                //}
-                            },
-                            mouseout: function (e){
-                                console.log("closing");
-                                closeTooltip = window.setTimeout(function(){
-                                    map.closePopup();
-                                }, 100);
-                            },
-                            click: function(e){
-                                if (currentLayer){
-                                    geoLayer.resetStyle(currentLayer);
-                                }
-                                var layer = e.target;
-                                currentLayer = layer;
-                                var newStyle = $.extend(getStyle(layer.feature), {
-                                    weight: 6,
-                                    opacity: 1,
-                                    color: "red"
-                                });
-                                layer.setStyle(newStyle);
+                    function onLayerClick(e) {
+                        if (currentLayer) {
+                            mainLayer.resetStyle(currentLayer);
+                        }
+                        var layer = e.target;
+                        currentLayer = layer;
+                        var newStyle = $.extend(getStyle(layer.feature), {
+                            weight: 6,
+                            opacity: 1,
+                            color: "red"
+                        });
+                        layer.setStyle(newStyle);
 
-                                fetchData(dataUrl, chartData, [
-                                        {
-                                            key: mapData.layers[0].joinColumn,
-                                            value: layer.feature.properties[mapData.shapefile.joinColumn]
-                                        }
-                                    ])
-                                    .then(function(result){
-                                        var data = result.data;
-                                        if (data.length <= 2){
-                                            chart.unload();
-                                        } else {
-                                            chart.load({
-                                                rows: data.slice(1)
-                                            });
-                                        }
-
-                                    });
+                        fetchData(dataUrl, chartData, [
+                            {
+                                key: mapData.layers[0].joinColumn,
+                                value: layer.feature.properties[mapData.shapefile.joinColumn]
                             }
+                        ])
+                            .then(function (result) {
+                                var data = result.data;
+                                if (data.length <= 2) {
+                                    chart.unload();
+                                } else {
+                                    chart.load({
+                                        rows: data.slice(1)
+                                    });
+                                }
+
+                            });
+                    }
+                    function onLayerMouseMove(e) {
+                        var layer = e.target;
+                        popup.setLatLng(e.latlng);
+                        var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
+                        popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
+                        if (!popup._map) {
+                            popup.openOn(map);
+                        }
+                        window.clearTimeout(closeTooltip);
+                        //if (!L.Browser.ie && !L.Browser.opera) {
+                        //    layer.bringToFront();
+                        //}
+                    }
+                    function onLayerMouseOut(e) {
+                        console.log("closing");
+                        closeTooltip = window.setTimeout(function () {
+                            map.closePopup();
+                        }, 100);
+                    }
+                    function onEachFeature(feature, layer){
+
+                        layer.on({
+                            mousemove: onLayerMouseMove,
+                            mouseout: onLayerMouseOut,
+                            click: onLayerClick
 
                         });
                     }
-                    function getColor(pcode){
-                        //console.log(pcode);
+                    function getThresholdIndex(pcode){
                         var value = values.map[pcode];
                         if (!value) {
-                            return "rgba(0,0,0,0)";
+                            return -1;
                         }
 
                         for (var i = 0; i < stepCount; i++){
                             if (value < threshold[i]){
-                                return colors[i];
+                                return i;
                             }
                         }
-                        return colors[colors.length - 1];
+                        return colors.length - 1;
+                    }
+                    function getColor(pcode){
+                        var idx = getThresholdIndex(pcode);
+                        //console.log(pcode);
+                        if (idx == -1){
+                            return "rgba(0,0,0,0)";
+                        } else {
+                            return colors[idx];
+                        }
                     }
                     function getStyle(feature){
                         return {

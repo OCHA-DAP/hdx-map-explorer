@@ -8,8 +8,11 @@
     },
     "layers": [
       {
+        "type":"bubble",
         "joinColumn": "#adm1+name",
         "valueColumn": "#affected+displaced+sum",
+        "threshold": [1000,10000,50000,100000,500000,1000000],
+        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"],
         "operations": [
           {
             "type": "url-params",
