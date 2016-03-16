@@ -4,12 +4,12 @@
   "map": {
     "shapefile": {
       "url": "http://data.hdx.rwlabs.org/dataset/0a42c636-a88a-4c60-9ac5-063fbe591604/resource/b933abbc-8635-4fd0-afaa-98003408c9ff/download/gadm28_LCR_adm1.geojson",
-      "join-column": "NAME_1"
+      "joinColumn": "NAME_1"
     },
     "layers": [
       {
-        "join-column": "#adm1+name",
-        "value-column": "#affected+displaced+sum",
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#affected+displaced+sum",
         "operations": [
           {
             "type": "url-params",
@@ -24,27 +24,18 @@
   "charts": [
     {
       "options": {
-        "x-column": "#date",
-        "y-column": "#affected+displaced"
+        "xColumn": "#date",
+        "yColumn": "#affected+displaced"
       },
       "type": "bar",
       "operations": [
         {
           "type": "url-params",
           "options": {
-            "value": "a=b"
-          }
-        },
-        {
-          "type": "sum/min/max/count",
-          "options": {
-            "group-by": [
-              "adm1",
-              "adm2"
-            ],
-            "value": "deaths"
+            "value": "select-query01-01=%23affected%2Btype%3Didp&filter01=select"
           }
         }
+
       ]
     }
   ]
