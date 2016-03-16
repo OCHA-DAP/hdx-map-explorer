@@ -199,8 +199,9 @@
             chartData = data.charts[0];
             //var paramList = buildUrlFilterList(chartData.operations);
             //var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
-            //var promise = fetchData(data.url, chartData, [{key:'#country+name', value: 'Chad'}]);
-            var promise = fetchData(data.url, chartData);
+
+            var promise = fetchData(data.url, chartData, [{key:'#country+name', value: 'Chad'}]);
+            //var promise = fetchData(data.url, chartData);
             promise.then(
                 function(result){
                     var data = result.data;
