@@ -104,6 +104,7 @@
                         return {
                             stroke: true,
                             weight: 1,
+                            fillOpacity: 0.8,
                             color: getColor(pcode),
                             radius: (getThresholdIndex(pcode) + 1) * 3
                         };
