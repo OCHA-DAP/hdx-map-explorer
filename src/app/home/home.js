@@ -33,7 +33,7 @@
             })
         };
         var map, layerGroup = new L.LayerGroup(), popup = new L.Popup({ autoPan: false, offset: L.point(1, -6) }),
-            closeTooltip, currentLayer;
+            closeTooltip, currentLayer, mainLayer;
         var chart, chartData, mapData, dataUrl;
 
         init();
@@ -68,9 +68,12 @@
         }
 
         function buildBaseMap(){
-            map = L.map("map").setView([51.505, -0.09], 7);
+            map = L.map("map", { zoomControl:false }).setView([51.505, -0.09], 7);
+            map.on("resize", function(){
+                mapFitBounds();
+            });
             baselayers.CartoDB_DarkMatter.addTo(map);
-            L.control.layers(baselayers, null, {collapsed: true, position: "bottomleft"}).addTo(map);
+            L.control.layers(baselayers, null, {collapsed: true, position: "topleft"}).addTo(map);
             layerGroup.addTo(map);
         }
 
@@ -101,33 +104,38 @@
 
                     function getMarkerStyle(geo) {
                         var pcode = geo.properties[mapData.shapefile.joinColumn];
+                        var thresholdIndex = getThresholdIndex(pcode);
+                        var weight = (thresholdIndex == -1)? 0 : 2;
                         return {
                             stroke: true,
-                            weight: 1,
+                            weight: weight,
+                            color: "gray",
+                            opacity: 1,
                             fillOpacity: 0.8,
-                            color: getColor(pcode),
-                            radius: (getThresholdIndex(pcode) + 1) * 3
+                            fillColor: getColor(pcode),
+                            radius: ( thresholdIndex + 1) * 3
                         };
                     }
-                    var mainLayer;
                     if (onlyLayer.type == "choropleth"){
                         mainLayer = L.geoJson(geojson, {
                             style: getStyle,
                             onEachFeature: onEachFeature
                         });
                     } else {
-
                         var markers = [];
                         $.each(geojson.features, function(idx, geo){
                             var poly = L.geoJson(geo);
-                            var marker = L.circleMarker(poly.getBounds().getCenter(), getMarkerStyle(geo));
+                            var pcode = geo.properties[mapData.shapefile.joinColumn];
+                            if (getThresholdIndex(pcode) > -1){
+                                var marker = L.circleMarker(poly.getBounds().getCenter(), getMarkerStyle(geo));
 
-                            markers.push(marker);
-                            marker.feature = geo;
-                            marker.on("click", onLayerClick);
-                            marker.on("mousemove", onLayerMouseMove);
-                            marker.on("mouseout", onLayerMouseOut);
-                            //marker.addTo(map);
+                                markers.push(marker);
+                                marker.feature = geo;
+                                marker.on("click", onLayerClick);
+                                marker.on("mousemove", onLayerMouseMove);
+                                marker.on("mouseout", onLayerMouseOut);
+                                //marker.addTo(map);
+                            }
                         });
                         mainLayer = L.featureGroup(markers);
                         mainLayer.resetStyle = function(layer){
@@ -135,8 +143,8 @@
                         };
                     }
                     mainLayer.addTo(layerGroup);
-
-                    map.fitBounds(mainLayer.getBounds());
+                    mapFitBounds();
+                    //map.fitBounds(mainLayer.getBounds());
 
                     //var legend = L.control({ position: "topleft" });
                     //legend.onAdd = function(map){
@@ -212,6 +220,7 @@
                             }
                         ])
                             .then(function (result) {
+                                chart.prepareRerender();
                                 var data = result.data;
                                 if (data.length <= 2) {
                                     chart.unload();
@@ -288,7 +297,17 @@
                 }
             );
         }
-
+        function mapFitBounds(){
+            var padding = [0,0];
+            if (map._container){
+                if (map._container.clientWidth > map._container.clientHeight){
+                    padding = [Math.floor(map._container.clientWidth*0.25), 0];
+                } else {
+                    padding = [0, Math.floor(map._container.clientHeight*0.25)];
+                }
+            }
+            map.fitBounds(mainLayer.getBounds(), {paddingBottomRight: padding});
+        }
         function fetchData(url, data, additionalFilters){
             var operations = data.operations;
             var paramList = buildUrlFilterList(operations);
@@ -324,10 +343,20 @@
                         bindto: "#zaChart",
                         data: {
                             rows: limitedData
+                        },
+                        onresize: function(){
+                            chart.prepareRerender();
+                        },
+                        onrendered: function(){
+                            $("#zaChart").parent().addClass("rendered");
                         }
                     });
 
+                    $("#zaChart").parent().removeClass("rendered");
                     chart = c3.generate(options);
+                    chart.prepareRerender = function(){
+                        $("#zaChart").parent().removeClass("rendered");
+                    };
                 },
                 function (error){
                     console.error(error);

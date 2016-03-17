@@ -12,7 +12,7 @@
         "joinColumn": "#adm1+name",
         "valueColumn": "#affected+killed+sum",
         "threshold": [5,10,50,100,200,500],
-        "colors": ["#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#005a32"],
+        "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
           {
             "type": "url-params",
