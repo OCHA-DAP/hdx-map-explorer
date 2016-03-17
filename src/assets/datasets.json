@@ -15,12 +15,12 @@
     ]
   },
   {
-    "type": "Food Security",
+    "type": "Fatalities",
     "datasets": [
       {
-        "name": "#HDXSprint Displacement Tracking Matrix",
+        "name": "#HDXSprint Fatalities",
         "description": "This is a test dataset for #HDXSprint.",
-        "url": "/assets/idps.json"
+        "url": "/assets/fatalities.json"
       }
 
     ]
