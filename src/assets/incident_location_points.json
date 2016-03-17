@@ -1,0 +1,22 @@
+{
+  "name": "Incident Locations",
+  "url": "http://data.hdx.rwlabs.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/667bd888-50e9-4e7e-96bb-98c4d4411b2e/download/acled_LCR_10.csv",
+  "map": {
+    "layers": [
+      {
+        "type":"point",
+        "valueColumn": "#affected+killed",
+        "threshold": [0,10,50,100,500,1000],
+        "colors": ["#ffffff", "#e6ffe6", "#66ff66", "#ffffb3", "#e6e600", "#ff8566", "#e62e00", "#661400"],
+        "operations": [
+          {
+            "type": "url-params",
+            "options": {
+              "value": "select-query01-01=%23date%3E%3D2015-01-01&filter01=select"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
