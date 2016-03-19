@@ -83,7 +83,10 @@
             //var paramList = buildUrlFilterList(mapData.layers[0].operations);
             //var promise1 = DataFetcher.getFilteredDataByParamList(data.url, paramList);
             var promise1 = fetchData(data.url, mapData.layers[0]);
-            var promise2 = $http.get(mapData.shapefile.url);
+            var promise2 = {};
+            if (mapData.shapefile) {
+                promise2 = $http.get(mapData.shapefile.url);
+            }
 
             $q.all([promise1, promise2]).then(
                 function(promiseValues){
@@ -101,7 +104,25 @@
                             threshold.push(values.min + sIdx*step);
                         }
                     }
-
+                    function getPointStyle(value) {
+                        var thresholdIndex, fillColor;
+                        for (var i = 0; i < stepCount; i++){
+                            if (value < threshold[i]){
+                                thresholdIndex = i;
+                                break;
+                            }
+                        }
+                        var weight = (thresholdIndex == -1)? 0 : 2;
+                        return {
+                            stroke: true,
+                            weight: weight,
+                            color: "gray",
+                            opacity: 1,
+                            fillOpacity: 0.8,
+                            fillColor: colors[thresholdIndex],
+                            radius: 5
+                        };
+                    }
                     function getMarkerStyle(geo) {
                         var pcode = geo.properties[mapData.shapefile.joinColumn];
                         var thresholdIndex = getThresholdIndex(pcode);
@@ -121,7 +142,45 @@
                             style: getStyle,
                             onEachFeature: onEachFeature
                         });
-                    } else {
+                    }
+                    else if (onlyLayer.type == 'point') {
+                        var points = [];
+                        var clusterGroup = L.markerClusterGroup({spiderfyDistanceMultiplier: 1.3});
+                        var latIndex, longIndex;
+                        for (var i=0; i<data[1].length; i++) {
+                            if (data[1][i] == mapData.layers[0].latColumn){
+                                latIndex = i;
+                            }
+                            else if (data[1][i] == mapData.layers[0].longColumn){
+                                longIndex = i;
+                            }
+                        }
+
+                        $.each(data, function(idx, dataLine) {
+                            if (idx > 1) {
+                                var lat = dataLine[latIndex], long = dataLine[longIndex];
+                                var marker = L.circleMarker(L.latLng(lat, long), getPointStyle(dataLine[20]));
+
+                                var infoList = [];
+                                for (var i=0; i<dataLine.length; i++){
+                                    var hxlTag = data[1][i];
+                                    if (hxlTag) {
+                                        infoList.push({tag: hxlTag, value: dataLine[i]});
+                                    }
+                                }
+
+                                marker.on("mousemove", onPointMouseMove);
+                                marker.on("mouseout", onLayerMouseOut);
+                                marker.infoList = infoList;
+                                points.push(marker);
+
+                            }
+                        });
+                        clusterGroup.addLayers(points);
+                        mainLayer = clusterGroup;
+                        //mainLayer = L.featureGroup(points);
+                    }
+                    else {
                         var markers = [];
                         $.each(geojson.features, function(idx, geo){
                             var poly = L.geoJson(geo);
@@ -170,6 +229,7 @@
                     }
                     function generatePcodeValueMap(data){
                         var pCodeValueMap = {};
+                        var pCodeInfoMap = {};
                         var pcodeIndex, valueIndex;
                         var hxlRow = data[1];
                         for (var i = 0; i < hxlRow.length; i++){
@@ -184,6 +244,11 @@
                         var min = null, max = null;
                         for (var j = 2; j < data.length; j++){
                             var value = data[j][valueIndex];
+                            var infoList = [];
+                            for (var k=0; k< data[j].length; k++){
+                                infoList.push({'tag': hxlRow[k], 'value': data[j][k]});
+                            }
+                            pCodeInfoMap[data[j][pcodeIndex]] = infoList;
                             pCodeValueMap[data[j][pcodeIndex]] = value;
 
                             if (min == null || min > value){
@@ -196,6 +261,7 @@
 
                         return {
                             map: pCodeValueMap,
+                            infoMap: pCodeInfoMap,
                             min: min,
                             max: max
                         };
@@ -232,11 +298,34 @@
 
                             });
                     }
+                    function onPointMouseMove(e){
+                        var layer = e.target;
+                        popup.setLatLng(e.latlng);
+                        var content = '<div class="map-info-popup">';
+                        $.each(layer.infoList, function(idx, elem){
+                            content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
+                        });
+                        content += '</div>';
+                        popup.setContent(content);
+                        if (!popup._map) {
+                            popup.openOn(map);
+                        }
+                        window.clearTimeout(closeTooltip);
+                    }
                     function onLayerMouseMove(e) {
                         var layer = e.target;
                         popup.setLatLng(e.latlng);
                         var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
-                        popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
+
+                        //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
+                        var infoList = values.infoMap[pcode];
+                        var content = '<div class="map-info-popup">';
+                        $.each(infoList, function(idx, elem){
+                            content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
+                        });
+                        content += '</div>';
+                        popup.setContent(content);
+
                         if (!popup._map) {
                             popup.openOn(map);
                         }
@@ -326,42 +415,44 @@
         }
 
         function buildChart(data) {
-            chartData = data.charts[0];
-            //var paramList = buildUrlFilterList(chartData.operations);
-            //var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
+            if (data.charts) {
+                chartData = data.charts[0];
+                //var paramList = buildUrlFilterList(chartData.operations);
+                //var promise = DataFetcher.getFilteredDataByParamList(data.url, paramList);
 
-            //var promise = fetchData(data.url, chartData, [{key:'#country+name', value: 'Chad'}]);
-            var promise = fetchData(data.url, chartData);
-            promise.then(
-                function(result){
-                    var data = result.data;
-                    var limitedData = [];
-                    for (var i = 1; i < data.length; i++){
-                        limitedData.push(data[i]);
-                    }
-                    var options = $.extend(true, chartData.options, {
-                        bindto: "#zaChart",
-                        data: {
-                            rows: limitedData
-                        },
-                        onresize: function(){
-                            chart.prepareRerender();
-                        },
-                        onrendered: function(){
-                            $("#zaChart").parent().addClass("rendered");
+                //var promise = fetchData(data.url, chartData, [{key:'#country+name', value: 'Chad'}]);
+                var promise = fetchData(data.url, chartData);
+                promise.then(
+                    function (result) {
+                        var data = result.data;
+                        var limitedData = [];
+                        for (var i = 1; i < data.length; i++) {
+                            limitedData.push(data[i]);
                         }
-                    });
+                        var options = $.extend(true, chartData.options, {
+                            bindto: "#zaChart",
+                            data: {
+                                rows: limitedData
+                            },
+                            onresize: function () {
+                                chart.prepareRerender();
+                            },
+                            onrendered: function () {
+                                $("#zaChart").parent().addClass("rendered");
+                            }
+                        });
 
-                    $("#zaChart").parent().removeClass("rendered");
-                    chart = c3.generate(options);
-                    chart.prepareRerender = function(){
                         $("#zaChart").parent().removeClass("rendered");
-                    };
-                },
-                function (error){
-                    console.error(error);
-                }
-            );
+                        chart = c3.generate(options);
+                        chart.prepareRerender = function () {
+                            $("#zaChart").parent().removeClass("rendered");
+                        };
+                    },
+                    function (error) {
+                        console.error(error);
+                    }
+                );
+            }
         }
 
         function buildUrlFilterList(operations) {

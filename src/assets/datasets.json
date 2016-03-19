@@ -11,6 +11,11 @@
         "name": "#HDXSprint Displacement Tracking Matrix",
         "description": "Choropleth + bar chart",
         "url": "/assets/idps2.json"
+      },
+      {
+        "name": "#HDXSprint Displacement Tracking Matrix",
+        "description": "Incident locations",
+        "url": "/assets/incident_location_points.json"
       }
     ]
   },

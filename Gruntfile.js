@@ -85,6 +85,8 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-utils/modules/route/route.js',
 
                 'vendor/leaflet/dist/leaflet.js',
+                'vendor/leaflet.markercluster/dist/leaflet.markercluster.js',
+
                 'vendor/jquery/dist/jquery.min.js',
 
                 'vendor/d3/d3.min.js',
@@ -92,6 +94,8 @@ module.exports = function(grunt) {
             ],
             css: [
                 'vendor/leaflet/dist/leaflet.css',
+                'vendor/leaflet.markercluster/dist/MarkerCluster.css',
+                'vendor/leaflet.markercluster/dist/MarkerCluster.Default.css',
                 'vendor/c3/c3.min.css'
             ],
             assets: [
