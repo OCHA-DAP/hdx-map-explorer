@@ -169,7 +169,7 @@
                                     }
                                 }
 
-                                marker.on("mousemove", onPointMouseMove);
+                                marker.on("mousemove", onLayerMouseMove);
                                 marker.on("mouseout", onLayerMouseOut);
                                 marker.infoList = infoList;
                                 points.push(marker);
@@ -298,27 +298,20 @@
 
                             });
                     }
-                    function onPointMouseMove(e){
-                        var layer = e.target;
-                        popup.setLatLng(e.latlng);
-                        var content = '<div class="map-info-popup">';
-                        $.each(layer.infoList, function(idx, elem){
-                            content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
-                        });
-                        content += '</div>';
-                        popup.setContent(content);
-                        if (!popup._map) {
-                            popup.openOn(map);
-                        }
-                        window.clearTimeout(closeTooltip);
-                    }
                     function onLayerMouseMove(e) {
                         var layer = e.target;
                         popup.setLatLng(e.latlng);
-                        var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
+                        var infoList;
+                        if (layer.infoList) {
+                            // in case it is a point layer we get the infoList from the layer
+                            infoList = layer.infoList;
+                        }
+                        else{
+                            var pcode = layer.feature.properties[mapData.shapefile.joinColumn];
+                            infoList = values.infoMap[pcode];
+                        }
 
                         //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
-                        var infoList = values.infoMap[pcode];
                         var content = '<div class="map-info-popup">';
                         $.each(infoList, function(idx, elem){
                             content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
