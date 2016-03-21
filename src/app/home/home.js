@@ -323,6 +323,13 @@
                             popup.openOn(map);
                         }
                         window.clearTimeout(closeTooltip);
+                        $('.map-info-popup').mouseover(function(e){
+                            window.clearTimeout(closeTooltip);
+                        });
+                        $('.map-info-popup').mouseout(function(e){
+                            onLayerMouseOut(e);
+                        });
+
                         //if (!L.Browser.ie && !L.Browser.opera) {
                         //    layer.bringToFront();
                         //}
@@ -331,7 +338,7 @@
                         console.log("closing");
                         closeTooltip = window.setTimeout(function () {
                             map.closePopup();
-                        }, 100);
+                        }, 350);
                     }
                     function onEachFeature(feature, layer){
 
