@@ -34,19 +34,16 @@
             return deferred.promise;
         };
 
-        ret.buildNewParam = function (filterKey, filterValue, filterIndex){
-            var paramValue = encodeURIComponent(filterKey + "=" + filterValue);
-            var param = "&filter" + filterIndex + "=select&select-query" + filterIndex + "-01=" + paramValue;
-            //var param = "select-query" + filterIndex + "-01=" + paramValue;
+        // ret.buildNewParam = function (filterKey, filterValue, filterIndex){
+        //     var paramValue = encodeURIComponent(filterKey + "=" + filterValue);
+        //     var param = "&filter" + filterIndex + "=select&select-query" + filterIndex + "-01=" + paramValue;
+        //     //var param = "select-query" + filterIndex + "-01=" + paramValue;
+        //
+        //     return param;
+        // };
 
-            return param;
-        };
-
-        ret.getFilteredDataByParamList = function (originalUrl, paramList) {
-            var url = urlPrefix + 'url=' + originalUrl;
-            for (var i=0; i<paramList.length; i++) {
-                url += '&' + paramList[i];
-            }
+        ret.getFilteredData = function (originalUrl, paramString) {
+            var url = urlPrefix + 'url=' + originalUrl + '&' + paramString;
             return $http.get(url);
 
         };

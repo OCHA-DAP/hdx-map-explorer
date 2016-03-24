@@ -15,9 +15,18 @@
         "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
           {
-            "type": "url-params",
+            "type": "select",
             "options": {
-              "value": "rename-newtag05=affected%2Bkilled%2Bsum&filter04=cut&rename-oldtag05=meta%2Bsum&select-query01-01=%23affected%2Btype%3Didp&filter05=rename&filter03=count&cut-include-tags04=adm1%2Bname%2C%23meta%2Bsum&count-aggregate-tag03=affected%2Bkilled&rename-header05=Total+people+killed&count-tags03=adm1%2Bname&filter02=select&select-query02-01=%23date%3E%3D2015-01-01"
+              "column": "#date",
+              "operator": ">=",
+              "value": "2015-01-01"
+            }
+          },
+          {
+            "type": "sum",
+            "options": {
+              "groupByColumn": "#adm1+name",
+              "avgColumn": "#affected+killed"
             }
           }
         ]
@@ -45,19 +54,24 @@
       "nextIndex": "02",
       "operations": [
         {
-          "type": "url-params",
+          "type": "select",
           "options": {
-            "value": "rename-oldtag05=meta%2Bsum&count-aggregate-tag04=%23affected%2Bkilled&rename-oldtag06=meta%2Bsum&count-tags04=%23date&cut-include-tags05=date%2Cmeta%2Bsum&rename-newtag05=affected%2Bdisplaced%2Bsum&filter04=count&rename-newtag06=affected%2Bkilled%2Bsum&filter05=cut&filter03=sort&filter01=select&select-query01-01=%23date%3E%3D2015-01-01&sort-tags03=%23date&filter06=rename"
+            "column": "#date",
+            "operator": ">=",
+            "value": "2015-01-01"
           }
         },
         {
-          "type": "sum/min/max/count",
+          "type": "sort",
           "options": {
-            "groupBy": [
-              "adm1",
-              "adm2"
-            ],
-            "value": "deaths"
+            "columns": "#date"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#date",
+            "avgColumn": "#affected+killed"
           }
         }
       ]

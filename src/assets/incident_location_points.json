@@ -12,9 +12,11 @@
         "colors": ["#ffffff", "#e6ffe6", "#66ff66", "#ffffb3", "#e6e600", "#ff8566", "#e62e00", "#661400"],
         "operations": [
           {
-            "type": "url-params",
+            "type": "select",
             "options": {
-              "value": "select-query01-01=%23date%3E%3D2015-01-01&filter01=select"
+              "column": "#date",
+              "operator": ">=",
+              "value": "2015-01-01"
             }
           }
         ]
