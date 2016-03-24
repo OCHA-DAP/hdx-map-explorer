@@ -1,5 +1,5 @@
 (function(module) {
-    module.controller('HomeController', function ($scope, $http, $q, DataFetcher) {
+    module.controller('HomeController', function ($scope, $http, $q, DataFetcher, FilterBuilder) {
         var model = this;
         var baselayers = {
             OpenStreetMap_BlackAndWhite: L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
@@ -281,8 +281,12 @@
 
                         fetchData(dataUrl, chartData, [
                             {
-                                key: mapData.layers[0].joinColumn,
-                                value: layer.feature.properties[mapData.shapefile.joinColumn]
+                                "type": "select",
+                                "options": {
+                                    "column": mapData.layers[0].joinColumn,
+                                    "operator": "=",
+                                    "value": layer.feature.properties[mapData.shapefile.joinColumn]
+                                }
                             }
                         ])
                             .then(function (result) {
@@ -399,18 +403,11 @@
         }
         function fetchData(url, data, additionalFilters){
             var operations = data.operations;
-            var paramList = buildUrlFilterList(operations);
             if (additionalFilters && additionalFilters.length > 0) {
-                operations = operations.slice(0);
-                var currentIndex = data.nextIndex;
-                for (var i=0; i<additionalFilters.length; i++){
-                    var filter = additionalFilters[0];
-                    var param = DataFetcher.buildNewParam(filter.key, filter.value, currentIndex);
-                    currentIndex++;
-                    paramList.push(param);
-                }
+                operations = additionalFilters.concat(operations);
             }
-            var promise = DataFetcher.getFilteredDataByParamList(url, paramList);
+            var paramString = FilterBuilder.buildFilter(operations);
+            var promise = DataFetcher.getFilteredData(url, paramString);
             return promise;
         }
 
