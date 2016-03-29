@@ -35,6 +35,7 @@
         var map, layerGroup = new L.LayerGroup(), popup = new L.Popup({ autoPan: false, offset: L.point(1, -6) }),
             closeTooltip, currentLayer, mainLayer;
         var chart, chartData, mapData, dataUrl;
+        var isTouch;
 
         init();
 
@@ -42,6 +43,9 @@
             loadData();
             buildBaseMap();
             $scope.toggleDataset = toggleDataset;
+
+            //detect touch device
+            isTouch = 'ontouchstart' in document.documentElement;
         }
 
         function toggleDataset(url){
@@ -301,6 +305,12 @@
                                 }
 
                             });
+
+
+                        if (isTouch){
+                            //show tooltip on click for touch devices
+                            onLayerMouseMove(e);
+                        }
                     }
                     function onLayerMouseMove(e) {
                         var layer = e.target;
