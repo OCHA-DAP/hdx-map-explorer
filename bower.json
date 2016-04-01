@@ -14,7 +14,9 @@
     "c3": "^0.4.10",
     "leaflet.markercluster": "^0.4.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "hammerjs": "hammer.js#^2.0.6"
+  },
   "resolutions": {
     "angular": "1.5.0",
     "angular-bootstrap": "1.2.1"

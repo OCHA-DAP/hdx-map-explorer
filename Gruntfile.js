@@ -89,6 +89,8 @@ module.exports = function(grunt) {
 
                 'vendor/jquery/dist/jquery.min.js',
 
+                'vendor/hammerjs/hammer.min.js',
+
                 'vendor/d3/d3.min.js',
                 'vendor/c3/c3.js'
             ],

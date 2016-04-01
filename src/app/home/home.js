@@ -46,6 +46,9 @@
 
             //detect touch device
             isTouch = 'ontouchstart' in document.documentElement;
+            if (isTouch) {
+                initTouch();
+            }
         }
 
         function toggleDataset(url){
@@ -473,6 +476,29 @@
                 }
             }
             return params;
+        }
+
+        function initTouch() {
+            //swipe events for charts on touch devices
+            var charts = document.getElementById('charts');
+            var chartW = $('.chart-item').outerWidth();
+            var chartNum = $('#charts .chart-item').length;
+            var chartID = 1;
+            var hammer = new Hammer(charts);
+            hammer.on('swipeleft swiperight', function(ev) {
+                if ($(charts).width() > $('body').width()) {
+                    if (ev.type == 'swipeleft' && chartID < chartNum) {
+                        //swipe to the next chart
+                        $('#charts').animate({left: '-='+ (chartW+10) +'px'}); 
+                        chartID++;   
+                    }
+                    if (ev.type == 'swiperight' && chartID > 1) {
+                        //swipe to previous chart
+                        $('#charts').animate({left: '+='+ (chartW+10) +'px'}); 
+                        chartID--;   
+                    }
+                }
+            });
         }
 
     });
