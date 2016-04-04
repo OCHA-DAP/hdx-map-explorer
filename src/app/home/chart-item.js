@@ -22,16 +22,9 @@
                             bindto: chartId,
                             data: {
                                 rows: limitedData
-                            },
-                            onresize: function () {
-                                $(chartId).parent().removeClass("rendered");
-                            },
-                            onrendered: function () {
-                                $(chartId).parent().addClass("rendered");
                             }
                         });
 
-                        $(chartId).parent().removeClass("rendered");
                         c3.generate(options);
                     }, dataError);
                 }

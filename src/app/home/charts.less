@@ -1,18 +1,23 @@
 @chart-item-height: 330px;
 @charts-padding: 20px;
 #charts {
+  display: flex;
+  flex-flow: column;
+  left: auto;
+
   position: absolute;
   height: 100%;
   overflow: auto;
+
   background: rgba(255, 255, 255, 0.85);
-  z-index: 10000;
+  z-index: 999;
   right: 0;
   background-color: rgba(255, 255, 255, 0.3);
   padding: @charts-padding;
   .chart-item{
     float: left;
-    //margin-top: 20px;
-    margin-bottom: @charts-padding;
+    margin: 0 @charts-padding @charts-padding 0;
+    //margin-bottom: @charts-padding;
     height: @chart-item-height;
     width: 100%;
     padding: 10px;
@@ -20,25 +25,97 @@
     &.rendered{
     }
   }
+  &.slide{
+    .toggle{
+      left: auto;
+      .glyphicon-chevron-right{
+        display: none
+      }
+      .glyphicon-chevron-left{
+        display: block;
+      }
+    }
+  }
+  .toggle{
+    display: none;
+    left: -21px;
+    top: 20px;
+    .glyphicon-chevron-right{
+      display: block;
+    }
+    .glyphicon-chevron-left,
+    .glyphicon-chevron-up,
+    .glyphicon-chevron-down{
+      display: none;
+    }
+  }
 }
 
-@media (max-width: @screen-sm-max) {
+@media (max-width: @screen-sm-max){
+  //styles for mobile landscape and tablet portrait
   #charts {
+    .toggle{
+      display: block;
+    }
+    &.slide{
+      right: -100%;
+      .toggle {
+        position: fixed;
+        right: 0;
+        top: auto;
+        .glyphicon-chevron-left{
+          display: block;
+        }
+        .glyphicon-chevron-right{
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: @screen-sm-max) and (orientation: portrait) {
+  //styles for mobile portrait view -- charts appear at bottom of screen
+  #charts {
+    flex-flow: row nowrap;
     bottom: 0;
     right: auto;
-    width: 100%;
-    height: @chart-item-height/2 + @charts-padding;
-    padding: @charts-padding/2;
-
-    .chart-item{
-      visibility: hidden;
-      width: @chart-item-height !important;
-      height: @chart-item-height !important;
-      margin-bottom: 0;
-      margin-right: @charts-padding;;
-      &.rendered{
-        transform: scaleX(0.5) scaleY(0.5) translate(-50%, -50%);
-        visibility: visible;
+    width: auto;
+    min-width: 100%;
+    height: @chart-item-height + @charts-padding*2;
+    .chart-item {
+      width: 330px;
+    }
+    .toggle {
+      height: 21px;
+      width: 40px;
+      left: 20px;
+      top: -21px;
+      padding: 0 11px;
+      .glyphicon-chevron-up,
+      .glyphicon-chevron-left,
+      .glyphicon-chevron-right {
+        display: none;
+      }
+      .glyphicon-chevron-down {
+        display: block;
+      }
+    }
+    &.slide {
+      bottom: -100%;
+      .toggle {
+        position: fixed;
+        bottom: 0;
+        left: 20px;
+        right: auto;
+        top: auto;
+        .glyphicon-chevron-up {
+          display: block;
+        }
+        .glyphicon-chevron-down {
+          display: none;
+        }
       }
     }
   }
