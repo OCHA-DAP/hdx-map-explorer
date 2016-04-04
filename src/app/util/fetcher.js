@@ -1,6 +1,6 @@
 (function(module) {
 
-    module.service("DataFetcher", function($q, $http){
+    module.service("DataFetcher", function($q, $http, FilterBuilder){
 
         //var hxlUrl = 'https://proxy.hxlstandard.org/data.json?url=http%3A//popstats.unhcr.org/en/demographics.hxl&select-query01-01=%23country%2Bresidence%3DSlovenia&filter01=select';
         //var urlPrefix = 'https://proxy.hxlstandard.org/data.json?';
@@ -46,6 +46,20 @@
             var url = urlPrefix + 'url=' + originalUrl + '&' + paramString;
             return $http.get(url);
 
+        };
+
+        ret.fetchData = function(url, data, additionalFilters){
+            var operations = data.operations;
+            if (additionalFilters && additionalFilters.length > 0) {
+                operations = additionalFilters.concat(operations);
+            }
+            var paramString = FilterBuilder.buildFilter(operations);
+            var promise = this.getFilteredData(url, paramString);
+            return promise;
+        };
+
+        ret.loadDatasets = function(){
+            return $http.get('/assets/datasets.json');
         };
 
         return ret;

@@ -1,0 +1,45 @@
+@chart-item-height: 330px;
+@charts-padding: 20px;
+#charts {
+  position: absolute;
+  height: 100%;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 10000;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: @charts-padding;
+  .chart-item{
+    float: left;
+    //margin-top: 20px;
+    margin-bottom: @charts-padding;
+    height: @chart-item-height;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    &.rendered{
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  #charts {
+    bottom: 0;
+    right: auto;
+    width: 100%;
+    height: @chart-item-height/2 + @charts-padding;
+    padding: @charts-padding/2;
+
+    .chart-item{
+      visibility: hidden;
+      width: @chart-item-height !important;
+      height: @chart-item-height !important;
+      margin-bottom: 0;
+      margin-right: @charts-padding;;
+      &.rendered{
+        transform: scaleX(0.5) scaleY(0.5) translate(-50%, -50%);
+        visibility: visible;
+      }
+    }
+  }
+}

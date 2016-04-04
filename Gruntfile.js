@@ -88,6 +88,7 @@ module.exports = function(grunt) {
                 'vendor/leaflet.markercluster/dist/leaflet.markercluster.js',
 
                 'vendor/jquery/dist/jquery.min.js',
+                'vendor/select2/dist/js/select2.min.js',
 
                 'vendor/hammerjs/hammer.min.js',
 
@@ -98,6 +99,7 @@ module.exports = function(grunt) {
                 'vendor/leaflet/dist/leaflet.css',
                 'vendor/leaflet.markercluster/dist/MarkerCluster.css',
                 'vendor/leaflet.markercluster/dist/MarkerCluster.Default.css',
+                'vendor/select2/dist/css/select2.min.css',
                 'vendor/c3/c3.min.css'
             ],
             assets: [

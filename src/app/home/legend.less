@@ -1,0 +1,72 @@
+.leaflet-right{
+  right: 25%;
+}
+
+.layer-legend-toggle.leaflet-control {
+  margin-right: 10px;
+  .glyphicon-align-center{
+    padding: 8px;
+    font-size: 20px;
+  }
+
+
+}
+
+layer-legend {
+  &.leaflet-control {
+    //display: none;
+    position: absolute;
+    width: 300px;
+    right: 25%;
+    top: 55px;
+    z-index: 100;
+    margin-right: 10px;
+  }
+
+  select{
+    width: 100%;
+  }
+
+  @legendPadding: 15px;
+  .legend-list {
+    .legend-item {
+      padding: @legendPadding;
+
+      border-bottom: 1px solid gray;
+
+      &:last-child{
+        border-bottom: none;
+      }
+
+      .legend-colors{
+        list-style: none;
+        padding: 0;
+
+        li {
+          height: 10px;
+          width: 50px;
+          display: inline-block;
+          margin-bottom: 15px;
+          position: relative;
+          span {
+            font-size: 8px;
+            position: absolute;
+            bottom: -15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .leaflet-right{
+    right: 10px;
+  }
+  layer-legend {
+    &.leaflet-control {
+      right: 10px;
+      top: 55px;
+    }
+  }
+}
