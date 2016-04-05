@@ -9,7 +9,17 @@
             },
             link: function($scope, element, attrs, controller){
                 if ($scope.data) {
-                    var promise = DataFetcher.fetchData($scope.url, $scope.data);
+                    var groupings = $scope.data.groupings;
+                    var operationsInfo;
+                    $scope.hasGroupings = groupings && groupings.length > 0 ? true : false;
+                    if ( $scope.hasGroupings) {
+                        $scope.selectedGrouping = operationsInfo = groupings[0];
+                        $scope.groupings = groupings;
+                    }
+                    else {
+                        operationsInfo = $scope.data;
+                    }
+                    var promise = DataFetcher.fetchData($scope.url, operationsInfo);
                     promise.then(function (result) {
                         var data = result.data;
                         var chartId = '#' + $scope.id;
@@ -24,19 +34,30 @@
                     }, dataError);
                 }
 
+                function changeChartData (url, operationsInfo, additionalFilters) {
+                    var chart = $scope.chart;
+                    DataFetcher.fetchData(url, operationsInfo, additionalFilters).then(function (result) {
+                            var data = result.data;
+                            if (data.length <= 2) {
+                                chart.unload();
+                            } else {
+                                chart.load({
+                                    rows: data.slice(1)
+                                });
+                            }
+
+                        });
+                }
+
+                $scope.onChangeGroupings = function (index) {
+                    $scope.selectedGrouping = operationsInfo = groupings[index];
+                    changeChartData($scope.url, operationsInfo);
+
+                };
+
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        DataFetcher.fetchData($scope.url, $scope.data, data)
-                            .then(function (result) {
-                                var data = result.data;
-                                if (data.length <= 2) {
-                                    $scope.chart.unload();
-                                } else {
-                                    $scope.chart.load({
-                                        rows: data.slice(1)
-                                    });
-                                }
-                            });
+                        changeChartData($scope.url, operationsInfo, data);
                     }
                 });
             },

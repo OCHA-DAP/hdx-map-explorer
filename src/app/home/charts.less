@@ -1,4 +1,4 @@
-@chart-item-height: 330px;
+@chart-item-height: 380px;
 @charts-padding: 20px;
 #charts {
   display: flex;
@@ -22,6 +22,12 @@
     width: 100%;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9);
+    .dropdown {
+      margin-bottom: 10px;
+    }
+    .chart-box div:first-child.chart-item-wrapper {
+      margin-top: 40px;
+    }
     &.rendered{
     }
   }
