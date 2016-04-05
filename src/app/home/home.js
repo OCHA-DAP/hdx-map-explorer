@@ -8,7 +8,7 @@
         var chart, chartData, mapData, dataUrl;
         var isTouch;
 
-        $scope.charts = [];
+        $scope.chartsGroup = [];
 
         init();
 
@@ -29,14 +29,9 @@
                 function(data) {
                     buildMap(data.data);
                     var chartsData = data.data.charts;
-                    var chartsList = $scope.charts;
-                    if (chartsData){
-                        for (var i = 0; i < chartsData.length; i++){
-                            chartsData.url = url;
-                            chartsList.push(chartsData[i]);
-                        }
+                    if (chartsData && chartsData.length){
+                        $scope.chartsGroup.push(chartsData);
                     }
-                    $scope.charts = chartsList;
                     model.url = data.data.url;
                     dataUrl = data.data.url;
                 }

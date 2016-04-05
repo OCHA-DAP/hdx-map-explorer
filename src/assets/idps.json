@@ -10,7 +10,7 @@
       {
         "type":"choropleth",
         "joinColumn": "#adm1+name",
-        "valueColumn": "#affected+sum+displaced",
+        "valueColumn": "#affected+displaced",
         "threshold": [1000,10000,50000,100000,500000,1000000],
         "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"],
         "operations": [
@@ -25,16 +25,9 @@
           {
             "type": "select",
             "options": {
-              "column": "#date",
-              "operator": ">=",
-              "value": "2015-01-01"
-            }
-          },
-          {
-            "type": "sum",
-            "options": {
-              "groupByColumn": "#adm1+name",
-              "avgColumn": "#affected+displaced"
+              "column": "#date+bin",
+              "operator": "=",
+              "value": "2015-12-31"
             }
           }
         ]
@@ -43,6 +36,7 @@
   },
   "charts": [
     {
+      "name": "By Date",
       "options": {
         "data": {
           "x": "#date+bin",
@@ -59,59 +53,62 @@
           }
         }
       },
-      "nextIndex": "02",
-      "groupings": [
+      "operations": [
         {
-          "name": "By Date",
-          "operations": [
-            {
-              "type": "select",
-              "options": {
-                "column": "#affected+type",
-                "operator": "=",
-                "value": "idp"
-              }
-            },
-            {
-              "type": "sort",
-              "options": {
-                "columns": "#date+bin"
-              }
-            },
-            {
-              "type": "sum",
-              "options": {
-                "groupByColumn": "#date+bin",
-                "avgColumn": "#affected+displaced"
-              }
-            }
-          ]
+          "type": "select",
+          "options": {
+            "column": "#affected+type",
+            "operator": "=",
+            "value": "idp"
+          }
         },
         {
-          "name": "By Date 2",
-          "operations": [
-            {
-              "type": "select",
-              "options": {
-                "column": "#affected+type",
-                "operator": "=",
-                "value": "refugee"
-              }
+          "type": "sort",
+          "options": {
+            "columns": "#date+bin"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#date+bin",
+            "avgColumn": "#affected+displaced"
+          }
+        }
+      ]
+    },
+    {
+      "name": "By Affected Type",
+      "options": {
+        "data": {
+          "x": "#affected+type",
+          "type": "bar"
+        },
+        "axis": {
+          "x": {
+            "type": "category",
+            "tick": {
+              "rotate": 30
             },
-            {
-              "type": "sort",
-              "options": {
-                "columns": "#date+bin"
-              }
-            },
-            {
-              "type": "sum",
-              "options": {
-                "groupByColumn": "#date+bin",
-                "avgColumn": "#affected+displaced"
-              }
-            }
-          ]
+            "height": 60
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "select",
+          "options": {
+            "column": "#date+bin",
+            "operator": "=",
+            "value": "2016-02-29"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#affected+type",
+            "avgColumn": "#affected+displaced"
+          }
         }
       ]
     }

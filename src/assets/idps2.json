@@ -43,6 +43,7 @@
   },
   "charts": [
     {
+      "name": "Bar chart by date",
       "options": {
         "data": {
           "x": "#date+bin",
