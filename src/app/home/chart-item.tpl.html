@@ -1,3 +1,15 @@
-<div id="{{id}}">
+<div class="chart-box">
+    <div ng-if="hasGroupings" class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            {{selectedGrouping.name}}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li ng-repeat="grouping in groupings"><a ng-click="onChangeGroupings($index)" href="#">{{grouping.name}}</a></li>
+        </ul>
+    </div>
+    <div id="{{id}}" class="chart-item-wrapper">
 
+    </div>
 </div>

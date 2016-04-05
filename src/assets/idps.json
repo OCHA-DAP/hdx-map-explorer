@@ -60,27 +60,58 @@
         }
       },
       "nextIndex": "02",
-      "operations": [
+      "groupings": [
         {
-          "type": "select",
-          "options": {
-            "column": "#affected+type",
-            "operator": "=",
-            "value": "idp"
-          }
+          "name": "By Date",
+          "operations": [
+            {
+              "type": "select",
+              "options": {
+                "column": "#affected+type",
+                "operator": "=",
+                "value": "idp"
+              }
+            },
+            {
+              "type": "sort",
+              "options": {
+                "columns": "#date+bin"
+              }
+            },
+            {
+              "type": "sum",
+              "options": {
+                "groupByColumn": "#date+bin",
+                "avgColumn": "#affected+displaced"
+              }
+            }
+          ]
         },
         {
-          "type": "sort",
-          "options": {
-            "columns": "#date+bin"
-          }
-        },
-        {
-          "type": "sum",
-          "options": {
-            "groupByColumn": "#date+bin",
-            "avgColumn": "#affected+displaced"
-          }
+          "name": "By Date 2",
+          "operations": [
+            {
+              "type": "select",
+              "options": {
+                "column": "#affected+type",
+                "operator": "=",
+                "value": "refugee"
+              }
+            },
+            {
+              "type": "sort",
+              "options": {
+                "columns": "#date+bin"
+              }
+            },
+            {
+              "type": "sum",
+              "options": {
+                "groupByColumn": "#date+bin",
+                "avgColumn": "#affected+displaced"
+              }
+            }
+          ]
         }
       ]
     }
