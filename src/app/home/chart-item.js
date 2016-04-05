@@ -9,25 +9,36 @@
             },
             link: function($scope, element, attrs, controller){
                 if ($scope.data) {
-                    var chartData = $scope.data;
-                    var promise = DataFetcher.fetchData($scope.url, chartData);
+                    var promise = DataFetcher.fetchData($scope.url, $scope.data);
                     promise.then(function (result) {
                         var data = result.data;
-                        var limitedData = [];
-                        for (var i = 1; i < data.length; i++) {
-                            limitedData.push(data[i]);
-                        }
                         var chartId = '#' + $scope.id;
-                        var options = $.extend(true, chartData.options, {
+                        var options = $.extend(true, $scope.data.options, {
                             bindto: chartId,
                             data: {
-                                rows: limitedData
+                                rows: data.slice(1)
                             }
                         });
 
-                        c3.generate(options);
+                        $scope.chart = c3.generate(options);
                     }, dataError);
                 }
+
+                $scope.$on("layerSelect", function(event, data){
+                    if ($scope.chart){
+                        DataFetcher.fetchData($scope.url, $scope.data, data)
+                            .then(function (result) {
+                                var data = result.data;
+                                if (data.length <= 2) {
+                                    $scope.chart.unload();
+                                } else {
+                                    $scope.chart.load({
+                                        rows: data.slice(1)
+                                    });
+                                }
+                            });
+                    }
+                });
             },
             templateUrl: "home/chart-item.tpl.html"
         };

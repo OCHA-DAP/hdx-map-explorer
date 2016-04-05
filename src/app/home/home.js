@@ -244,7 +244,7 @@
                         });
                         layer.setStyle(newStyle);
 
-                        DataFetcher.fetchData(dataUrl, chartData, [
+                        $scope.$broadcast("layerSelect", [
                             {
                                 "type": "select",
                                 "options": {
@@ -253,20 +253,7 @@
                                     "value": layer.feature.properties[mapData.shapefile.joinColumn]
                                 }
                             }
-                        ])
-                            .then(function (result) {
-                                chart.prepareRerender();
-                                var data = result.data;
-                                if (data.length <= 2) {
-                                    chart.unload();
-                                } else {
-                                    chart.load({
-                                        rows: data.slice(1)
-                                    });
-                                }
-
-                            });
-
+                        ]);
 
                         if (isTouch){
                             //show tooltip on click for touch devices
