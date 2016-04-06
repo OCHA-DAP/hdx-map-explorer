@@ -22,12 +22,25 @@
                     }
                     var promise = DataFetcher.fetchData(url, chartData);
                     promise.then(function (result) {
-                        var data = result.data;
+                        var usableData = result.data.slice(1);
                         var chartId = '#' + $scope.id;
                         var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
                             data: {
-                                rows: data.slice(1)
+                                rows: usableData,
+                                onclick: function (d, element) {
+                                    var additionalFilters = [
+                                        {
+                                            'type': 'select',
+                                            'options': {
+                                                'column': chartData.options.data.x,
+                                                'operator': '=',
+                                                'value': usableData[d.index + 1][0]
+                                            }
+                                        }
+                                    ];
+                                    $scope.$emit("chartPointClicked", additionalFilters);
+                                }
                             }
                         });
 
