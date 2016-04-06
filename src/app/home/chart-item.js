@@ -1,5 +1,5 @@
 (function(module) {
-    module.directive("chartItem", function(DataFetcher){
+    module.directive("chartItem", function($q, DataFetcher){
         return {
             restrict: "E",
             scope: {
@@ -37,6 +37,7 @@
                 }
 
                 function changeChartData (url, chartData, additionalFilters) {
+                    var deferred = $q.defer();
                     var chart = $scope.chart;
                     DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
                             var data = result.data;
@@ -47,8 +48,10 @@
                                     rows: data.slice(1)
                                 });
                             }
-
+                            deferred.resolve(additionalFilters);
                         });
+
+                    return deferred.promise;
                 }
 
                 $scope.onChangeCharts = function (index) {
@@ -59,10 +62,14 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        var appliedFilters = "";
-                        angular.forEach(data, function(item){console.log(JSON.stringify(item));appliedFilters += item.options.value + ",";});
-                        $scope.appliedFilters = appliedFilters.substring(0, appliedFilters.length-1);
-                        changeChartData($scope.url, $scope.selectedChart, data);
+                        changeChartData($scope.url, $scope.selectedChart, data).then(function(additionalFilters) {
+                            var appliedFilters = "";
+                            angular.forEach(additionalFilters, function (item) {
+                                console.log(JSON.stringify(item));
+                                appliedFilters += item.options.value + ",";
+                            });
+                            $scope.appliedFilters = appliedFilters.substring(0, appliedFilters.length - 1);
+                        });
                     }
                 });
             },
