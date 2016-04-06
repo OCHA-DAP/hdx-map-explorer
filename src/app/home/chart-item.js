@@ -8,22 +8,23 @@
                 url: '='
             },
             link: function($scope, element, attrs, controller){
-                if ($scope.data) {
-                    var groupings = $scope.data.groupings;
-                    var operationsInfo;
-                    $scope.hasGroupings = groupings && groupings.length > 0 ? true : false;
-                    if ( $scope.hasGroupings) {
-                        $scope.selectedGrouping = operationsInfo = groupings[0];
-                        $scope.groupings = groupings;
+                var charts = $scope.data;
+                if (charts.length > 0) {
+                    $scope.hasMoreCharts = charts.length > 1;
+                    $scope.selectedChart = charts[0];
+                    createChart($scope.url, $scope.selectedChart);
+                }
+
+                function createChart(url, chartData) {
+                    $scope.appliedFilters = "";
+                    if ($scope.chart) {
+                        $scope.chart.destroy();
                     }
-                    else {
-                        operationsInfo = $scope.data;
-                    }
-                    var promise = DataFetcher.fetchData($scope.url, operationsInfo);
+                    var promise = DataFetcher.fetchData(url, chartData);
                     promise.then(function (result) {
                         var data = result.data;
                         var chartId = '#' + $scope.id;
-                        var options = $.extend(true, $scope.data.options, {
+                        var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
                             data: {
                                 rows: data.slice(1)
@@ -32,11 +33,12 @@
 
                         $scope.chart = c3.generate(options);
                     }, dataError);
+
                 }
 
-                function changeChartData (url, operationsInfo, additionalFilters) {
+                function changeChartData (url, chartData, additionalFilters) {
                     var chart = $scope.chart;
-                    DataFetcher.fetchData(url, operationsInfo, additionalFilters).then(function (result) {
+                    DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
                             var data = result.data;
                             if (data.length <= 2) {
                                 chart.unload();
@@ -49,15 +51,18 @@
                         });
                 }
 
-                $scope.onChangeGroupings = function (index) {
-                    $scope.selectedGrouping = operationsInfo = groupings[index];
-                    changeChartData($scope.url, operationsInfo);
+                $scope.onChangeCharts = function (index) {
+                    $scope.selectedChart = charts[index];
+                    createChart($scope.url, $scope.selectedChart);
 
                 };
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        changeChartData($scope.url, operationsInfo, data);
+                        var appliedFilters = "";
+                        angular.forEach(data, function(item){console.log(JSON.stringify(item));appliedFilters += item.options.value + ",";});
+                        $scope.appliedFilters = appliedFilters.substring(0, appliedFilters.length-1);
+                        changeChartData($scope.url, $scope.selectedChart, data);
                     }
                 });
             },
