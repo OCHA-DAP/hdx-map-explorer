@@ -313,12 +313,14 @@ module.exports = function(grunt) {
         less: {
             build: {
                 files: {
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
+                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>',
+                    '<%= build_dir %>/assets/my-bootstrap.css': 'src/less/my-bootstrap.less'
                 }
             },
             compile: {
                 files: {
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
+                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>',
+                    '<%= build_dir %>/assets/my-bootstrap.css': 'src/less/my-bootstrap.less'
                 },
                 options: {
                     cleancss: true,
@@ -423,7 +425,8 @@ module.exports = function(grunt) {
                     '<%= html2js.common.dest %>',
                     '<%= html2js.app.dest %>',
                     '<%= vendor_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
+                    '<%= build_dir %>/assets/my-bootstrap.css'
                 ]
             },
             /**
@@ -441,7 +444,8 @@ module.exports = function(grunt) {
                     '<%= html2js.common.dest %>',
                     '<%= html2js.app.dest %>',
                     '<%= vendor_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
+                    '<%= build_dir %>/assets/my-bootstrap.css'
                 ]
             },
 
@@ -456,7 +460,8 @@ module.exports = function(grunt) {
                 src: [
                     '<%= concat.compile_js.dest %>',
                     '<%= vendor_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
+                    '<%= build_dir %>/assets/my-bootstrap.css'
                 ]
             }
         },
@@ -469,6 +474,15 @@ module.exports = function(grunt) {
                     serverreload: false,
                     bases: 'build',
                     livereload: true
+                }
+            },
+            prodServer: {
+                options: {
+                    port: 9000,
+                    hostname: '0.0.0.0',
+                    serverreload: false,
+                    bases: 'bin',
+                    livereload: false
                 }
             }
         },
@@ -653,9 +667,9 @@ module.exports = function(grunt) {
     // 'delta') and then add a new task called 'watch' that does a clean build
     // before watching for changes.
     grunt.renameTask('watch', 'delta');
-    grunt.registerTask('watch', [ 'build', 'karma:unit', 'express', 'delta' ]);
+    grunt.registerTask('watch', [ 'build', 'karma:unit', 'express:devServer', 'delta' ]);
     // watchmock is just like watch, but includes testing resources for using $httpBackend
-    grunt.registerTask('watchmock', [ 'buildmock', 'karma:unit', 'express', 'delta' ]);
+    grunt.registerTask('watchmock', [ 'buildmock', 'karma:unit', 'express:devServer', 'delta' ]);
 
     // The default task is to build and compile.
     grunt.registerTask('default', [ 'build', 'compile' ]);
@@ -699,7 +713,7 @@ module.exports = function(grunt) {
     grunt.registerTask('debug', [
         'clean:all', 'html2js', 'jshint', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-        'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'ngAnnotate:build', 'index:build', 'express', 'delta'
+        'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'ngAnnotate:build', 'index:build', 'express:devServer', 'delta'
     ]);
 
     // A utility function to get all app JavaScript sources.
@@ -712,6 +726,7 @@ module.exports = function(grunt) {
     // A utility function to get all app CSS sources.
     function filterForCSS (files) {
         return files.filter( function (file) {
+            //console.log("AAA " + file + " result " + file.match(/\.css$/) );
             return file.match(/\.css$/);
         });
     }
