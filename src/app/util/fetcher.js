@@ -17,7 +17,6 @@
                 hxlUrl += '&select-query01-01=' + queryValue + '&filter01=select';
             }
 
-
             var deferred = $q.defer();
             $http.get(hxlUrl)
                 .then(function(data){
@@ -26,10 +25,6 @@
                 }, function(error){
                     deferred.reject(error);
                 });
-            //var ret = {
-            //    result: "Dan e tare!"
-            //};
-            //deferred.reject(ret);
 
             return deferred.promise;
         };

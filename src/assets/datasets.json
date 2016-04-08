@@ -4,16 +4,19 @@
     "datasets": [
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
-        "description": "Choropleth + area chart",
+        "id": "1",
+        "description": "IDPs at adm1. Choropleth + area chart",
         "url": "/assets/idps.json"
       },
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
-        "description": "Bubbles + bar chart",
+        "id": "2",
+        "description": "IDPs at adm1. Bubbles + bar chart",
         "url": "/assets/idps2.json"
       },
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
+        "id": "3",
         "description": "Incident locations",
         "url": "/assets/incident_location_points.json"
       }
@@ -24,6 +27,7 @@
     "datasets": [
       {
         "name": "#HDXSprint Fatalities",
+        "id": "4",
         "description": "This is a test dataset for #HDXSprint.",
         "url": "/assets/fatalities.json"
       }
@@ -35,6 +39,7 @@
     "datasets": [
       {
         "name": "#HDXSprint Displacement Tracking Matrix",
+        "id": "dummy",
         "description": "This is a test dataset for #HDXSprint.",
         "url": "/assets/idps.json"
       }
