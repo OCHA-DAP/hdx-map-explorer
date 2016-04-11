@@ -53,7 +53,7 @@
             map.on("resize", function(){
                 mapFitBounds();
             });
-            BaseLayers.CartoDB_DarkMatter.addTo(map);
+            BaseLayers.CartoDB_Positron.addTo(map);
             L.control.layers(BaseLayers, null, {collapsed: true, position: "topleft"}).addTo(map);
             layerGroup.addTo(map);
         }
