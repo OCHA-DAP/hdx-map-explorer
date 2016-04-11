@@ -21,6 +21,11 @@
             if (isTouch) {
                 initTouch();
             }
+
+            /* TODO: Dummy event handler. This should be enhanced to filter the corresponding map layer on chart click */
+            $scope.$on("chartPointClicked", function (event, additionalFilters) {
+                console.log("Filtering by " + JSON.stringify(additionalFilters));
+            });
         }
 
         function addSlice(event, data){

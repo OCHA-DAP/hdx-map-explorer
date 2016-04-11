@@ -52,6 +52,29 @@
             var operations = data.operations;
             if (additionalFilters && additionalFilters.length > 0) {
                 operations = additionalFilters.concat(operations);
+                for (var i=0; i<additionalFilters.length; i++) {
+                    var filter = additionalFilters[i];
+                    if (filter.type == "select") {
+                        var removeIndex = -1;
+                        for (var j=additionalFilters.length; j<operations.length; j++){
+                            var op = operations[j];
+                            if ( op.type == "select" && op.options.column == filter.options.column ) {
+                                /**
+                                 * If we already have a filter on the same column, then remove it.
+                                 * We assume for now that there can't be more than 1 filter for a particular column
+                                 */
+                                removeIndex = j;
+                                break;
+                            }
+                        }
+                        if (removeIndex > 0) {
+                            operations.splice(removeIndex, 1);
+                        }
+                        else {
+                            console.log("No need to remove any existing filter");
+                        }
+                    }
+                }
             }
             var paramString = FilterBuilder.buildFilter(operations);
             var promise = this.getFilteredData(url, paramString);
