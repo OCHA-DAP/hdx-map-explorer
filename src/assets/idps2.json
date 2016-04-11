@@ -1,5 +1,7 @@
 {
-  "name": "IDPs at adm1",
+  "name": "#HDXSprint Displacement Tracking Matrix",
+  "id": "2",
+  "description": "IDPs at adm1. Bubbles + bar chart",
   "url": "http://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/c51b69a0-5f2c-4598-aded-dc63095380fe/download/hdxsprint-dtm-adm1.csv",
   "map": {
     "shapefile": {
