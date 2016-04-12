@@ -11,7 +11,7 @@
             link: function($scope, element, attrs, controller){
                 var map = $scope.map;
 
-                $scope.legends = [];
+                $scope.legends = {};
 
                 L.Control.Picker = L.Control.extend({
                     options: {
@@ -34,7 +34,7 @@
 
                 $scope.$on("sliceCreated", function(event, data){
                     var legends = $scope.legends;
-                    legends.push(data);
+                    legends[data.type] = data;
                     $scope.legends = legends;
                 });
 
@@ -42,10 +42,18 @@
                     $scope.$emit("addSlice", {url: url});
                 };
 
+                $scope.removeSlice = function(type){
+                    $scope.$emit("removeSlice", type);
+                    var legends = $scope.legends;
+                    delete legends[type];
+                    $scope.legends = legends;
+                };
+
                 DataFetcher.loadDatasets()
                     .then(function(result){
                         $scope.data = result.data;
                     });
+
             },
             templateUrl: "home/legend.tpl.html"
         };

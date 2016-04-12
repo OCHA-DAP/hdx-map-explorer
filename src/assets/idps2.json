@@ -10,7 +10,7 @@
     },
     "layers": [
       {
-        "type":"bubble",
+        "type":["bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#affected+sum+displaced",
         "threshold": [1000,10000,50000,100000,500000,1000000],

@@ -8,13 +8,13 @@
             </optgroup>
         </select>
     </div>
-    <div class="legend-item" ng-repeat="item in legends">
+    <div class="legend-item" ng-repeat="(type,item) in legends">
         <div class="row">
             <div class="col-xs-8">
                 <div>{{item.name}}</div>
             </div>
             <div class="col-xs-4">
-                Info <i class="glyphicon glyphicon-cog"></i> <i class="glyphicon glyphicon-remove"></i>
+                Info <i class="glyphicon glyphicon-cog"></i> <a href ng-click="removeSlice(type);"><i class="glyphicon glyphicon-remove"></i></a>
             </div>
         </div>
         <div>

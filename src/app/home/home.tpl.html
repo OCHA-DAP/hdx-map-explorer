@@ -10,8 +10,8 @@
             <i class="glyphicon glyphicon-chevron-left"></i>
             <i class="glyphicon glyphicon-chevron-right"></i>
         </div>
-        <div class="chart-item" ng-repeat="charts in chartsGroup">
-            <chart-item id="'chart-item' + $index" data="charts" url="model.url"></chart-item>
+        <div class="chart-item" ng-repeat="(type, charts) in chartsGroup">
+            <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
         </div>
     </div>
 </div>

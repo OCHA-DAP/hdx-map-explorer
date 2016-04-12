@@ -3,9 +3,10 @@
         return {
             restrict: "E",
             scope: {
-                id: '=',
+                chartId: '=',
                 data: '=',
-                url: '='
+                url: '=',
+                type: '='
             },
             link: function($scope, element, attrs, controller){
                 var charts = $scope.data;
@@ -23,7 +24,7 @@
                     var promise = DataFetcher.fetchData(url, chartData);
                     promise.then(function (result) {
                         var usableData = result.data.slice(1);
-                        var chartId = '#' + $scope.id;
+                        var chartId = '#' + $scope.chartId;
                         var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
                             data: {

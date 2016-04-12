@@ -6,7 +6,7 @@
   "map": {
     "layers": [
       {
-        "type":"point",
+        "type":["point"],
         "valueColumn": "#affected+killed",
         "latColumn": "#geo+lat",
         "longColumn": "#geo+lon",
