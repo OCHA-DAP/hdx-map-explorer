@@ -41,6 +41,12 @@
                                     ];
                                     $scope.$emit("chartPointClicked", additionalFilters);
                                 }
+                            },
+                            onresized: function () {
+                                $scope.chart.destroy();
+                                $(chartId).removeAttr( 'style' );
+                                setTimeout(function(){$scope.chart = c3.generate(options);}, 200);
+                                // $scope.chart = c3.generate(options);
                             }
                         });
 
