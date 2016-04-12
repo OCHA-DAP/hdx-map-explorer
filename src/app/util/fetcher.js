@@ -77,7 +77,7 @@
         };
 
         ret.loadDatasets = function(){
-            return $http.get('/assets/datasets.json');
+            return $http.get('assets/datasets.json');
         };
 
         return ret;
