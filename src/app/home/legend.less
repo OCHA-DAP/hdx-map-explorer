@@ -88,6 +88,22 @@ layer-legend {
 }
 
 @media (max-width: @screen-sm-max) {
+  //styles for mobile landscape
+  .leaflet-right{
+    right: 50%;
+  }
+  layer-legend {
+    &.leaflet-control {
+      right: 50%;
+      top: 55px;
+      width: 280px;
+      z-index: 1000;
+    }
+  }
+}
+
+@media (max-width: @screen-sm-max) and (orientation: portrait) {
+  //styles for mobile portrait view -- charts appear at bottom of screen
   .leaflet-right{
     right: 10px;
   }
