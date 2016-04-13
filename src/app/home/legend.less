@@ -5,7 +5,7 @@
 .layer-legend-toggle.leaflet-control {
   margin-right: 15px;
   margin-top: 15px;
-  .glyphicon-align-center{
+  .glyphicon{
     padding: 8px;
     font-size: 20px;
   }
@@ -57,8 +57,12 @@ layer-legend {
         }
       }
 
-      .legend-actions i{
-        margin-left: 15px;
+      .legend-actions{
+        text-align: right;
+        i{
+          margin-left: 15px;
+          cursor: pointer;
+        }
       }
 
       .legend-colors{
@@ -89,6 +93,7 @@ layer-legend {
   }
   layer-legend {
     &.leaflet-control {
+      width: 300px;
       right: 10px;
       top: 55px;
     }

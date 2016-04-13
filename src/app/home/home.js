@@ -68,7 +68,7 @@
         }
 
         function buildBaseMap() {
-            var map = L.map("map", {zoomControl: true}).setView([51.505, -0.09], 7);
+            var map = L.map("map", {zoomControl: true}).setView([10, 10], 5);
             $scope.map = map;
             map.on("resize", function () {
                 mapFitBounds();
@@ -120,7 +120,7 @@
                     var mapDataJoinColumn = firstLayer.joinColumn;
 
                     var layerInfo = new LayerInfo($scope, vizData.name, layerType, colors, threshold, values,
-                        shapeJoinColumn, mapDataJoinColumn, stepCount);
+                        shapeJoinColumn, mapDataJoinColumn, stepCount, vizData.source);
                     $scope.$broadcast("sliceCreated", layerInfo);
 
                     if (layerType == "choropleth") {

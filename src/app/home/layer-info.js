@@ -1,6 +1,7 @@
 (function (module) {
     module.factory("LayerInfo", function(){
-        function LayerInfo($scope, name, type, colors, threshold, values, shapeJoinColumn, mapDataJoinColumn, stepCount){
+        function LayerInfo($scope, name, type, colors, threshold, values, shapeJoinColumn, mapDataJoinColumn, stepCount,
+                            sourceUrl){
             this.$scope = $scope;
             this.name = name;
             this.type = type;
@@ -10,6 +11,7 @@
             this.shapeJoinColumn = shapeJoinColumn;
             this.mapDataJoinColumn = mapDataJoinColumn;
             this.stepCount = stepCount;
+            this.sourceUrl = sourceUrl;
         }
         LayerInfo.prototype = {
             getThresholdIndexByValue: function (value){
