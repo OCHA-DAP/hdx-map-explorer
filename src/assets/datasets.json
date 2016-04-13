@@ -1,38 +1,44 @@
 [
   {
-    "name": "#HDXSprint Displacement Tracking Matrix",
-    "id": "1",
-    "description": "IDPs at adm1. Choropleth + area chart",
     "type": "Displacement",
-    "url": "assets/idps.json"
+    "datasets": [
+      {
+        "name": "#HDXSprint Displacement Tracking Matrix",
+        "id": "1",
+        "description": "IDPs at adm1. Choropleth + area chart",
+        "url": "assets/idps.json"
+      },
+      {
+        "name": "#HDXSprint Displacement Tracking Matrix",
+        "id": "2",
+        "description": "IDPs at adm1. Bubbles + bar chart",
+        "url": "assets/idps2.json"
+      },
+      {
+        "name": "#HDXSprint Displacement Tracking Matrix",
+        "id": "3",
+        "description": "Incident locations",
+        "url": "assets/incident_location_points.json"
+      }
+    ]
   },
   {
-    "name": "#HDXSprint Displacement Tracking Matrix",
-    "id": "2",
-    "description": "IDPs at adm1. Bubbles + bar chart",
-    "type": "Displacement",
-    "url": "assets/idps2.json"
-  },
-  {
-    "name": "#HDXSprint Displacement Tracking Matrix",
-    "id": "3",
-    "description": "Incident locations",
-    "type": "Displacement",
-    "url": "assets/incident_location_points.json"
-  },
-  {
-    "name": "#HDXSprint Fatalities",
-    "id": "4",
-    "description": "This is a test dataset for #HDXSprint.",
-    "type": "Fatalities",
-    "url": "assets/fatalities.json"
-  },
-  {
-    "name": "#HDXSprint Displacement Tracking Matrix",
-    "id": "dummy",
-    "description": "This is a test dataset for #HDXSprint.",
-    "type": "Refugees",
-    "url": "assets/idps.json"
+    "type": "Conflict Events",
+    "datasets": [
+      {
+        "name": "Events [Location Map]",
+        "id": "3",
+        "description": "Event Locations",
+        "url": "assets/event_locations.json"
+      },
+      {
+        "name": "Fatalities",
+        "id": "4",
+        "description": "Fatalities",
+        "url": "assets/fatalities.json"
+      }
+
+    ]
   }
 
 ]

@@ -1,8 +1,8 @@
 {
-  "name": "#HDXSprint Displacement Tracking Matrix",
-  "id": "2",
-  "description": "IDPs at adm1. Bubbles + bar chart",
-  "url": "http://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/c51b69a0-5f2c-4598-aded-dc63095380fe/download/hdxsprint-dtm-adm1.csv",
+  "name": "Crisis-Related Displaced Persons [Bar Chart]",
+  "id": "1",
+  "description": "IDPs at adm1. Choropleth + area chart",
+  "url": "http://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/1aaa5281-de4f-4ffa-a5ef-37c754a86478/download/rowca_idp-ref_ffill_2.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/gadm28_LCR_adm1.geojson",
@@ -12,11 +12,11 @@
       {
         "type":["bubble"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#affected+sum+displaced",
+        "valueColumn": "#affected+displaced",
         "threshold": [1000,10000,50000,100000,500000,1000000],
-        "colors": ["#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#005a32"],
+        "colors": ["#c7e9c0 ", "#a1d99b ", "#74c476 ", "#41ab5d ", "#238b45 ", "#005a32 "],
         "operations": [
-           {
+          {
             "type": "select",
             "options": {
               "column": "#affected+type",
@@ -27,16 +27,9 @@
           {
             "type": "select",
             "options": {
-              "column": "#date",
-              "operator": ">=",
-              "value": "2015-01-01"
-            }
-          },
-          {
-            "type": "sum",
-            "options": {
-              "groupByColumn": "#adm1+name",
-              "avgColumn": "#affected+displaced"
+              "column": "#date+bin",
+              "operator": "=",
+              "value": "2016-04-30"
             }
           }
         ]
@@ -45,43 +38,35 @@
   },
   "charts": [
     {
-      "name": "Bar chart by date",
+      "name": "By Affected Type",
       "options": {
         "data": {
-          "x": "#date+bin",
+          "x": "#affected+type",
           "type": "bar"
         },
         "axis": {
           "x": {
-            "type": "timeseries",
+            "type": "category",
             "tick": {
-              "format": "%B %Y",
               "rotate": 30
             },
             "height": 60
           }
         }
       },
-      "nextIndex": "02",
       "operations": [
         {
           "type": "select",
           "options": {
-            "column": "#affected+type",
+            "column": "#date+bin",
             "operator": "=",
-            "value": "idp"
-          }
-        },
-        {
-          "type": "sort",
-          "options": {
-            "columns": "#date+bin"
+            "value": "2016-04-30"
           }
         },
         {
           "type": "sum",
           "options": {
-            "groupByColumn": "#date+bin",
+            "groupByColumn": "#affected+type",
             "avgColumn": "#affected+displaced"
           }
         }
