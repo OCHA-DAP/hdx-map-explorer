@@ -39,6 +39,9 @@
                         var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
                             size: chartSize,
+                            color: {
+                                pattern: [decideChartColor(charts.colors)]
+                            },
                             data: {
                                 rows: usableData,
                                 onclick: function (d, element) {
@@ -59,11 +62,10 @@
                                 $scope.chart.destroy();
                                 $(chartId).removeAttr( 'style' );
                                 setTimeout(function(){
-                                    console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
+                                    // console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
                                     options.size = null;
                                     $scope.chart = c3.generate(options);
                                 }, 200);
-                                // $scope.chart = c3.generate(options);
                             }
                         });
 
@@ -115,5 +117,15 @@
 
     function dataError(error) {
         console.error(error);
+    }
+
+    function decideChartColor(colorList) {
+        if (colorList.length > 0) {
+            var index = Math.floor(colorList.length / 2);
+            return colorList[index];
+        }
+        else {
+            return null;
+        }
     }
 }(angular.module("hdx.map.explorer.home")));
