@@ -14,6 +14,11 @@
   background-color: rgba(255, 255, 255, 0.9);
   padding-top: @charts-padding;
   padding-bottom: @charts-padding;
+  .chart-item:last-child{
+    .chart-box{
+      border-bottom-width: 0;
+    }
+  }
   .chart-item{
     float: left;
     //margin: 0 @charts-padding @charts-padding 0;
@@ -43,6 +48,11 @@
     }
     //&.rendered{
     //}
+  }
+  .powered-by{
+    position: absolute;
+    right:10px;
+    bottom: 5px;
   }
   &.slide{
     .toggle{
@@ -104,10 +114,12 @@
     min-width: 100%;
     height: 40%;
     .chart-item {
-      //width: 330px;
       height: 100%;
       width: 50%;
       //flex: 1 1 50%;
+      .chart-box {
+        border-bottom-width: 0;
+      }
     }
 
     .toggle {
@@ -141,6 +153,9 @@
           display: none;
         }
       }
+    }
+    .powered-by{
+      display: none;
     }
   }
 }

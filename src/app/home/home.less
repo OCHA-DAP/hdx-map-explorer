@@ -1,6 +1,9 @@
 @import "legend.less";
 @import "charts.less";
 
+@logo-height: 17px;
+@logo-width: 72px;
+
 .homeClass {
   margin: 0 0 0 0;
 }
@@ -36,4 +39,16 @@ html, body, .full-height {
   .sourceSansProFont(700, 14px);
   color: @darkGrayColor;
   letter-spacing: 0.01em;
+}
+
+.hdx-logo {
+  background-image: url("images/logo-beta.svg");
+  background-size: @logo-width @logo-height;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: @logo-height;
+  width: @logo-width;
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: middle;
 }
