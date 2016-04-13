@@ -4,8 +4,14 @@
 
         //var hxlUrl = 'https://proxy.hxlstandard.org/data.json?url=http%3A//popstats.unhcr.org/en/demographics.hxl&select-query01-01=%23country%2Bresidence%3DSlovenia&filter01=select';
         //var urlPrefix = 'https://proxy.hxlstandard.org/data.json?';
-        var urlPrefix = 'https://liv-proxy.hdx.rwlabs.org/data.json?';
+        //var urlPrefix = 'https://liv-proxy.hdx.rwlabs.org/data.json?';
         //var genericUrl = 'url={originalUrl}&select-query01-01={selectKey}={selectValue}&filter01=select';
+
+        //For local deploy
+        //var urlPrefix = 'https://feature-data.hdx.rwlabs.org/hxlproxy/data.json?';
+        //For HDX deploy
+        var urlPrefix = '/hxlproxy/data.json?';
+
 
         var ret = {};
 
