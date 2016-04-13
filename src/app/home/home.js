@@ -39,7 +39,9 @@
                 function (data) {
                     addLayer(data.data);
                     var chartsData = data.data.charts;
-                    var layerType = data.data.map.layers[0].type[0];
+                    var layer0Data = data.data.map.layers[0];
+                    chartsData.colors = layer0Data.colors;
+                    var layerType = layer0Data.type[0];
                     if (chartsData && chartsData.length) {
                         $scope.chartsGroup[layerType] = chartsData;
                     }
