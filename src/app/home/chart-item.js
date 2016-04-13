@@ -10,6 +10,7 @@
             },
             link: function($scope, element, attrs, controller){
                 var charts = $scope.data;
+                var chartWrapperClass = $scope.chartWrapperClass = "chart-item-wrapper";
                 if (charts.length > 0) {
                     $scope.hasMoreCharts = charts.length > 1;
                     $scope.selectedChart = charts[0];
@@ -17,6 +18,17 @@
                 }
 
                 function createChart(url, chartData) {
+                    var chartId = '#' + $scope.chartId;
+                    console.log("Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
+                    var chartWrapperEls = $("." + chartWrapperClass);
+                    var chartSize = null;
+                    if (chartWrapperEls.length > 0 && chartWrapperEls[0].id != $scope.chartId ) {
+                        chartSize = {
+                            width: $(chartWrapperEls[0]).width(),
+                            height: $(chartWrapperEls[0]).height()
+                        };
+                        console.log(" using size " + JSON.stringify(chartSize) + " for item " + chartId);
+                    }
                     $scope.appliedFilters = "";
                     if ($scope.chart) {
                         $scope.chart.destroy();
@@ -24,9 +36,9 @@
                     var promise = DataFetcher.fetchData(url, chartData);
                     promise.then(function (result) {
                         var usableData = result.data.slice(1);
-                        var chartId = '#' + $scope.chartId;
                         var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
+                            size: chartSize,
                             data: {
                                 rows: usableData,
                                 onclick: function (d, element) {
@@ -46,7 +58,11 @@
                             onresized: function () {
                                 $scope.chart.destroy();
                                 $(chartId).removeAttr( 'style' );
-                                setTimeout(function(){$scope.chart = c3.generate(options);}, 200);
+                                setTimeout(function(){
+                                    console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
+                                    options.size = null;
+                                    $scope.chart = c3.generate(options);
+                                }, 200);
                                 // $scope.chart = c3.generate(options);
                             }
                         });

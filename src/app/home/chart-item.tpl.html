@@ -1,6 +1,6 @@
 <div class="chart-box">
     <div ng-if="hasMoreCharts" class="dropdown with-transparent-button">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+        <button class="btn btn-default dropdown-toggle grouping-title" type="button" id="dropdownMenu1" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
             {{selectedChart.name}}
             <span class="caret"></span>
@@ -11,9 +11,9 @@
         <span ng-if="appliedFilters">Filtered by {{appliedFilters}}</span>
     </div>
     <div ng-if="!hasMoreCharts" class="dropdown">
-        <strong>{{selectedChart.name}}</strong> <span ng-if="appliedFilters">Filtered by {{appliedFilters}}</span>
+        <span class="grouping-title">{{selectedChart.name}}</span> <span ng-if="appliedFilters">Filtered by {{appliedFilters}}</span>
     </div>
-    <div id="{{chartId}}" class="chart-item-wrapper">
+    <div id="{{chartId}}" class="{{chartWrapperClass}}">
 
     </div>
 </div>
