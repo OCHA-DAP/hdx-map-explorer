@@ -17,7 +17,7 @@ layer-legend {
   &.leaflet-control {
     //display: none;
     position: absolute;
-    width: 300px;
+    width: 337px;
     right: 25%;
     top: 55px;
     z-index: 100;
@@ -38,6 +38,27 @@ layer-legend {
 
       &:last-child{
         border-bottom: none;
+      }
+
+      .selector {
+        margin-top: 5px;
+
+        &.ui-select-bootstrap .ui-select-toggle>.caret{
+          color: @blueColor;
+          border-top-width: 10px;
+          border-left-width: 10px;
+          border-right-width: 10px;
+        }
+        &.ui-select-bootstrap>.ui-select-match>.btn{
+          height: 40px;
+          padding: 6px 15px;
+          .gothamMediumFont(16px);
+          color: @grayColor;
+        }
+      }
+
+      .legend-actions i{
+        margin-left: 15px;
       }
 
       .legend-colors{

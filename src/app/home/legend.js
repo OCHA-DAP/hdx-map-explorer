@@ -40,7 +40,7 @@
 
                 $scope.selectSlice = function(item){
                     $scope.$emit("addSlice", {url: item.url});
-                    $scope.selection = null;
+                    $scope.selection = undefined;
                 };
 
                 $scope.removeSlice = function(type){

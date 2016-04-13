@@ -1,8 +1,8 @@
 <div class=" legend-list">
     <div class="legend-item">
         <div class="text-info">Add up to 3 layers on the map</div>
-        <ui-select ng-model="selection" ng-change="selectSlice(selection);" >
-            <ui-select-match placeholder="Select layer">
+        <ui-select class="selector" ng-model="$parent.selection" ng-change="selectSlice($parent.selection);" >
+            <ui-select-match placeholder="Select layers">
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
             <ui-select-choices group-by="'type'" repeat="item in data track by item.url">
@@ -12,13 +12,13 @@
     </div>
     <div class="legend-item" ng-repeat="(type,item) in legends">
         <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-7">
                 <div class="text-normal">Map layer {{$index + 1}}</div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-5 legend-actions">
                 <a href><span class="text-normal">Info</span></a>
                 <i class="glyphicon glyphicon-cog"></i>
-                <a href ng-click="removeSlice(type);"><i class="glyphicon glyphicon-remove"></i></a>
+                <i ng-click="removeSlice(type);" class="glyphicon glyphicon-remove"></i>
             </div>
         </div>
         <div class="row">

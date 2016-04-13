@@ -1,38 +1,30 @@
 [
   {
+    "name": "Displaced Persons [Shaded Map]",
+    "id": "1",
+    "description": "IDPs at adm1. Choropleth + area chart",
     "type": "Displacement",
-    "datasets": [
-      {
-        "name": "Displaced Persons [Shaded Map]",
-        "id": "1",
-        "description": "IDPs at adm1. Choropleth + area chart",
-        "url": "assets/idps.json"
-      },
-      {
-        "name": "Displaced Persons [Bubble Map]",
-        "id": "2",
-        "description": "IDPs at adm1. Bubbles + bar chart",
-        "url": "assets/idps2.json"
-      }
-    ]
+    "url": "assets/idps.json"
   },
   {
+    "name": "Displaced Persons [Bubble Map]",
+    "id": "2",
+    "description": "IDPs at adm1. Bubbles + bar chart",
+    "type": "Displacement",
+    "url": "assets/idps2.json"
+  },
+  {
+    "name": "Events [Location Map]",
+    "id": "3",
+    "description": "Event Locations",
     "type": "Conflict Events",
-    "datasets": [
-      {
-        "name": "Events [Location Map]",
-        "id": "3",
-        "description": "Event Locations",
-        "url": "assets/event_locations.json"
-      },
-      {
-        "name": "Fatalities",
-        "id": "4",
-        "description": "Fatalities",
-        "url": "assets/fatalities.json"
-      }
-
-    ]
+    "url": "assets/event_locations.json"
+  },
+  {
+    "name": "Fatalities",
+    "id": "4",
+    "description": "Fatalities",
+    "type": "Conflict Events",
+    "url": "assets/fatalities.json"
   }
-
 ]
