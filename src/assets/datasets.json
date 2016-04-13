@@ -3,46 +3,35 @@
     "type": "Displacement",
     "datasets": [
       {
-        "name": "#HDXSprint Displacement Tracking Matrix",
+        "name": "Displaced Persons [Shaded Map]",
         "id": "1",
         "description": "IDPs at adm1. Choropleth + area chart",
         "url": "assets/idps.json"
       },
       {
-        "name": "#HDXSprint Displacement Tracking Matrix",
+        "name": "Displaced Persons [Bubble Map]",
         "id": "2",
         "description": "IDPs at adm1. Bubbles + bar chart",
         "url": "assets/idps2.json"
-      },
-      {
-        "name": "#HDXSprint Displacement Tracking Matrix",
-        "id": "3",
-        "description": "Incident locations",
-        "url": "assets/incident_location_points.json"
       }
     ]
   },
   {
-    "type": "Fatalities",
+    "type": "Conflict Events",
     "datasets": [
       {
-        "name": "#HDXSprint Fatalities",
+        "name": "Events [Location Map]",
+        "id": "3",
+        "description": "Event Locations",
+        "url": "assets/event_locations.json"
+      },
+      {
+        "name": "Fatalities",
         "id": "4",
-        "description": "This is a test dataset for #HDXSprint.",
+        "description": "Fatalities",
         "url": "assets/fatalities.json"
       }
 
-    ]
-  },
-  {
-    "type": "Refugees",
-    "datasets": [
-      {
-        "name": "#HDXSprint Displacement Tracking Matrix",
-        "id": "dummy",
-        "description": "This is a test dataset for #HDXSprint.",
-        "url": "assets/idps.json"
-      }
     ]
   }
 ]

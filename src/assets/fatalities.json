@@ -1,7 +1,7 @@
 {
-  "name": "#HDXSprint Fatalities",
+  "name": "Fatalities",
   "id": "4",
-  "description": "IDPs at adm1.Fatalities",
+  "description": "Fatalities",
   "url": "http://data.hdx.rwlabs.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/ff546357-f052-4e0b-8183-ab4951296590/download/acled_LCR_10_binned.csv",
   "map": {
     "shapefile": {
