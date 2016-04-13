@@ -16,7 +16,7 @@
                 L.Control.Picker = L.Control.extend({
                     options: {
                         collapsed: true,
-                        position: "topright",
+                        position: "topright"
                     },
                     onAdd: function(map){
                         var controlDiv = L.DomUtil.create('div', 'layer-legend-toggle leaflet-control-layers ');
@@ -38,8 +38,9 @@
                     $scope.legends = legends;
                 });
 
-                $scope.selectSlice = function(url){
-                    $scope.$emit("addSlice", {url: url});
+                $scope.selectSlice = function(item){
+                    $scope.$emit("addSlice", {url: item.url});
+                    $scope.selection = null;
                 };
 
                 $scope.removeSlice = function(type){

@@ -13,7 +13,8 @@
     "leaflet": "^0.7.7",
     "c3": "^0.4.10",
     "leaflet.markercluster": "^0.4.0",
-    "select2": "^4.0.2"
+    "select2": "^4.0.2",
+    "ui-select": "angular-ui-select#^0.16.1"
   },
   "dependencies": {
     "hammerjs": "hammer.js#^2.0.6"

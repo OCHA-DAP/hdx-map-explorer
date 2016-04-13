@@ -84,7 +84,7 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-router/release/angular-ui-router.js',
                 'vendor/angular-ui-utils/modules/route/route.js',
 
-                'vendor/leaflet/dist/leaflet.js',
+                'vendor/leaflet/dist/leaflet-src.js',
                 'vendor/leaflet.markercluster/dist/leaflet.markercluster.js',
 
                 'vendor/jquery/dist/jquery.min.js',
@@ -94,14 +94,16 @@ module.exports = function(grunt) {
 
                 'vendor/d3/d3.min.js',
                 'vendor/c3/c3.js',
-                'vendor/bootstrap/dist/js/bootstrap.min.js'
+                'vendor/bootstrap/dist/js/bootstrap.min.js',
+                'vendor/ui-select/dist/select.min.js'
             ],
             css: [
                 'vendor/leaflet/dist/leaflet.css',
                 'vendor/leaflet.markercluster/dist/MarkerCluster.css',
                 'vendor/leaflet.markercluster/dist/MarkerCluster.Default.css',
                 'vendor/select2/dist/css/select2.min.css',
-                'vendor/c3/c3.min.css'
+                'vendor/c3/c3.min.css',
+                'vendor/ui-select/dist/select.min.css'
             ],
             assets: [
                 'vendor/bootstrap/fonts/*'

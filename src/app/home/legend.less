@@ -3,7 +3,8 @@
 }
 
 .layer-legend-toggle.leaflet-control {
-  margin-right: 10px;
+  margin-right: 15px;
+  margin-top: 15px;
   .glyphicon-align-center{
     padding: 8px;
     font-size: 20px;
@@ -20,7 +21,7 @@ layer-legend {
     right: 25%;
     top: 55px;
     z-index: 100;
-    margin-right: 10px;
+    margin-right: 15px;
   }
 
   select{
@@ -31,14 +32,16 @@ layer-legend {
   .legend-list {
     .legend-item {
       padding: @legendPadding;
+      color: @grayColor;
 
-      border-bottom: 1px solid gray;
+      border-bottom: 1px solid @lightGrayColor;
 
       &:last-child{
         border-bottom: none;
       }
 
       .legend-colors{
+        margin-top: 5px;
         list-style: none;
         padding: 0;
 

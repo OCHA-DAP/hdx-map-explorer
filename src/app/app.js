@@ -15,7 +15,8 @@
     'templates-common',
     'ui.router.state',
     'ui.router',
+    'ui.select',
     //pages
     'hdx.map.explorer.home',
-    'hdx.map.explorer.util',
+    'hdx.map.explorer.util'
 ])));

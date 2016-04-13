@@ -1,20 +1,29 @@
 <div class=" legend-list">
     <div class="legend-item">
-        <div>Add up to 3 layers on the map</div>
-        <select ng-model="selection" ng-change="selectSlice(selection);" ui-select2>
-            <option></option>
-            <optgroup ng-repeat="type in data" label="{{type.type}}">
-                <option ng-repeat="dataset in type.datasets" value="{{dataset.url}}">{{dataset.name}}</option>
-            </optgroup>
-        </select>
+        <div class="text-info">Add up to 3 layers on the map</div>
+        <ui-select ng-model="selection" ng-change="selectSlice(selection);" >
+            <ui-select-match placeholder="Select layer">
+                <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices group-by="'type'" repeat="item in data track by item.url">
+                <div ng-bind="item.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
     </div>
     <div class="legend-item" ng-repeat="(type,item) in legends">
         <div class="row">
             <div class="col-xs-8">
-                <div>{{item.name}}</div>
+                <div class="text-normal">Map layer {{$index + 1}}</div>
             </div>
             <div class="col-xs-4">
-                Info <i class="glyphicon glyphicon-cog"></i> <a href ng-click="removeSlice(type);"><i class="glyphicon glyphicon-remove"></i></a>
+                <a href><span class="text-normal">Info</span></a>
+                <i class="glyphicon glyphicon-cog"></i>
+                <a href ng-click="removeSlice(type);"><i class="glyphicon glyphicon-remove"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="title-normal">{{item.name}}</div>
             </div>
         </div>
         <div>
