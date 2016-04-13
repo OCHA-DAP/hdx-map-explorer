@@ -11,7 +11,7 @@
         "latColumn": "#geo+lat",
         "longColumn": "#geo+lon",
         "threshold": [0,10,50,100,500,1000],
-        "colors": ["#ffffff", "#e6ffe6", "#66ff66", "#ffffb3", "#e6e600", "#ff8566", "#e62e00", "#661400"],
+        "colors": ["#ffffff", "#e6ffe6", "#66ff66", "#ffffb3", "#e6e600", "#ff8566"],
         "operations": [
           {
             "type": "select",
