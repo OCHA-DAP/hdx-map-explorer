@@ -17,7 +17,8 @@
                     createChart($scope.url, $scope.selectedChart);
                 }
 
-                function createChart(url, chartData) {
+                function createChart(url, chartData, additionalFilters) {
+                    var deferred = $q.defer();
                     var chartId = '#' + $scope.chartId;
                     console.log("Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
                     var chartWrapperEls = $("." + chartWrapperClass);
@@ -33,10 +34,10 @@
                     if ($scope.chart) {
                         $scope.chart.destroy();
                     }
-                    var promise = DataFetcher.fetchData(url, chartData);
+                    var promise = DataFetcher.fetchData(url, chartData, additionalFilters);
                     promise.then(function (result) {
                         var usableData = result.data.slice(1);
-                        var options = $.extend(true, $scope.selectedChart.options, {
+                        var options = $.extend(true, {}, $scope.selectedChart.options, {
                             bindto: chartId,
                             axis: {
                                 x: {
@@ -46,7 +47,7 @@
                                 },
                                 y: {
                                     tick: {
-                                        values: decideChartValues(usableData, 4)
+                                        values: decideChartValues(usableData, 3)
                                     }
                                 }
 
@@ -87,27 +88,34 @@
                         });
 
                         $scope.chart = c3.generate(options);
+                        deferred.resolve(additionalFilters);
                     }, dataError);
 
-                }
-
-                function changeChartData (url, chartData, additionalFilters) {
-                    var deferred = $q.defer();
-                    var chart = $scope.chart;
-                    DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
-                            var data = result.data;
-                            if (data.length <= 2) {
-                                chart.unload();
-                            } else {
-                                chart.load({
-                                    rows: data.slice(1)
-                                });
-                            }
-                            deferred.resolve(additionalFilters);
-                        });
-
                     return deferred.promise;
+
                 }
+
+                // function changeChartData (url, chartData, additionalFilters) {
+                //     var deferred = $q.defer();
+                //     var chart = $scope.chart;
+                //     DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
+                //             var data = result.data;
+                //             if (data.length <= 2) {
+                //                 chart.unload();
+                //             } else {
+                //                 var usableData = data.slice(1);
+                //                 var axis = options.axis;
+                //                 axis.y.tick.values = decideChartValues(usableData, 3);
+                //                 chart.load({
+                //                     rows: usableData,
+                //                     axis: axis
+                //                 });
+                //             }
+                //             deferred.resolve(additionalFilters);
+                //         });
+                //
+                //     return deferred.promise;
+                // }
 
                 $scope.onChangeCharts = function (index) {
                     $scope.selectedChart = charts[index];
@@ -117,7 +125,7 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        changeChartData($scope.url, $scope.selectedChart, data).then(function(additionalFilters) {
+                        createChart($scope.url, $scope.selectedChart, data).then(function(additionalFilters) {
                             var appliedFilters = "";
                             angular.forEach(additionalFilters, function (item) {
                                 console.log(JSON.stringify(item));
