@@ -12,6 +12,7 @@
                 var options = null;
                 var chartUrl = $scope.url;
                 var charts = $scope.data;
+                var chartId = '#' + $scope.chartId;
                 var chartWrapperClass = $scope.chartWrapperClass = "chart-item-wrapper";
                 if (charts.length > 0) {
                     $scope.hasMoreCharts = charts.length > 1;
@@ -21,7 +22,6 @@
 
                 function createChart(url, chartData, additionalFilters) {
                     var deferred = $q.defer();
-                    var chartId = '#' + $scope.chartId;
                     console.log("Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
                     var chartWrapperEls = $("." + chartWrapperClass);
                     var chartSize = null;
@@ -77,16 +77,16 @@
                                     ];
                                     $scope.$emit("chartPointClicked", additionalFilters);
                                 }
-                            },
-                            onresized: function () {
-                                $scope.chart.destroy();
-                                $(chartId).removeAttr( 'style' );
-                                setTimeout(function(){
-                                    // console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
-                                    options.size = null;
-                                    $scope.chart = c3.generate(options);
-                                }, 200);
                             }
+                            // onresized: function () {
+                            //     $scope.chart.destroy();
+                            //     $(chartId).removeAttr( 'style' );
+                            //     setTimeout(function(){
+                            //         // console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
+                            //         options.size = null;
+                            //         $scope.chart = c3.generate(options);
+                            //     }, 200);
+                            // }
                         });
 
                         $scope.chart = c3.generate(options);
@@ -106,6 +106,7 @@
                                 chart.unload();
                             } else {
                                 var usableData = data.slice(1);
+                                options.data.rows = usableData;
                                 var axis = options.axis;
                                 axis.y.tick.values = decideChartValues(usableData, 3);
                                 chart.load({
@@ -120,11 +121,27 @@
                     return deferred.promise;
                 }
 
+                /**
+                 * Called when a user selects another type of chart from the dropdown
+                 * @param index shows which chart was selected by the user
+                 */
                 $scope.onChangeCharts = function (index) {
                     $scope.selectedChart = charts[index];
                     createChart($scope.url, $scope.selectedChart);
 
                 };
+
+                $scope.$on("windowResized", function (event, data) {
+                    if ($scope.chart) {
+                        $scope.chart = $scope.chart.destroy();
+                    }
+                    $(chartId).removeAttr('style');
+                    setTimeout(function () {
+                        console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
+                        options.size = null;
+                        $scope.chart = c3.generate(options);
+                    }, 200);
+                });
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){

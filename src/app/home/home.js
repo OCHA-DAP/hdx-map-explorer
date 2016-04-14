@@ -16,6 +16,8 @@
             $scope.layerMap = {};
             $scope.popup = popup;
 
+            angular.element($window).bind('resize',broadcastWindowResizeEvent);
+
             $scope.$on("addSlice", addSlice);
             $scope.$on("removeSlice", removeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
@@ -23,10 +25,21 @@
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManger = null;
+
+
             if (true) {
                 $scope.touchManger = initTouchManager();
             }
 
+
+        }
+
+        /**
+         * Generate angular app wide resize event
+         */
+        function broadcastWindowResizeEvent() {
+            console.log("Sending resized event");
+            $scope.$broadcast("windowResized", {});
         }
 
         function chartPointClicked(event, additionalFilters){
@@ -292,7 +305,7 @@
                 }
             };
             touchManager.swipeInit();
-            angular.element($window).bind('resize',touchManager.swipeReset);
+            $scope.$on("windowResized", touchManager.swipeReset);
             return touchManager;
         }
 
