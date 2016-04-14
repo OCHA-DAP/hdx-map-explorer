@@ -10,8 +10,8 @@
             <i class="glyphicon glyphicon-chevron-left"></i>
             <i class="glyphicon glyphicon-chevron-right"></i>
         </div>
-        <div class="powered-by">
-            <span class="text-larger">Powered by</span> <span class="hdx-logo"></span>
+        <div class="powered-by" ng-click="alert('aaaa')">
+            <a href="https://data.hdx.rwlabs.org"><span class="text-larger">Powered by</span> <span class="hdx-logo"></span></a>
         </div>
         <div class="chart-item" ng-repeat="(type, charts) in chartsGroup">
             <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
