@@ -38,6 +38,23 @@
                         var usableData = result.data.slice(1);
                         var options = $.extend(true, $scope.selectedChart.options, {
                             bindto: chartId,
+                            axis: {
+                                x: {
+                                    tick: {
+                                        rotate: 45
+                                    }
+                                },
+                                y: {
+                                    tick: {
+                                        values: decideChartValues(usableData, 4)
+                                    }
+                                }
+
+                            },
+                            padding: {
+                                left: 55,
+                                right: 20
+                            },
                             size: chartSize,
                             color: {
                                 pattern: [decideChartColor(charts.colors)]
@@ -128,4 +145,52 @@
             return null;
         }
     }
+
+    function decideChartValues(usableData, numOfTicks){
+        var maxValue = findMaxValue(usableData);
+        var step = Math.round(maxValue / numOfTicks);
+        var roundedStep = computeRoundedStep(step);
+
+        console.log("Step " + step + "; roundedStep  " + roundedStep);
+
+        var values = [];
+        var value = roundedStep;
+        while (value < maxValue) {
+            values.push(value);
+            value += roundedStep;
+        }
+        values.push(value);
+
+        function findMaxValue(dataList) {
+            var max = 0;
+            for (var i=0; i<dataList.length; i++) {
+                var value = dataList[i][1];
+                max = value > max ? value : max;
+            }
+            return max;
+        }
+
+        function computeRoundedStep(step) {
+            var roundUpConfig = [
+                {limit: 100, rounding: 10},
+                {limit: 1000, rounding: 10},
+                {limit: 10000, rounding: 100},
+                {limit: 100000, rounding: 1000},
+                {limit: 1000000, rounding: 10000}
+            ];
+            var rounding = 10000;
+            for (var i = 0; i < roundUpConfig.length; i++) {
+                var configItem = roundUpConfig[i];
+                if (configItem.limit > step) {
+                    rounding = configItem.rounding;
+                    break;
+                }
+            }
+            return Math.ceil(step / rounding) * rounding;
+        }
+
+        return values;
+
+    }
+
 }(angular.module("hdx.map.explorer.home")));
