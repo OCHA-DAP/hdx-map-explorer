@@ -1,6 +1,6 @@
 (function (module) {
-    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, DataFetcher, FilterBuilder,
-                                                  BaseLayers, LayerInfo) {
+    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
+                                                  FilterBuilder, BaseLayers, LayerInfo) {
         var model = this;
 
         var layerGroup = new L.FeatureGroup(), popup = new L.Popup({autoPan: false, offset: L.point(1, -6)}),
@@ -17,7 +17,7 @@
             $scope.$on("addSlice", addSlice);
             $scope.$on("removeSlice", removeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
-
+            $scope.initialSliceId = $stateParams.sliceId;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManger = null;
