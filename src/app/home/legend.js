@@ -1,12 +1,13 @@
 (function(module) {
-    module.directive("layerLegend", function(DataFetcher){
+    module.directive("layerLegend", function(DataFetcher, $timeout){
         return {
             restrict: "E",
             scope: {
                 id: '=',
                 map: '=',
                 addAction: '=',
-                removeAction: '='
+                removeAction: '=',
+                initialSlice: '='
             },
             link: function($scope, element, attrs, controller){
                 var map = $scope.map;
@@ -50,11 +51,27 @@
                     $scope.legends = legends;
                 };
 
+            },
+            controller: function ($scope){
                 DataFetcher.loadDatasets()
                     .then(function(result){
-                        $scope.data = result.data;
-                    });
+                        var data = $scope.data = result.data;
 
+                        if ($scope.initialSlice){
+                            var item;
+                            for (var i = 0; i < data.length; i++){
+                                item = data[i];
+                                if (item.id == $scope.initialSlice){
+                                    break;
+                                }
+                            }
+                            $timeout(function(){
+                                if (item != null){
+                                    $scope.selectSlice(item);
+                                }
+                            }, 200);
+                        }
+                    });
             },
             templateUrl: "home/legend.tpl.html"
         };

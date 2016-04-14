@@ -1,6 +1,6 @@
 (function (module) {
-    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, DataFetcher, FilterBuilder,
-                                                  BaseLayers, LayerInfo) {
+    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
+                                                  FilterBuilder, BaseLayers, LayerInfo) {
         var model = this;
 
         var layerGroup = new L.FeatureGroup(), popup = new L.Popup({autoPan: false, offset: L.point(1, -6)}),
@@ -10,6 +10,8 @@
         init();
 
         function init() {
+            buildBaseMap();
+
             $scope.chartsGroup = {};
             $scope.layerMap = {};
             $scope.popup = popup;
@@ -17,7 +19,7 @@
             $scope.$on("addSlice", addSlice);
             $scope.$on("removeSlice", removeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
-
+            $scope.initialSliceId = $stateParams.sliceId;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManger = null;
@@ -25,7 +27,6 @@
                 $scope.touchManger = initTouchManager();
             }
 
-            buildBaseMap();
         }
 
         function chartPointClicked(event, additionalFilters){
@@ -73,7 +74,7 @@
             map.on("resize", function () {
                 mapFitBounds();
             });
-            BaseLayers.CartoDB_Positron.addTo(map);
+            BaseLayers.get().CartoDB_Positron.addTo(map);
             //L.control.layers(BaseLayers, null, {collapsed: true, position: "topright"}).addTo(map);
             layerGroup.addTo(map);
         }

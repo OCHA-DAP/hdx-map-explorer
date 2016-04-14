@@ -1,7 +1,7 @@
 (function(module) {
     module.config(function ($stateProvider) {
         $stateProvider.state('home', {
-            url: '/',
+            url: '/:sliceId',
             views: {
                 "main": {
                     controller: 'HomeController as model',
