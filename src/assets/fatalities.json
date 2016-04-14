@@ -38,6 +38,7 @@
   },
   "charts": [
     {
+      "name": "Fatalities",
       "options": {
         "data": {
           "x": "#date",

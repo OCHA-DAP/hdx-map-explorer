@@ -9,6 +9,7 @@
                 type: '='
             },
             link: function($scope, element, attrs, controller){
+                var chartUrl = $scope.url;
                 var charts = $scope.data;
                 var chartWrapperClass = $scope.chartWrapperClass = "chart-item-wrapper";
                 if (charts.length > 0) {
@@ -125,7 +126,7 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        createChart($scope.url, $scope.selectedChart, data).then(function(additionalFilters) {
+                        createChart(chartUrl, $scope.selectedChart, data).then(function(additionalFilters) {
                             var appliedFilters = "";
                             angular.forEach(additionalFilters, function (item) {
                                 console.log(JSON.stringify(item));
