@@ -9,6 +9,7 @@
                 type: '='
             },
             link: function($scope, element, attrs, controller){
+                var options = null;
                 var chartUrl = $scope.url;
                 var charts = $scope.data;
                 var chartWrapperClass = $scope.chartWrapperClass = "chart-item-wrapper";
@@ -38,7 +39,7 @@
                     var promise = DataFetcher.fetchData(url, chartData, additionalFilters);
                     promise.then(function (result) {
                         var usableData = result.data.slice(1);
-                        var options = $.extend(true, {}, $scope.selectedChart.options, {
+                        options = $.extend(true, {}, $scope.selectedChart.options, {
                             bindto: chartId,
                             axis: {
                                 x: {
@@ -96,27 +97,28 @@
 
                 }
 
-                // function changeChartData (url, chartData, additionalFilters) {
-                //     var deferred = $q.defer();
-                //     var chart = $scope.chart;
-                //     DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
-                //             var data = result.data;
-                //             if (data.length <= 2) {
-                //                 chart.unload();
-                //             } else {
-                //                 var usableData = data.slice(1);
-                //                 var axis = options.axis;
-                //                 axis.y.tick.values = decideChartValues(usableData, 3);
-                //                 chart.load({
-                //                     rows: usableData,
-                //                     axis: axis
-                //                 });
-                //             }
-                //             deferred.resolve(additionalFilters);
-                //         });
-                //
-                //     return deferred.promise;
-                // }
+                function changeChartData (url, chartData, additionalFilters) {
+                    var deferred = $q.defer();
+                    var chart = $scope.chart;
+                    DataFetcher.fetchData(url, chartData, additionalFilters).then(function (result) {
+                            var data = result.data;
+                            if (data.length <= 2) {
+                                chart.unload();
+                            } else {
+                                var usableData = data.slice(1);
+                                var axis = options.axis;
+                                axis.y.tick.values = decideChartValues(usableData, 3);
+                                chart.load({
+                                    rows: usableData,
+                                    unload: true
+                                });
+                                chart.internal.loadConfig({axis: axis});
+                            }
+                            deferred.resolve(additionalFilters);
+                        });
+
+                    return deferred.promise;
+                }
 
                 $scope.onChangeCharts = function (index) {
                     $scope.selectedChart = charts[index];
@@ -126,7 +128,7 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        createChart(chartUrl, $scope.selectedChart, data).then(function(additionalFilters) {
+                        changeChartData(chartUrl, $scope.selectedChart, data).then(function(additionalFilters) {
                             var appliedFilters = "";
                             angular.forEach(additionalFilters, function (item) {
                                 console.log(JSON.stringify(item));
