@@ -10,6 +10,8 @@
         init();
 
         function init() {
+            buildBaseMap();
+
             $scope.chartsGroup = {};
             $scope.layerMap = {};
             $scope.popup = popup;
@@ -25,7 +27,6 @@
                 $scope.touchManger = initTouchManager();
             }
 
-            buildBaseMap();
         }
 
         function chartPointClicked(event, additionalFilters){
@@ -73,7 +74,7 @@
             map.on("resize", function () {
                 mapFitBounds();
             });
-            BaseLayers.CartoDB_Positron.addTo(map);
+            BaseLayers.get().CartoDB_Positron.addTo(map);
             //L.control.layers(BaseLayers, null, {collapsed: true, position: "topright"}).addTo(map);
             layerGroup.addTo(map);
         }
