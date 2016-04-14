@@ -8,9 +8,9 @@
         //var genericUrl = 'url={originalUrl}&select-query01-01={selectKey}={selectValue}&filter01=select';
 
         //For local deploy
-        //var urlPrefix = 'https://feature-data.hdx.rwlabs.org/hxlproxy/data.json?';
+        var urlPrefix = 'https://feature-data.hdx.rwlabs.org/hxlproxy/data.json?';
         //For HDX deploy
-        var urlPrefix = '/hxlproxy/data.json?';
+        //var urlPrefix = '/hxlproxy/data.json?';
 
 
         var ret = {};
