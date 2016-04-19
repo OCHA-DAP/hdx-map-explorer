@@ -75,7 +75,12 @@
                                             }
                                         }
                                     ];
-                                    $scope.$emit("chartPointClicked", additionalFilters);
+
+                                    var data = {
+                                        filters: additionalFilters,
+                                        type: $scope.type
+                                    };
+                                    $scope.$emit("chartPointClicked", data);
                                 }
                             }
                             // onresized: function () {
