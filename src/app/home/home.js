@@ -61,9 +61,9 @@
                     addLayer(vizData.name, vizData.source, vizData.url, vizData.map);
                     var chartsData = data.data.charts;
                     var layer0Data = data.data.map.layers[0];
-                    chartsData.colors = layer0Data.colors;
                     var layerType = layer0Data.type[0];
                     if (chartsData && chartsData.length) {
+                        chartsData.colors = layer0Data.colors;
                         $scope.chartsGroup[layerType] = chartsData;
                     }
                     model.url = data.data.url;

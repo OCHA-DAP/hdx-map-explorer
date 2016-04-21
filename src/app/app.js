@@ -18,5 +18,6 @@
     'ui.select',
     //pages
     'hdx.map.explorer.home',
-    'hdx.map.explorer.util'
+    'hdx.map.explorer.util',
+    'hdx.map.explorer.util.loader',
 ])));
