@@ -13,15 +13,22 @@
     "type": "Displacement",
     "url": "assets/idps2.json"
   },
+   {
+    "name": "Baseline Population, 2016 Estimate [Shaded Map]",
+    "id": "5",
+    "description": "Current population estmations from a variety of sources",
+    "type": "Displacement",
+    "url": "assets/population.json"
+  },
   {
-    "name": "Events [Location Map]",
+    "name": "Conflict Events [Location Map]",
     "id": "3",
     "description": "Points representing the location of individual conflict events",
     "type": "Conflict Events",
     "url": "assets/event_locations.json"
   },
   {
-    "name": "Fatalities",
+    "name": "Fatalities from Conflict Events [Bubble Map]",
     "id": "4",
     "description": "Proportional circles indicating total number of fatalities in conflict incidents in each first level administrative unit",
     "type": "Conflict Events",
