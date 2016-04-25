@@ -25,6 +25,7 @@
       "options": {
         "data": {
           "x": "#adm1+name",
+          "y": "#population",
           "type": "bar"
         },
         "axis": {
