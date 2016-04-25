@@ -33,5 +33,12 @@
     "description": "Proportional circles indicating total number of fatalities in conflict incidents in each first level administrative unit",
     "type": "Conflict Events",
     "url": "assets/fatalities.json"
+  },
+  {
+    "name": "Funding Progress on Latest Appeal",
+    "id": "6",
+    "description": "Percentage of current requirements that have been met",
+    "type": "Humanitarian Funding",
+    "url": "assets/fts.json"
   }
 ]
