@@ -13,7 +13,7 @@
         <div class="powered-by" ng-click="alert('HDX')">
             <a href="https://data.hdx.rwlabs.org"><span class="text-larger">Powered by</span> <span class="hdx-logo"></span></a>
         </div>
-        <div class="chart-item" ng-repeat="(type, charts) in chartsGroup">
+        <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
             <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
         </div>
     </div>

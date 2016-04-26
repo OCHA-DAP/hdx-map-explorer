@@ -11,7 +11,7 @@
             link: function($scope, element, attrs, controller){
                 var options = null;
                 var chartUrl = $scope.url;
-                var charts = $scope.data;
+                var charts = $scope.data.charts;
                 var chartId = '#' + $scope.chartId;
                 var chartWrapperClass = $scope.chartWrapperClass = "chart-item-wrapper";
                 if (charts.length > 0) {
@@ -60,7 +60,7 @@
                             },
                             size: chartSize,
                             color: {
-                                pattern: [decideChartColor(charts.colors)]
+                                pattern: [decideChartColor($scope.data.colors)]
                             },
                             data: {
                                 rows: usableData,

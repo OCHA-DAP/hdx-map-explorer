@@ -59,12 +59,18 @@
                 function (data) {
                     var vizData = data.data;
                     addLayer(vizData.name, vizData.source, vizData.url, vizData.map);
+                    var groupData = {};
                     var chartsData = data.data.charts;
                     var layer0Data = data.data.map.layers[0];
                     var layerType = layer0Data.type[0];
                     if (chartsData && chartsData.length) {
-                        chartsData.colors = layer0Data.colors;
-                        $scope.chartsGroup[layerType] = chartsData;
+                        groupData.colors = layer0Data.colors;
+                        var currentTime = new Date();
+                        groupData.track = currentTime.getTime();
+                        var chartsGroup = $scope.chartsGroup;
+                        groupData.charts = chartsData;
+                        chartsGroup[layerType] = groupData;
+                        $scope.chartsGroup = chartsGroup;
                     }
                     model.url = data.data.url;
                 }
