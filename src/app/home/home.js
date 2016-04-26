@@ -150,7 +150,6 @@
                                 style: angular.bind(layerInfo, layerInfo.getChoroplethStyle),
                                 onEachFeature: angular.bind(layerInfo, layerInfo.onEachFeature)
                             });
-                            newLayer.setZIndex(10);
                             break;
 
                         case POINT_TYPE:
@@ -187,7 +186,6 @@
                             });
                             clusterGroup.addLayers(points);
                             newLayer = clusterGroup;
-                            newLayer.setZIndex(12);
                             break;
 
                         case BUBBLE_TYPE:
@@ -210,7 +208,6 @@
                             newLayer.resetStyle = function (layer) {
                                 layer.setStyle(layerInfo.getBubbleStyle(layer.feature));
                             };
-                            newLayer.setZIndex(11);
                             break;
 
                         default:
@@ -225,6 +222,16 @@
                     newLayer.colors = colors;
                     newLayer.layerInfo = layerInfo;
                     newLayer.addTo(layerGroup);
+
+                    if ($scope.layerMap[CHOROPLETH_TYPE]){
+                        $scope.layerMap[CHOROPLETH_TYPE].bringToFront();
+                    }
+                    if ($scope.layerMap[BUBBLE_TYPE]){
+                        $scope.layerMap[BUBBLE_TYPE].bringToFront();
+                    }
+                    if ($scope.layerMap[POINT_TYPE]){
+                        $scope.layerMap[POINT_TYPE].bringToFront();
+                    }
 
                     mapFitBounds();
 

@@ -7,19 +7,19 @@
     module.factory("LoaderInterceptor", function ($rootScope){
         return {
             'request': function (config) {
-                console.log("Request");
+                //console.log("Request");
                 $rootScope.$emit("loader-start-event");
                 // Successful request method
                 return config; // or $q.when(config);
             },
             'response': function (response) {
-                console.log("Response");
+                //console.log("Response");
                 $rootScope.$broadcast("loader-stop-event");
                 // successful response
                 return response; // or $q.when(config);
             },
             'requestError': function (rejection) {
-                console.log("Request Error");
+                //console.log("Request Error");
                 //$rootScope.$broadcast("loader-stop-event");
 
                 // an error happened on the request
@@ -32,7 +32,7 @@
                 // return $q.reject(rejection);
             },
             'responseError': function (rejection) {
-                console.log("Response Error");
+                //console.log("Response Error");
                 $rootScope.$emit("loader-stop-event");
                 // an error happened on the request
                 // if we can recover from the error
@@ -61,13 +61,13 @@
                 $rootScope.$on("loader-start-event", function(){
                     $scope.count++;
                     element.css("display", "block");
-                    console.log("Count++: " + $scope.count);
+                    //console.log("Count++: " + $scope.count);
                 });
                 $rootScope.$on("loader-stop-event", function(){
                     if ($scope.count > 0){
                         $scope.count--;
                     }
-                    console.log("Count--: " + $scope.count);
+                    //console.log("Count--: " + $scope.count);
                     if ($scope.count === 0){
                         element.css("display", "none");
                     }
