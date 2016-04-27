@@ -23,13 +23,15 @@
                 function createChart(url, chartData, additionalFilters) {
                     var deferred = $q.defer();
                     console.log("Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
-                    var chartWrapperEls = $("." + chartWrapperClass);
+                    var chartWrapperEls = $("#" + chartWrapperClass);
                     var chartSize = null;
+                    addChartPagination();
                     if (chartWrapperEls.length > 0 && chartWrapperEls[0].id != $scope.chartId ) {
-                        chartSize = {
-                            width: $(chartWrapperEls[0]).width(),
-                            height: $(chartWrapperEls[0]).height()
-                        };
+                        //sizing controlled by css
+                        // chartSize = {
+                        //     width: $(chartWrapperEls[0]).width(),
+                        //     height: $(chartWrapperEls[0]).height()
+                        // };
                         console.log(" using size " + JSON.stringify(chartSize) + " for item " + chartId);
                     }
                     $scope.appliedFilters = "";
@@ -167,6 +169,10 @@
 
     function dataError(error) {
         console.error(error);
+    }
+
+    function addChartPagination(){
+        $('#chart-pagination').append('<div class="dot"></div>');
     }
 
     function decideChartColor(colorList) {
