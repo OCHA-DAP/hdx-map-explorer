@@ -42,6 +42,7 @@
       "options": {
         "data": {
           "x": "#date",
+          "y": "#affected+killed+sum",
           "type": "area"
         },
         "axis": {

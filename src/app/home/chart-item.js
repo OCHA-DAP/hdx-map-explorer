@@ -99,7 +99,8 @@
                         });
 
                         $scope.chart = c3.generate(options);
-                        $scope.chart.unload(unloadColumns(options));
+                        var cols = unloadColumns(options);
+                        $scope.chart.unload(cols);
                         deferred.resolve(additionalFilters);
                     }, dataError);
 
