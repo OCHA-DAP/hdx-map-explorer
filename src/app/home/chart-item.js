@@ -64,6 +64,8 @@
                             },
                             data: {
                                 rows: usableData,
+                                x: chartData.options.data.x,
+                                y: chartData.options.data.y,
                                 onclick: function (d, element) {
                                     var additionalFilters = [
                                         {
@@ -95,6 +97,7 @@
                         });
 
                         $scope.chart = c3.generate(options);
+                        $scope.chart.unload(unloadColumns(options));
                         deferred.resolve(additionalFilters);
                     }, dataError);
 
@@ -177,6 +180,18 @@
         else {
             return null;
         }
+    }
+
+    function unloadColumns(options) {
+        //options.data.x|y options.rows[0]
+        var result = [];
+        var columns = options.data.rows[0];
+        for (var i=0; i< columns.length; i++){
+            if( !(columns[i] == options.data.x || columns[i] == options.data.y) ) {
+                result.push(columns[i]);
+            }
+        }
+        return result;
     }
 
     function decideChartValues(usableData, numOfTicks){
