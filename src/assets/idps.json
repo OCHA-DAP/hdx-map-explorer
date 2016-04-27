@@ -43,6 +43,7 @@
       "options": {
         "data": {
           "x": "#date+bin",
+          "y": "#affected+sum+displaced",
           "type": "area"
         },
         "axis": {

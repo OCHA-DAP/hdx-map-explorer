@@ -13,7 +13,7 @@
       {
         "type": ["bubble", "choropleth"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#affected+sum+killed",
+        "valueColumn": "#affected+killed+sum",
         "threshold": [5,10,50,100,200,500],
         "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
@@ -42,6 +42,7 @@
       "options": {
         "data": {
           "x": "#date",
+          "y": "#affected+killed+sum",
           "type": "area"
         },
         "axis": {

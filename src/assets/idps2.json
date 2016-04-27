@@ -43,6 +43,7 @@
       "options": {
         "data": {
           "x": "#affected+type",
+          "y": "#affected+sum+displaced",
           "type": "bar"
         },
         "axis": {
