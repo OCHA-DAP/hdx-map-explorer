@@ -88,6 +88,11 @@
             var chartsGroup = $scope.chartsGroup;
             delete chartsGroup[type];
             $scope.chartsGroup = chartsGroup;
+
+            //reset pagination
+            $('#chart-pagination .dot:last-child').remove();
+            $('#chart-item-holder').css('left','0').css('top','0');
+            initTouchManager();
         }
 
         function loadJson(url) {
@@ -305,32 +310,54 @@
                 swipeInit: function () {
                     //swipe events for charts on touch devices
                     var charts = document.getElementById('charts');
+                    var chartHolder = $('#chart-item-holder');
                     var hammer = new Hammer(charts);
-                    hammer.on('swipeleft swiperight', function (ev) {
+                    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+                    hammer.on('swipeleft swiperight swipeup swipedown', function (ev) {
                         var chartW = $('.chart-item').outerWidth();
-                        var chartNum = $('#charts .chart-item').length;
-                        if ($(charts).width() > $('body').width()) {
+                        var chartH = $('.chart-item').outerHeight();
+                        var chartNum = $('#charts chart-item').length;
+                        //portrait mode
+                        if (chartHolder.width() > $('body').width()) {
                             if (ev.type == 'swipeleft' && chartIndex < chartNum) {
                                 //swipe to the next chart
-                                $('#charts').animate({left: '-=' + (chartW + 10) + 'px'});
+                                chartHolder.animate({left: '-=' + (chartW - 10) + 'px'});
                                 chartIndex++;
                             }
                             if (ev.type == 'swiperight' && chartIndex > 1) {
                                 //swipe to previous chart
-                                $('#charts').animate({left: '+=' + (chartW + 10) + 'px'});
+                                chartHolder.animate({left: '+=' + (chartW - 10) + 'px'});
                                 chartIndex--;
                             }
                         }
+                        //landscape mode
+                        if (chartHolder.height() > $('body').height()) {
+                            if (ev.type == 'swipeup' && chartIndex < chartNum) {
+                                //swipe to the next chart
+                                chartHolder.animate({top: '-=' + (chartH) + 'px'});
+                                chartIndex++;
+                            }
+                            if (ev.type == 'swipedown' && chartIndex > 1) {
+                                //swipe to previous chart
+                                chartHolder.animate({top: '+=' + (chartH) + 'px'});
+                                chartIndex--;
+                            }
+                        }
+
+                        //set chart pagination
+                        $('#chart-pagination .dot').css('opacity', 0.2);
+                        $('#chart-pagination .dot:nth-child('+ (chartIndex) +')').css('opacity', 0.6);
                     });
 
                 },
                 swipeReset: function () {
                     chartIndex = 1;
-                    $('#charts').css("left", "auto");
+                    $('#chart-item-holder').css('left', 'auto');
+                    $('#chart-item-holder').removeAttr('style');
                 }
             };
             touchManager.swipeInit();
-            $scope.$on("windowResized", touchManager.swipeReset);
+            $scope.$on('windowResized', touchManager.swipeReset);
             return touchManager;
         }
 

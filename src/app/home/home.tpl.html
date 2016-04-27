@@ -3,8 +3,8 @@
     </div>
     <layer-legend map="map" data="model.datasets" add-action="addSlice" remove-action="removeSlice" class="leaflet-control-layers leaflet-control" initial-slice="initialSliceId"></layer-legend>
 
-    <div id="charts" class="col-xs-6 col-sm-3">
-        <div class="toggle" onclick="$('#charts').toggleClass('slide');">
+    <div id="charts" class="col-xs-5 col-sm-3">
+        <div class="toggle" onclick="$('#charts').toggleClass('slide'); $('#map, .leaflet-control').toggleClass('full-width');">
             <i class="glyphicon glyphicon-chevron-down"></i>
             <i class="glyphicon glyphicon-chevron-up"></i>
             <i class="glyphicon glyphicon-chevron-left"></i>
@@ -13,8 +13,12 @@
         <div class="powered-by" ng-click="alert('HDX')">
             <a href="https://data.hdx.rwlabs.org"><span class="text-larger">Powered by</span> <span class="hdx-logo"></span></a>
         </div>
-        <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
-            <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
+        <div id="chart-item-holder">
+            <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
+                <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
+            </div>
+        </div>
+        <div id="chart-pagination">
         </div>
     </div>
 </div>

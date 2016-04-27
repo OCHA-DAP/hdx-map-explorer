@@ -22,6 +22,9 @@ layer-legend {
     top: 55px;
     z-index: 100;
     margin-right: 15px;
+    &.full-width{
+      right: 2%;
+    }
   }
 
   select{
@@ -93,11 +96,11 @@ layer-legend {
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
   .leaflet-right{
-    right: 50%;
+    right: 42%;
   }
   layer-legend {
     &.leaflet-control {
-      right: 50%;
+      right: 42%;
       top: 55px;
       width: 280px;
       z-index: 1000;
@@ -108,12 +111,12 @@ layer-legend {
 @media (max-width: @screen-sm-max) and (orientation: portrait) {
   //styles for mobile portrait view -- charts appear at bottom of screen
   .leaflet-right{
-    right: 10px;
+    right: 2%;
   }
   layer-legend {
     &.leaflet-control {
       width: 280px;
-      right: 10px;
+      right: 2%;
       top: 55px;
       z-index: 1000;
     }
