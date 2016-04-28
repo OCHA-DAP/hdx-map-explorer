@@ -73,12 +73,17 @@
             },
 
             getChoroplethStyle: function (feature) {
+                var pcode = feature.properties[this.shapeJoinColumn];
+                var threshold = this.getThresholdIndex(pcode);
+                var color = (threshold == -1) ? "#000000" : "#ffffff";
+                var dashArray = (threshold == -1) ? "5, 10" : null;
                 return {
                     weight: 2,
                     opacity: 0.2,
-                    color: '#ffffff',
+                    color: color,
                     fillOpacity: 0.7,
-                    fillColor: this.getColor(feature.properties[this.shapeJoinColumn])
+                    fillColor: this.getColor(pcode),
+                    dashArray: dashArray
                 };
             },
 
@@ -97,12 +102,14 @@
                 }
 
                 //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
-                var content = '<div class="map-info-popup">';
+                var content = '';
                 $.each(infoList, function (idx, elem) {
                     content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
                 });
-                content += '</div>';
-                popup.setContent(content);
+                if (content === ''){
+                    content = "No data!";
+                }
+                popup.setContent('<div class="map-info-popup">' + content + '</div>');
 
                 if (!popup._map) {
                     popup.openOn(this.$scope.map);
@@ -125,30 +132,34 @@
             },
             onLayerClick: function (e) {
                 var currentLayer = this.$scope.layerMap[this.type];
-                if (this.$scope.selectedLayer) {
-                    this.$scope.selectedLayer.resetStyle(this.$scope.selectedFeature);
-                }
-
                 var featureLayer = e.target;
-                this.$scope.selectedLayer = currentLayer;
-                this.$scope.selectedFeature = featureLayer;
-                var newStyle = $.extend(this.getChoroplethStyle(featureLayer.feature), {
-                    weight: 6,
-                    opacity: 1,
-                    color: "red"
-                });
-                featureLayer.setStyle(newStyle);
-
-                this.$scope.$broadcast("layerSelect", [
-                    {
-                        "type": "select",
-                        "options": {
-                            "column": this.mapDataJoinColumn,
-                            "operator": "=",
-                            "value": featureLayer.feature.properties[this.shapeJoinColumn]
-                        }
+                var pcode = featureLayer.feature.properties[this.shapeJoinColumn];
+                var threshold = this.getThresholdIndex(pcode);
+                if (threshold != -1){
+                    if (this.$scope.selectedLayer) {
+                        this.$scope.selectedLayer.resetStyle(this.$scope.selectedFeature);
                     }
-                ]);
+                    this.$scope.selectedLayer = currentLayer;
+                    this.$scope.selectedFeature = featureLayer;
+
+                    var newStyle = $.extend(this.getChoroplethStyle(featureLayer.feature), {
+                        weight: 6,
+                        opacity: 1,
+                        color: "red"
+                    });
+                    featureLayer.setStyle(newStyle);
+
+                    this.$scope.$broadcast("layerSelect", [
+                        {
+                            "type": "select",
+                            "options": {
+                                "column": this.mapDataJoinColumn,
+                                "operator": "=",
+                                "value": featureLayer.feature.properties[this.shapeJoinColumn]
+                            }
+                        }
+                    ]);
+                }
 
                 if (this.$scope.isTouch) {
                     //show tooltip on click for touch devices
