@@ -156,7 +156,7 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        changeChartData(chartUrl, $scope.selectedChart, data).then(function(additionalFilters) {
+                        changeChartData(chartUrl, $scope.selectedChart, data.filters).then(function(additionalFilters) {
                             var appliedFilters = "";
                             angular.forEach(additionalFilters, function (item) {
                                 console.log(JSON.stringify(item));

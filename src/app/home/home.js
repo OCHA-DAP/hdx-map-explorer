@@ -1,6 +1,6 @@
 (function (module) {
     module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
-                                                  FilterBuilder, BaseLayers, LayerInfo, CkanSaver) {
+                                                  FilterBuilder, BaseLayers, LayerInfo, ConfigManager) {
         var model = this;
 
         var layerGroup = new L.FeatureGroup(), popup = new L.Popup({autoPan: false, offset: L.point(1, -6)});
@@ -10,10 +10,10 @@
             BUBBLE_TYPE = "bubble";
 
         /**
-         * This object will be populated with the loaded and modified configs/layers
-         * This is the object that will be sent to CKAN and saved in a powerview
+         * manager for the map explorer configuration.
+         * @type {ConfigManager}
          */
-        var currentConfig = {};
+        var configManager = new ConfigManager($scope);
 
         init();
 
@@ -42,10 +42,6 @@
 
         }
 
-        saveCurrentConfigToServer = function () {
-            CkanSaver.saveCurrentConfigToServer(currentConfig);
-        };
-
         /**
          * Generate angular app wide resize event
          */
@@ -68,7 +64,7 @@
             loadJson(url).then(
                 function (data) {
                     var vizData = data.data;
-                    currentConfig[vizData.name] = vizData;
+                    $scope.$emit("renderSlice", vizData);
                     addLayer(vizData.name, vizData.source, vizData.url, vizData.map);
                     var groupData = {};
                     var chartsData = data.data.charts;
