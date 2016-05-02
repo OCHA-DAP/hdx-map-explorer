@@ -22,11 +22,11 @@
 
             $scope.$on("chartPointClicked", function (event, data) {
                 var sliceName = $scope.layerMap[data.type].layerInfo.name;
-                this.addChartSelection(sliceName, data.filters);
+                this.setChartSelection(sliceName, data.filters);
             }.bind(this));
 
             $scope.$on("layerSelect", function (event, data) {
-                this.addLayerSelection(data.name, data.filters);
+                this.setLayerSelection(data.name, data.filters);
             }.bind(this));
         }
         /**
@@ -40,24 +40,24 @@
          * @param {string} sliceName Name of the config/slice to be removed
          */
         ConfigManager.prototype.removeSlice = function(sliceName) {
-            var removeId = findSliceByName(sliceName);
+            var removeId = this._findSliceIdxByName(sliceName);
             if (removeId >= 0) {
-                this.currentConfig.config.slice(removeId, 1);
+                this.currentConfig.config.splice(removeId, 1);
             }
         };
-        ConfigManager.prototype.addChartSelection = function(sliceName, additionalFilters) {
+        ConfigManager.prototype.setChartSelection = function(sliceName, additionalFilters) {
             var sliceConfig = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
-            if ( !sliceConfig.chartSelection ){
-                sliceConfig.chartSelection = [];
-            }
-            sliceConfig.chartSelection = sliceConfig.chartSelection.concat(additionalFilters);
+            // if ( !sliceConfig.chartSelection ){
+            //     sliceConfig.chartSelection = [];
+            // }
+            sliceConfig.chartSelection = additionalFilters;
         };
-        ConfigManager.prototype.addLayerSelection = function(sliceName, additionalFilters) {
+        ConfigManager.prototype.setLayerSelection = function(sliceName, additionalFilters) {
             var sliceConfig = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
-            if ( !sliceConfig.layerSelection ){
-                sliceConfig.layerSelection = [];
-            }
-            sliceConfig.layerSelection = sliceConfig.layerSelection.concat(additionalFilters);
+            // if ( !sliceConfig.layerSelection ){
+            //     sliceConfig.layerSelection = [];
+            // }
+            sliceConfig.layerSelection = additionalFilters;
         };
         ConfigManager.prototype.saveCurrentConfigToServer = function (title, description) {
             CkanSaver.saveCurrentConfigToServer(this.currentConfig, title, description);
