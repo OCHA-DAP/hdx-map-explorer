@@ -15,7 +15,7 @@
         </div>
         <div id="chart-item-holder">
             <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
-                <chart-item chart-id="'chart-item' + $index" data="charts" url="model.url" type="type"></chart-item>
+                <chart-item chart-id="'chart-item' + $index" data="charts" url="charts.url" type="type"></chart-item>
             </div>
         </div>
         <div id="chart-pagination">

@@ -38,6 +38,10 @@
             if (true) {
                 $scope.touchManger = initTouchManager();
             }
+            
+            if ($scope.loadConfigUrl) {
+                $scope.$emit("addSlice", {url: $scope.loadConfigUrl});
+            }
 
 
         }
@@ -61,25 +65,44 @@
 
         function addSlice(event, data) {
             var url = data.url;
+            
+            function parseData(data) {
+                var configData = data.data;
+                if (configData.result && configData.success) { // If config comes from CKAN powerview
+                    configData = configData.result.config.config;
+                }
+                if (!angular.isArray(configData)){
+                    configData = [configData];
+                }
+                return configData;
+            }
+
             loadJson(url).then(
                 function (data) {
-                    var vizData = data.data;
-                    $scope.$emit("renderSlice", vizData);
-                    addLayer(vizData.name, vizData.source, vizData.url, vizData.map);
-                    var groupData = {};
-                    var chartsData = data.data.charts;
-                    var layer0Data = data.data.map.layers[0];
-                    var layerType = layer0Data.type[0];
-                    if (chartsData && chartsData.length) {
-                        groupData.colors = layer0Data.colors;
-                        var currentTime = new Date();
-                        groupData.track = currentTime.getTime();
-                        var chartsGroup = $scope.chartsGroup;
-                        groupData.charts = chartsData;
-                        chartsGroup[layerType] = groupData;
-                        $scope.chartsGroup = chartsGroup;
+                    var configList = parseData(data);
+                    for (var i=0; i<configList.length; i++){
+                        var vizData = configList[i];
+                        $scope.$emit("renderSlice", vizData);
+                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, vizData.chartSelec);
+                        var groupData = {};
+                        var chartsData = vizData.charts;
+                        var layer0Data = vizData.map.layers[0];
+                        var layerType = layer0Data.type[0];
+                        if (chartsData && chartsData.length) {
+                            groupData.colors = layer0Data.colors;
+                            var currentTime = new Date();
+                            groupData.track = currentTime.getTime();
+                            var chartsGroup = $scope.chartsGroup;
+                            groupData.charts = chartsData;
+                            groupData.url = vizData.url;
+                            groupData.selections = {
+                                chartSelection: vizData.chartSelection,
+                                layerSelection: vizData.layerSelection
+                            };
+                            chartsGroup[layerType] = groupData;
+                            $scope.chartsGroup = chartsGroup;
+                        }
                     }
-                    model.url = data.data.url;
                 }
             );
         }

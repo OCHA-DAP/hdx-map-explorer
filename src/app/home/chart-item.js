@@ -17,7 +17,8 @@
                 if (charts.length > 0) {
                     $scope.hasMoreCharts = charts.length > 1;
                     $scope.selectedChart = charts[0];
-                    createChart($scope.url, $scope.selectedChart);
+                    createChart($scope.url, $scope.selectedChart, $scope.data.selections.layerSelection)
+                        .then(generateAppliedFiltersString);
                 }
 
                 function createChart(url, chartData, additionalFilters) {
@@ -132,6 +133,15 @@
                     return deferred.promise;
                 }
 
+                function generateAppliedFiltersString(additionalFilters) {
+                    var appliedFilters = "";
+                    angular.forEach(additionalFilters, function (item) {
+                        console.log(JSON.stringify(item));
+                        appliedFilters += item.options.value + ",";
+                    });
+                    $scope.appliedFilters = appliedFilters.substring(0, appliedFilters.length - 1);
+                }
+
                 /**
                  * Called when a user selects another type of chart from the dropdown
                  * @param index shows which chart was selected by the user
@@ -156,14 +166,7 @@
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart){
-                        changeChartData(chartUrl, $scope.selectedChart, data.filters).then(function(additionalFilters) {
-                            var appliedFilters = "";
-                            angular.forEach(additionalFilters, function (item) {
-                                console.log(JSON.stringify(item));
-                                appliedFilters += item.options.value + ",";
-                            });
-                            $scope.appliedFilters = appliedFilters.substring(0, appliedFilters.length - 1);
-                        });
+                        changeChartData(chartUrl, $scope.selectedChart, data.filters).then(generateAppliedFiltersString);
                     }
                 });
             },
