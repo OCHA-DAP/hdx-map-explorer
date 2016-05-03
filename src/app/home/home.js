@@ -10,10 +10,11 @@
             BUBBLE_TYPE = "bubble";
 
         /**
+         * TODO: This variable is global for testing purposes. Just until it'll be linked to button/events.
          * manager for the map explorer configuration.
          * @type {ConfigManager}
          */
-        var configManager = new ConfigManager($scope);
+        configManager = new ConfigManager($scope);
 
         init();
 
@@ -80,18 +81,18 @@
             loadJson(url).then(
                 function (data) {
                     var configList = parseData(data);
+                    var currentTime = new Date().getTime();
                     for (var i=0; i<configList.length; i++){
                         var vizData = configList[i];
                         $scope.$emit("renderSlice", vizData);
-                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, vizData.chartSelec);
+                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, vizData.chartSelection);
                         var groupData = {};
                         var chartsData = vizData.charts;
                         var layer0Data = vizData.map.layers[0];
                         var layerType = layer0Data.type[0];
                         if (chartsData && chartsData.length) {
                             groupData.colors = layer0Data.colors;
-                            var currentTime = new Date();
-                            groupData.track = currentTime.getTime();
+                            groupData.track = currentTime + i;
                             var chartsGroup = $scope.chartsGroup;
                             groupData.charts = chartsData;
                             groupData.url = vizData.url;
