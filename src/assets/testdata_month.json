@@ -1,0 +1,53 @@
+{
+  "name": "Some data vs last month",
+  "id": "7",
+  "description": "some data",
+  "source": "http://data.hdx.rwlabs.org/dataset/",
+  "url": "https://dl.dropboxusercontent.com/u/18962396/dumbcopy.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/gadm28_LCR_adm1.geojson",
+      "joinColumn": "NAME_1"
+    },
+    "layers": [
+      {
+        "type": ["choropleth"],
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#meta+test1",
+        "threshold": [-50,0,5,10,15,30],
+        "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
+      }
+    ]
+  },
+    "charts": [
+    {
+      "name": "Max change by country",
+      "options": {
+        "data": {
+          "x": "#country+name",
+          "y": "#meta+average",
+          "type": "bar"
+        },
+        "axis": {
+          "x": {
+            "type": "category",
+            "tick": {
+              "rotate": 30
+            },
+            "height": 60
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "average",
+          "options": {
+            "groupByColumn": "#country+name",
+            "avgColumn": "#meta+test1"
+          }
+        }
+      ]
+    }
+  ]
+}
+

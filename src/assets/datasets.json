@@ -40,5 +40,12 @@
     "description": "Percentage of current requirements that have been met",
     "type": "Humanitarian Funding",
     "url": "assets/fts.json"
+  },
+  {
+    "name": "Some data - month",
+    "id": "7",
+    "description": "somedata",
+    "type": "some data",
+    "url": "assets/testdata_month.json"
   }
 ]
