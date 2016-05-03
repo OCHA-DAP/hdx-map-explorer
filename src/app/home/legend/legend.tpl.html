@@ -26,7 +26,7 @@
                         <ul>
                             <a ng-repeat="lType in layerTypes" ng-if="item.types | contains:lType.type" href ng-click="changeType(type, lType.type)">
                                 <li>
-                                    <img ng-src="lType.image">
+                                    <img ng-src="{{lType.image}}">
                                     <span>{{lType.name}}</span>
                                 </li>
                             </a>
