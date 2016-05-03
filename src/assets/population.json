@@ -21,11 +21,11 @@
   },
     "charts": [
     {
-      "name": "By Admin 1",
+      "name": "Baseline Population By Country",
       "options": {
         "data": {
-          "x": "#adm1+name",
-          "y": "#population",
+          "x": "#country+name",
+          "y": "#meta+sum",
           "type": "bar"
         },
         "axis": {
@@ -37,7 +37,16 @@
             "height": 60
           }
         }
-      }
+      },
+      "operations": [
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#country+name",
+            "avgColumn": "#population"
+          }
+        }
+      ]
     }
   ]
 }
