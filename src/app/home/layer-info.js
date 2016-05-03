@@ -149,16 +149,21 @@
                     });
                     featureLayer.setStyle(newStyle);
 
-                    this.$scope.$broadcast("layerSelect", [
-                        {
-                            "type": "select",
-                            "options": {
-                                "column": this.mapDataJoinColumn,
-                                "operator": "=",
-                                "value": featureLayer.feature.properties[this.shapeJoinColumn]
+                    var data = {
+                        name: this.name,
+                        type: this.type,
+                        filters: [
+                            {
+                                "type": "select",
+                                "options": {
+                                    "column": this.mapDataJoinColumn,
+                                    "operator": "=",
+                                    "value": featureLayer.feature.properties[this.shapeJoinColumn]
+                                }
                             }
-                        }
-                    ]);
+                        ]
+                    };
+                    this.$scope.$broadcast("layerSelect", data);
                 }
 
                 if (this.$scope.isTouch) {

@@ -1,5 +1,17 @@
 (function(module) {
     module.config(function ($stateProvider) {
+
+        $stateProvider.state('load', {
+            url: '/load/{url:.*}',
+            views: {
+                "main": {
+                    controller: 'LoadController as model',
+                    templateUrl: 'home/home.tpl.html'
+                }
+            },
+            data:{ pageTitle: 'Home' }
+        });
+
         $stateProvider.state('home', {
             url: '/:sliceId',
             views: {
@@ -10,6 +22,7 @@
             },
             data:{ pageTitle: 'Home' }
         });
+
     });
 }(angular.module("hdx.map.explorer.home", [
     'ui.router',

@@ -1,6 +1,6 @@
 (function (module) {
     module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
-                                                  FilterBuilder, BaseLayers, LayerInfo) {
+                                                  FilterBuilder, BaseLayers, LayerInfo, ConfigManager) {
         var model = this;
 
         var layerGroup = new L.FeatureGroup(), popup = new L.Popup({autoPan: false, offset: L.point(1, -6)});
@@ -8,6 +8,13 @@
         var CHOROPLETH_TYPE = "choropleth",
             POINT_TYPE = "point",
             BUBBLE_TYPE = "bubble";
+
+        /**
+         * TODO: This variable is global for testing purposes. Just until it'll be linked to button/events.
+         * manager for the map explorer configuration.
+         * @type {ConfigManager}
+         */
+        configManager = new ConfigManager($scope);
 
         init();
 
@@ -32,6 +39,10 @@
             if (true) {
                 $scope.touchManger = initTouchManager();
             }
+            
+            if ($scope.loadConfigUrl) {
+                $scope.$emit("addSlice", {url: $scope.loadConfigUrl});
+            }
 
 
         }
@@ -55,24 +66,44 @@
 
         function addSlice(event, data) {
             var url = data.url;
+            
+            function parseData(data) {
+                var configData = data.data;
+                if (configData.result && configData.success) { // If config comes from CKAN powerview
+                    configData = configData.result.config.config;
+                }
+                if (!angular.isArray(configData)){
+                    configData = [configData];
+                }
+                return configData;
+            }
+
             loadJson(url).then(
                 function (data) {
-                    var vizData = data.data;
-                    addLayer(vizData.name, vizData.source, vizData.url, vizData.map);
-                    var groupData = {};
-                    var chartsData = data.data.charts;
-                    var layer0Data = data.data.map.layers[0];
-                    var layerType = layer0Data.type[0];
-                    if (chartsData && chartsData.length) {
-                        groupData.colors = layer0Data.colors;
-                        var currentTime = new Date();
-                        groupData.track = currentTime.getTime();
-                        var chartsGroup = $scope.chartsGroup;
-                        groupData.charts = chartsData;
-                        chartsGroup[layerType] = groupData;
-                        $scope.chartsGroup = chartsGroup;
+                    var configList = parseData(data);
+                    var currentTime = new Date().getTime();
+                    for (var i=0; i<configList.length; i++){
+                        var vizData = configList[i];
+                        $scope.$emit("renderSlice", vizData);
+                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, vizData.chartSelection);
+                        var groupData = {};
+                        var chartsData = vizData.charts;
+                        var layer0Data = vizData.map.layers[0];
+                        var layerType = layer0Data.type[0];
+                        if (chartsData && chartsData.length) {
+                            groupData.colors = layer0Data.colors;
+                            groupData.track = currentTime + i;
+                            var chartsGroup = $scope.chartsGroup;
+                            groupData.charts = chartsData;
+                            groupData.url = vizData.url;
+                            groupData.selections = {
+                                chartSelection: vizData.chartSelection,
+                                layerSelection: vizData.layerSelection
+                            };
+                            chartsGroup[layerType] = groupData;
+                            $scope.chartsGroup = chartsGroup;
+                        }
                     }
-                    model.url = data.data.url;
                 }
             );
         }

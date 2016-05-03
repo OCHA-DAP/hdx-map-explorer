@@ -1,6 +1,6 @@
 (function(module) {
 
-    module.service("DataFetcher", function($q, $http, FilterBuilder){
+    module.service("DataFetcher", function($q, $http, FilterBuilder, APP_CONFIG){
 
         //var hxlUrl = 'https://proxy.hxlstandard.org/data.json?url=http%3A//popstats.unhcr.org/en/demographics.hxl&select-query01-01=%23country%2Bresidence%3DSlovenia&filter01=select';
         //var urlPrefix = 'https://proxy.hxlstandard.org/data.json?';
@@ -8,7 +8,7 @@
         //var genericUrl = 'url={originalUrl}&select-query01-01={selectKey}={selectValue}&filter01=select';
 
         //For local deploy
-        var urlPrefix = 'https://feature-data.hdx.rwlabs.org/hxlproxy/data.json?';
+        var urlPrefix = APP_CONFIG.hxlProxy;
         //For HDX deploy
         //var urlPrefix = '/hxlproxy/data.json?';
 
