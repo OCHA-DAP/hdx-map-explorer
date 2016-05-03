@@ -1,13 +1,10 @@
 (function (module) {
     module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
-                                                  FilterBuilder, BaseLayers, LayerInfo, ConfigManager) {
+                                                  FilterBuilder, BaseLayers, LayerInfo, LayerTypes, ConfigManager) {
         var model = this;
 
         var layerGroup = new L.FeatureGroup(), popup = new L.Popup({autoPan: false, offset: L.point(1, -6)});
 
-        var CHOROPLETH_TYPE = "choropleth",
-            POINT_TYPE = "point",
-            BUBBLE_TYPE = "bubble";
 
         /**
          * TODO: This variable is global for testing purposes. Just until it'll be linked to button/events.
@@ -25,10 +22,11 @@
             $scope.layerMap = {};
             $scope.popup = popup;
 
-            angular.element($window).bind('resize',broadcastWindowResizeEvent);
+            angular.element($window).bind('resize', broadcastWindowResizeEvent);
 
             $scope.$on("addSlice", addSlice);
             $scope.$on("removeSlice", removeSlice);
+            $scope.$on("changeSlice", changeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
             //detect touch device
@@ -55,13 +53,40 @@
             $scope.$broadcast("windowResized", {});
         }
 
-        function chartPointClicked(event, data){
+        function chartPointClicked(event, data) {
             var additionalFilters = data.filters;
             var type = data.type;
             console.log("Filtering for:" + type + " by " + JSON.stringify(additionalFilters));
             var layerInfo = $scope.layerMap[type].layerInfo;
+            layerInfo.filters = additionalFilters;
 
-            addLayer(layerInfo.name, layerInfo.sourceUrl, layerInfo.dataUrl, layerInfo.mapData, additionalFilters);
+            addLayer(layerInfo.name, layerInfo.sourceUrl, layerInfo.dataUrl, layerInfo.mapData, type, layerInfo.filters);
+        }
+
+        function changeSlice(event, data) {
+            var currentLayer = $scope.layerMap[data.oldType];
+
+            if (checkType(currentLayer.types, data.newType)){
+                var layerInfo = currentLayer.layerInfo;
+                var chartsGroup = $scope.chartsGroup;
+
+                chartsGroup[data.newType] = chartsGroup[data.oldType];
+                $scope.chartsGroup = chartsGroup;
+                addLayer(layerInfo.name, layerInfo.sourceUrl, layerInfo.dataUrl, layerInfo.mapData, data.newType, layerInfo.filters);
+                removeSlice(null, data.oldType);
+            } else {
+                alert("Change not possible!");
+            }
+        }
+
+        function checkType(types, newType){
+            for (var i = 0; i < types.length; i++){
+                var type = types[i];
+                if (type == newType){
+                    return true;
+                }
+            }
+            return false;
         }
 
         function addSlice(event, data) {
@@ -108,12 +133,13 @@
             );
         }
 
-        function removeSlice(event, data){
+        function removeSlice(event, data) {
             var type = data;
             var layer = $scope.layerMap[type];
 
-            if (layer){
+            if (layer) {
                 layerGroup.removeLayer(layer);
+                delete $scope.layerMap[type];
             }
 
             var chartsGroup = $scope.chartsGroup;
@@ -122,7 +148,7 @@
 
             //reset pagination
             $('#chart-pagination .dot:last-child').remove();
-            $('#chart-item-holder').css('left','0').css('top','0');
+            $('#chart-item-holder').css('left', '0').css('top', '0');
             initTouchManager();
         }
 
@@ -141,10 +167,11 @@
             layerGroup.addTo(map);
         }
 
-        function addLayer(vizDataName, vizDataSource, vizDataUrl, vizDataMap, additionalFilters) {
+        function addLayer(vizDataName, vizDataSource, vizDataUrl, vizDataMap, type, additionalFilters) {
             var mapData = vizDataMap;
             //var paramList = buildUrlFilterList(mapData.layers[0].operations);
             //var promise1 = DataFetcher.getFilteredDataByParamList(vizData.url, paramList);
+
             var promise1 = DataFetcher.fetchData(vizDataUrl, mapData.layers[0], additionalFilters);
             var promise2 = {};
             if (mapData.shapefile) {
@@ -170,6 +197,10 @@
 
                     var newLayer;
                     var layerType = firstLayer.type[0];
+                    if (type){
+                        layerType = type;
+                    }
+
                     //var layerInfo = {
                     //    name: vizData.name,
                     //    threshold: threshold,
@@ -184,17 +215,16 @@
 
                     var layerInfo = new LayerInfo($scope, vizDataName, layerType, colors, threshold, values,
                         shapeJoinColumn, mapDataJoinColumn, stepCount, vizDataSource, vizDataUrl, mapData);
-                    $scope.$broadcast("sliceCreated", layerInfo);
 
-                    switch(layerType){
-                        case CHOROPLETH_TYPE:
+                    switch (layerType) {
+                        case LayerTypes.CHOROPLETH_TYPE:
                             newLayer = L.geoJson(geojson, {
                                 style: angular.bind(layerInfo, layerInfo.getChoroplethStyle),
                                 onEachFeature: angular.bind(layerInfo, layerInfo.onEachFeature)
                             });
                             break;
 
-                        case POINT_TYPE:
+                        case LayerTypes.POINT_TYPE:
                             var points = [];
                             var clusterGroup = L.markerClusterGroup({spiderfyDistanceMultiplier: 1.3});
                             var latIndex, longIndex;
@@ -230,7 +260,7 @@
                             newLayer = clusterGroup;
                             break;
 
-                        case BUBBLE_TYPE:
+                        case LayerTypes.BUBBLE_TYPE:
                             var markers = [];
                             $.each(geojson.features, function (idx, geo) {
                                 var poly = L.geoJson(geo);
@@ -256,23 +286,25 @@
                             console.error("Unknown layer type");
                     }
 
-                    if ($scope.layerMap[layerType]){
+                    if ($scope.layerMap[layerType]) {
                         layerGroup.removeLayer($scope.layerMap[layerType]);
                     }
-                    $scope.layerMap[layerType]= newLayer;
+                    $scope.layerMap[layerType] = newLayer;
                     newLayer.values = values;
                     newLayer.colors = colors;
+                    newLayer.types = firstLayer.type;
                     newLayer.layerInfo = layerInfo;
                     newLayer.addTo(layerGroup);
+                    $scope.$broadcast("sliceCreated", newLayer);
 
-                    if ($scope.layerMap[CHOROPLETH_TYPE]){
-                        $scope.layerMap[CHOROPLETH_TYPE].bringToFront();
+                    if ($scope.layerMap[LayerTypes.CHOROPLETH_TYPE]) {
+                        $scope.layerMap[LayerTypes.CHOROPLETH_TYPE].bringToFront();
                     }
-                    if ($scope.layerMap[BUBBLE_TYPE]){
-                        $scope.layerMap[BUBBLE_TYPE].bringToFront();
+                    if ($scope.layerMap[LayerTypes.BUBBLE_TYPE]) {
+                        $scope.layerMap[LayerTypes.BUBBLE_TYPE].bringToFront();
                     }
-                    if ($scope.layerMap[POINT_TYPE]){
-                        $scope.layerMap[POINT_TYPE].bringToFront();
+                    if ($scope.layerMap[LayerTypes.POINT_TYPE]) {
+                        $scope.layerMap[LayerTypes.POINT_TYPE].bringToFront();
                     }
 
                     mapFitBounds();
@@ -337,13 +369,13 @@
 
         function initTouchManager() {
             var chartIndex = 1;
-            var touchManager =  {
+            var touchManager = {
                 swipeInit: function () {
                     //swipe events for charts on touch devices
                     var charts = document.getElementById('charts');
                     var chartHolder = $('#chart-item-holder');
                     var hammer = new Hammer(charts);
-                    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+                    hammer.get('swipe').set({direction: Hammer.DIRECTION_ALL});
                     hammer.on('swipeleft swiperight swipeup swipedown', function (ev) {
                         var chartW = $('.chart-item').outerWidth();
                         var chartH = $('.chart-item').outerHeight();
@@ -377,7 +409,7 @@
 
                         //set chart pagination
                         $('#chart-pagination .dot').css('opacity', 0.2);
-                        $('#chart-pagination .dot:nth-child('+ (chartIndex) +')').css('opacity', 0.6);
+                        $('#chart-pagination .dot:nth-child(' + (chartIndex) + ')').css('opacity', 0.6);
                     });
 
                 },

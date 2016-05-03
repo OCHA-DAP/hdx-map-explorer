@@ -95,7 +95,8 @@ module.exports = function(grunt) {
                 'vendor/d3/d3.min.js',
                 'vendor/c3/c3.js',
                 'vendor/bootstrap/dist/js/bootstrap.min.js',
-                'vendor/ui-select/dist/select.min.js'
+                'vendor/ui-select/dist/select.min.js',
+                'vendor/angular-filter/dist/angular-filter.min.js'
             ],
             css: [
                 'vendor/leaflet/dist/leaflet.css',
