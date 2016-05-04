@@ -2,18 +2,19 @@
 
     module.service("FilterBuilder", function($q, $http){
 
+        var OPERATIONS = [FilterSelect, FilterSum, FilterMax, FilterSort, FilterRemoveDuplicates, FilterKeepRemove];
+
         /**
          * SELECT (filtering) operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterSelect(type, options){
-            this.type = type;
+        function FilterSelect(options){
             this.options = options;
             this.indicesNeeded = 1;
             this.generatedUrl = '';
         }
+        FilterSelect.prototype.type = "select";
         FilterSelect.prototype.buildUrlStringFromList = function (paramList) {
             var urlString = '';
             if (paramList) {
@@ -42,16 +43,16 @@
 
         /**
          * SUM operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterSum(type, options){
-            FilterSelect.call(this, type, options);
+        function FilterSum(options){
+            FilterSelect.call(this, options);
             this.indicesNeeded = 3;
             this.aggregationType = "sum";
         }
         FilterSum.prototype = new FilterSelect();
+        FilterSum.prototype.type = "sum";
         FilterSum.prototype.generateURL = function (index) {
 
             var keepColumnName = "#meta+" + this.aggregationType;
@@ -84,27 +85,27 @@
 
         /**
          * MAX operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterMax(type, options){
-            FilterSum.call(this, type, options);
+        function FilterMax(options){
+            FilterSum.call(this, options);
             this.aggregationType = "max";
         }
         FilterMax.prototype = new FilterSum();
+        FilterMax.prototype.type = "max";
 
         /**
          * SORT operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterSort(type, options) {
-            FilterSelect.call(this, type, options);
+        function FilterSort(options) {
+            FilterSelect.call(this, options);
         }
 
         FilterSort.prototype = new FilterSelect();
+        FilterSort.prototype.type = "sort";
         FilterSort.prototype.generateURL = function (index) {
             var idx = this.generateIndexString(index);
             var paramList = [
@@ -124,14 +125,14 @@
 
         /**
          * KEEP OR REMOVE COLUMNS operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterKeepRemove(type, options){
-            FilterSelect.call(this, type, options);
+        function FilterKeepRemove(options){
+            FilterSelect.call(this, options);
         }
         FilterKeepRemove.prototype = new FilterSelect();
+        FilterKeepRemove.prototype.type = "keep-remove";
         FilterKeepRemove.prototype.generateURL = function (index) {
             var idx = this.generateIndexString(index);
             var paramList = [
@@ -153,14 +154,14 @@
 
         /**
          * REMOVE DUPLICATE COLUMNS operation
-         * @param type
          * @param options
          * @constructor
          */
-        function FilterRemoveDuplicates(type, options){
-            FilterSelect.call(this, type, options);
+        function FilterRemoveDuplicates(options){
+            FilterSelect.call(this, options);
         }
         FilterRemoveDuplicates.prototype = new FilterSelect();
+        FilterRemoveDuplicates.prototype.type = "remove-duplicates";
         FilterRemoveDuplicates.prototype.generateURL = function (index) {
             var idx = this.generateIndexString(index);
             var paramList = [
@@ -176,29 +177,22 @@
             return this;
         };
 
-
+        var TYPE_TO_OPERATION = null;
         function constructFilterElement(type, options){
-            if (type=='select') {
-                return new FilterSelect(type, options);
+            if (!TYPE_TO_OPERATION) {
+                TYPE_TO_OPERATION = {};
+                for (var i=0; i<OPERATIONS.length; i++) {
+                    var op = OPERATIONS[i];
+                    TYPE_TO_OPERATION[op.prototype.type] = op;
+                }
             }
-            else if (type=='sum') {
-                return new FilterSum(type, options);
+
+            if (TYPE_TO_OPERATION[type]){
+                return new TYPE_TO_OPERATION[type](options);
             }
-            else if (type == 'max') {
-                return new FilterMax(type, options);
-            }
-            else if (type=='sort') {
-                return new FilterSort(type, options);
-            }
-            else if (type == 'keep-remove') {
-                return new FilterKeepRemove(type, options);
-            }
-            else if (type == 'remove-duplicates') {
-                return new FilterRemoveDuplicates(type, options);
-            }
-            else {
-                throw "Unsupported filter type " + type;
-            }
+
+            throw "Unsupported filter type " + type;
+
         }
 
         function buildFilter(operationList) {
