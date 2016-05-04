@@ -2,6 +2,12 @@
 
     module.service("FilterBuilder", function($q, $http){
 
+        /**
+         * SELECT (filtering) operation
+         * @param type
+         * @param options
+         * @constructor
+         */
         function FilterSelect(type, options){
             this.type = type;
             this.options = options;
@@ -34,36 +40,66 @@
             return this;
         };
 
+        /**
+         * SUM operation
+         * @param type
+         * @param options
+         * @constructor
+         */
         function FilterSum(type, options){
             FilterSelect.call(this, type, options);
             this.indicesNeeded = 3;
+            this.aggregationType = "sum";
         }
         FilterSum.prototype = new FilterSelect();
         FilterSum.prototype.generateURL = function (index) {
+
+            var keepColumnName = "#meta+" + this.aggregationType;
+            var newTagName = this.options.avgColumn + "+" + this.aggregationType;
+
             var idx = this.generateIndexString(index);
             var paramList = [
                 {"key": "filter" + idx, "value": "count"},
                 {"key": "count-tags" + idx, "value": this.options.groupByColumn},
                 {"key": "count-aggregate-tag" + idx, "value": this.options.avgColumn}
             ];
-            // var preParam = "filter" + idx + "=count&";
-            // var param = "count-tags" + idx + "=" + encodeURIComponent(this.options.groupByColumn) + "&";
-            // var paramAggregate = "count-aggregate-tag" + idx + "=" + encodeURIComponent(this.options.avgColumn) + "&";
+
             var idx2 = this.generateIndexString(index+1);
             paramList.push({"key": "filter" + idx2, "value": "cut"});
-            paramList.push({"key": "cut-include-tags" + idx2, "value": this.options.groupByColumn + ",#meta+sum"});
+            paramList.push({
+                "key": "cut-include-tags" + idx2,
+                "value": this.options.groupByColumn + "," + keepColumnName
+            });
 
             var idx3 = this.generateIndexString(index+2);
             paramList.push({"key": "filter" + idx3, "value": "rename"});
-            paramList.push({"key": "rename-oldtag" + idx3, "value": "#meta+sum"});
-            paramList.push({"key": "rename-newtag" + idx3, "value": this.options.avgColumn + "+sum"});
-            paramList.push({"key": "rename-header" + idx3, "value": this.options.avgColumn + "+sum"});
+            paramList.push({"key": "rename-oldtag" + idx3, "value": keepColumnName});
+            paramList.push({"key": "rename-newtag" + idx3, "value": newTagName});
+            paramList.push({"key": "rename-header" + idx3, "value": newTagName});
 
             this.generatedUrl = this.buildUrlStringFromList(paramList);
 
             return this;
         };
 
+        /**
+         * MAX operation
+         * @param type
+         * @param options
+         * @constructor
+         */
+        function FilterMax(type, options){
+            FilterSum.call(this, type, options);
+            this.aggregationType = "max";
+        }
+        FilterMax.prototype = new FilterSum();
+
+        /**
+         * SORT operation
+         * @param type
+         * @param options
+         * @constructor
+         */
         function FilterSort(type, options) {
             FilterSelect.call(this, type, options);
         }
@@ -73,11 +109,73 @@
             var idx = this.generateIndexString(index);
             var paramList = [
                 {"key": "filter" + idx, "value": "sort"},
-                {"key": "sort-tags" + idx, "value": this.options.columns}
+                {"key": "sort-tags" + idx, "value": this.options.columns ? this.options.columns.toString() : ""}
             ];
+
+            if ( this.options.order &&
+                ["desc", "descending"].indexOf(this.options.order) >= 0 ) {
+                paramList.push({"key": "sort-reverse" + idx, "value": "on"});
+            }
+
             this.generatedUrl = this.buildUrlStringFromList(paramList);
             return this;
         };
+
+
+        /**
+         * KEEP OR REMOVE COLUMNS operation
+         * @param type
+         * @param options
+         * @constructor
+         */
+        function FilterKeepRemove(type, options){
+            FilterSelect.call(this, type, options);
+        }
+        FilterKeepRemove.prototype = new FilterSelect();
+        FilterKeepRemove.prototype.generateURL = function (index) {
+            var idx = this.generateIndexString(index);
+            var paramList = [
+                {"key": "filter" + idx, "value": "cut"},
+                {
+                    "key": "cut-include-tags" + idx,
+                    "value": this.options.keepColumns ? this.options.keepColumns.toString() : ""
+                },
+                {
+                    "key": "cut-exclude-tags" + idx,
+                    "value": this.options.removeColumns ? this.options.removeColumns.toString() : ""
+                }
+            ];
+
+            this.generatedUrl = this.buildUrlStringFromList(paramList);
+
+            return this;
+        };
+
+        /**
+         * REMOVE DUPLICATE COLUMNS operation
+         * @param type
+         * @param options
+         * @constructor
+         */
+        function FilterRemoveDuplicates(type, options){
+            FilterSelect.call(this, type, options);
+        }
+        FilterRemoveDuplicates.prototype = new FilterSelect();
+        FilterRemoveDuplicates.prototype.generateURL = function (index) {
+            var idx = this.generateIndexString(index);
+            var paramList = [
+                {"key": "filter" + idx, "value": "dedup"},
+                {
+                    "key": "dedup-tags" + idx,
+                    "value": this.options.columns ? this.options.columns.toString() : ""
+                }
+            ];
+
+            this.generatedUrl = this.buildUrlStringFromList(paramList);
+
+            return this;
+        };
+
 
         function constructFilterElement(type, options){
             if (type=='select') {
@@ -86,8 +184,17 @@
             else if (type=='sum') {
                 return new FilterSum(type, options);
             }
+            else if (type == 'max') {
+                return new FilterMax(type, options);
+            }
             else if (type=='sort') {
                 return new FilterSort(type, options);
+            }
+            else if (type == 'keep-remove') {
+                return new FilterKeepRemove(type, options);
+            }
+            else if (type == 'remove-duplicates') {
+                return new FilterRemoveDuplicates(type, options);
             }
             else {
                 throw "Unsupported filter type " + type;

@@ -3,7 +3,7 @@
   "id": "6",
   "description": "Current funding as a percentage of current requirements",
   "source": "http://data.hdx.rwlabs.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a",
-  "url": "http%3A//data.hdx.rwlabs.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a/resource/3106b05f-e171-49ac-a353-d7b56aed918f/download/FTS-Appeals_v4.csv&filter01=sort&sort-tags01=%23date%2Bend&sort-reverse01=on&filter02=dedup&dedup-tags02=%23country%2Bname&filter03=cut&cut-include-tags03=%23country%2Bname%2C%23x_requirement%2Bx_percent%2Bx_met&cut-exclude-tags03=&filter04=&cut-exclude-tags03=&dedup-tags02=%23country%2Bname&filter01=sort&sheet=&sort-reverse01=on&cut-include-tags03=&filter03=cut&sort-tags01=%23date%2Bend&filter04=&filter02=dedup",
+  "url": "http://data.hdx.rwlabs.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a/resource/3106b05f-e171-49ac-a353-d7b56aed918f/download/FTS-Appeals_v4.csv",
   "map": {
     "layers": [
       {
@@ -45,7 +45,29 @@
             "height": 60
           }
         }
-      }
+      },
+      "operations": [
+        {
+          "type": "sort",
+          "options": {
+            "columns": "#date+end",
+            "order": "desc"
+          }
+        },
+        {
+          "type": "remove-duplicates",
+          "options": {
+            "columns": ["#country+name"]
+          }
+        },
+        {
+          "type": "keep-remove",
+          "options": {
+            "keepColumns": ["#country+name","#x_requirement+x_percent+x_met"],
+            "removeColumns": []
+          }
+        }
+      ]
     }
   ]
 }
