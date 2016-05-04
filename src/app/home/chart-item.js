@@ -52,7 +52,7 @@
                                 },
                                 y: {
                                     tick: {
-                                        values: decideChartValues(usableData, 3)
+                                        values: decideChartValues(usableData, chartData.options.data.y, 3)
                                     }
                                 }
 
@@ -120,7 +120,7 @@
                                 var usableData = data.slice(1);
                                 options.data.rows = usableData;
                                 var axis = options.axis;
-                                axis.y.tick.values = decideChartValues(usableData, 3);
+                                axis.y.tick.values = decideChartValues(usableData, chartData.options.data.y, 3);
                                 chart.load({
                                     rows: usableData,
                                     unload: true
@@ -204,8 +204,15 @@
         return result;
     }
 
-    function decideChartValues(usableData, numOfTicks){
-        var maxValue = findMaxValue(usableData);
+    /**
+     *
+     * @param {Array} usableData
+     * @param {?string} valuesColumn
+     * @param {number} numOfTicks must be an integer value
+     * @returns {Array} the y axis values for ticks
+     */
+    function decideChartValues(usableData, valuesColumn, numOfTicks){
+        var maxValue = findMaxValue(usableData, valuesColumn);
         var step = Math.round(maxValue / numOfTicks);
         var roundedStep = computeRoundedStep(step);
 
@@ -219,10 +226,24 @@
         }
         values.push(value);
 
-        function findMaxValue(dataList) {
+        function findMaxValue(dataList, valuesColumn) {
             var max = 0;
-            for (var i=0; i<dataList.length; i++) {
-                var value = dataList[i][1];
+
+            /** @type {number} the index of the column which contains values */
+            var valueColNum = 1;
+            if (valuesColumn && dataList.length) {
+                var firstRow = dataList[0];
+                for (var idx=0; firstRow.length && idx<firstRow.length; idx++) {
+                    if (firstRow[idx] == valuesColumn) {
+                        valueColNum = idx;
+                        // console.log("Found values col index to be " + idx);
+                        break;
+                    }
+                }
+            }
+            /* Skip the headers */
+            for (var i=1; i<dataList.length; i++) {
+                var value = dataList[i][valueColNum];
                 max = value > max ? value : max;
             }
             return max;
