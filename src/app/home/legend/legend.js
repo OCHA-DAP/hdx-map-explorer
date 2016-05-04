@@ -74,14 +74,16 @@
                 };
 
                 $scope.changeType = function(type, newType){
-                    $scope.removeSlice(newType);
-                    var legends = $scope.legends;
-                    delete legends[type];
-                    $scope.legends = legends;
-                    $scope.$emit("changeSlice", {
-                        oldType: type,
-                        newType: newType
-                    });
+                    if (type != newType){
+                        $scope.removeSlice(newType);
+                        var legends = $scope.legends;
+                        delete legends[type];
+                        $scope.legends = legends;
+                        $scope.$emit("changeSlice", {
+                            oldType: type,
+                            newType: newType
+                        });
+                    }
                 };
 
             },
