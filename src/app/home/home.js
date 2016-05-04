@@ -110,11 +110,12 @@
                     for (var i=0; i<configList.length; i++){
                         var vizData = configList[i];
                         $scope.$emit("renderSlice", vizData);
-                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, vizData.chartSelection);
-                        var groupData = {};
-                        var chartsData = vizData.charts;
+
                         var layer0Data = vizData.map.layers[0];
                         var layerType = layer0Data.type[0];
+                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, layerType, vizData.chartSelection);
+                        var groupData = {};
+                        var chartsData = vizData.charts;
                         if (chartsData && chartsData.length) {
                             groupData.colors = layer0Data.colors;
                             groupData.track = currentTime + i;
