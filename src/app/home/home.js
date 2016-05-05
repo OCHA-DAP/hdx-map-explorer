@@ -170,150 +170,172 @@
 
         function addLayer(vizDataName, vizDataSource, vizDataUrl, vizDataMap, type, additionalFilters) {
             var mapData = vizDataMap;
-            //var paramList = buildUrlFilterList(mapData.layers[0].operations);
-            //var promise1 = DataFetcher.getFilteredDataByParamList(vizData.url, paramList);
+            var firstLayer = mapData.layers[0];
+            if (LayerTypes.CHART_ONLY != type) {
+                //var paramList = buildUrlFilterList(mapData.layers[0].operations);
+                //var promise1 = DataFetcher.getFilteredDataByParamList(vizData.url, paramList);
 
-            var promise1 = DataFetcher.fetchData(vizDataUrl, mapData.layers[0], additionalFilters);
-            var promise2 = {};
-            if (mapData.shapefile) {
-                promise2 = $http.get(mapData.shapefile.url);
-            }
-
-            $q.all([promise1, promise2]).then(
-                function (promiseValues) {
-                    var data = promiseValues[0].data,
-                        geojson = promiseValues[1].data;
-                    var firstLayer = mapData.layers[0];
-                    var values = angular.bind(this, generatePcodeValueMap)(data, firstLayer);
-                    var stepCount = 10;
-                    var colors = firstLayer.colors;
-                    var step = (values.max - values.min) / stepCount;
-                    var threshold = firstLayer.threshold;
-                    if (!threshold) {
-                        threshold = [];
-                        for (var sIdx = 0; sIdx < stepCount; sIdx++) {
-                            threshold.push(values.min + sIdx * step);
-                        }
-                    }
-
-                    var newLayer;
-                    var layerType = firstLayer.type[0];
-                    if (type){
-                        layerType = type;
-                    }
-
-                    //var layerInfo = {
-                    //    name: vizData.name,
-                    //    threshold: threshold,
-                    //    colors: colors,
-                    //    type: layerType
-                    //};
-                    var shapeJoinColumn;
-                    if (mapData && mapData.shapefile) {
-                        shapeJoinColumn = mapData.shapefile.joinColumn;
-                    }
-                    var mapDataJoinColumn = firstLayer.joinColumn;
-
-                    var layerInfo = new LayerInfo($scope, vizDataName, layerType, colors, threshold, values,
-                        shapeJoinColumn, mapDataJoinColumn, stepCount, vizDataSource, vizDataUrl, mapData);
-
-                    switch (layerType) {
-                        case LayerTypes.CHOROPLETH_TYPE:
-                            newLayer = L.geoJson(geojson, {
-                                style: angular.bind(layerInfo, layerInfo.getChoroplethStyle),
-                                onEachFeature: angular.bind(layerInfo, layerInfo.onEachFeature)
-                            });
-                            break;
-
-                        case LayerTypes.POINT_TYPE:
-                            var points = [];
-                            var clusterGroup = L.markerClusterGroup({spiderfyDistanceMultiplier: 1.3});
-                            var latIndex, longIndex;
-                            for (var i = 0; i < data[1].length; i++) {
-                                if (data[1][i] == mapData.layers[0].latColumn) {
-                                    latIndex = i;
-                                }
-                                else if (data[1][i] == mapData.layers[0].longColumn) {
-                                    longIndex = i;
-                                }
-                            }
-
-                            $.each(data, function (idx, dataLine) {
-                                if (idx > 1) {
-                                    var lat = dataLine[latIndex], long = dataLine[longIndex];
-                                    var marker = L.circleMarker(L.latLng(lat, long), layerInfo.getPointStyle(dataLine[20]));
-
-                                    var infoList = [];
-                                    for (var i = 0; i < dataLine.length; i++) {
-                                        var hxlTag = data[1][i];
-                                        if (hxlTag) {
-                                            infoList.push({tag: hxlTag, value: dataLine[i]});
-                                        }
-                                    }
-
-                                    marker.on("mousemove", angular.bind(layerInfo, layerInfo.onLayerMouseMove));
-                                    marker.on("mouseout", angular.bind(layerInfo, layerInfo.onLayerMouseOut));
-                                    marker.infoList = infoList;
-                                    points.push(marker);
-                                }
-                            });
-                            clusterGroup.addLayers(points);
-                            newLayer = clusterGroup;
-                            break;
-
-                        case LayerTypes.BUBBLE_TYPE:
-                            var markers = [];
-                            $.each(geojson.features, function (idx, geo) {
-                                var poly = L.geoJson(geo);
-                                var pcode = geo.properties[mapData.shapefile.joinColumn];
-                                if (layerInfo.getThresholdIndex(pcode) > -1) {
-                                    var marker = L.circleMarker(poly.getBounds().getCenter(), layerInfo.getBubbleStyle(geo));
-
-                                    markers.push(marker);
-                                    marker.feature = geo;
-                                    marker.on("click", angular.bind(layerInfo, layerInfo.onLayerClick));
-                                    marker.on("mousemove", angular.bind(layerInfo, layerInfo.onLayerMouseMove));
-                                    marker.on("mouseout", angular.bind(layerInfo, layerInfo.onLayerMouseOut));
-                                    //marker.addTo(map);
-                                }
-                            });
-                            newLayer = L.featureGroup(markers);
-                            newLayer.resetStyle = function (layer) {
-                                layer.setStyle(layerInfo.getBubbleStyle(layer.feature));
-                            };
-                            break;
-
-                        default:
-                            console.error("Unknown layer type");
-                    }
-
-                    if ($scope.layerMap[layerType]) {
-                        layerGroup.removeLayer($scope.layerMap[layerType]);
-                    }
-                    $scope.layerMap[layerType] = newLayer;
-                    newLayer.values = values;
-                    newLayer.colors = colors;
-                    newLayer.types = firstLayer.type;
-                    newLayer.layerInfo = layerInfo;
-                    newLayer.addTo(layerGroup);
-                    $scope.$broadcast("sliceCreated", newLayer);
-
-                    if ($scope.layerMap[LayerTypes.CHOROPLETH_TYPE]) {
-                        $scope.layerMap[LayerTypes.CHOROPLETH_TYPE].bringToFront();
-                    }
-                    if ($scope.layerMap[LayerTypes.BUBBLE_TYPE]) {
-                        $scope.layerMap[LayerTypes.BUBBLE_TYPE].bringToFront();
-                    }
-                    if ($scope.layerMap[LayerTypes.POINT_TYPE]) {
-                        $scope.layerMap[LayerTypes.POINT_TYPE].bringToFront();
-                    }
-
-                    mapFitBounds();
-
-                }, function (err) {
-                    console.error(err);
+                var promise1 = DataFetcher.fetchData(vizDataUrl, mapData.layers[0], additionalFilters);
+                var promise2 = {};
+                if (mapData.shapefile) {
+                    promise2 = $http.get(mapData.shapefile.url);
                 }
-            );
+
+                $q.all([promise1, promise2]).then(
+                    function (promiseValues) {
+                        var data = promiseValues[0].data,
+                            geojson = promiseValues[1].data;
+                        var values = angular.bind(this, generatePcodeValueMap)(data, firstLayer);
+                        var stepCount = 10;
+                        var colors = firstLayer.colors;
+                        var step = (values.max - values.min) / stepCount;
+                        var threshold = firstLayer.threshold;
+                        if (!threshold) {
+                            threshold = [];
+                            for (var sIdx = 0; sIdx < stepCount; sIdx++) {
+                                threshold.push(values.min + sIdx * step);
+                            }
+                        }
+
+                        var newLayer;
+                        var layerType = firstLayer.type[0];
+                        if (type) {
+                            layerType = type;
+                        }
+
+                        //var layerInfo = {
+                        //    name: vizData.name,
+                        //    threshold: threshold,
+                        //    colors: colors,
+                        //    type: layerType
+                        //};
+                        var shapeJoinColumn;
+                        if (mapData && mapData.shapefile) {
+                            shapeJoinColumn = mapData.shapefile.joinColumn;
+                        }
+                        var mapDataJoinColumn = firstLayer.joinColumn;
+
+                        var layerInfo = new LayerInfo($scope, vizDataName, layerType, colors, threshold, values,
+                            shapeJoinColumn, mapDataJoinColumn, stepCount, vizDataSource, vizDataUrl, mapData);
+
+                        switch (layerType) {
+                            case LayerTypes.CHOROPLETH_TYPE:
+                                newLayer = L.geoJson(geojson, {
+                                    style: angular.bind(layerInfo, layerInfo.getChoroplethStyle),
+                                    onEachFeature: angular.bind(layerInfo, layerInfo.onEachFeature)
+                                });
+                                break;
+
+                            case LayerTypes.POINT_TYPE:
+                                var points = [];
+                                var clusterGroup = L.markerClusterGroup({spiderfyDistanceMultiplier: 1.3});
+                                var latIndex, longIndex;
+                                for (var i = 0; i < data[1].length; i++) {
+                                    if (data[1][i] == mapData.layers[0].latColumn) {
+                                        latIndex = i;
+                                    }
+                                    else if (data[1][i] == mapData.layers[0].longColumn) {
+                                        longIndex = i;
+                                    }
+                                }
+
+                                $.each(data, function (idx, dataLine) {
+                                    if (idx > 1) {
+                                        var lat = dataLine[latIndex], long = dataLine[longIndex];
+                                        var marker = L.circleMarker(L.latLng(lat, long), layerInfo.getPointStyle(dataLine[20]));
+
+                                        var infoList = [];
+                                        for (var i = 0; i < dataLine.length; i++) {
+                                            var hxlTag = data[1][i];
+                                            if (hxlTag) {
+                                                infoList.push({tag: hxlTag, value: dataLine[i]});
+                                            }
+                                        }
+
+                                        marker.on("mousemove", angular.bind(layerInfo, layerInfo.onLayerMouseMove));
+                                        marker.on("mouseout", angular.bind(layerInfo, layerInfo.onLayerMouseOut));
+                                        marker.infoList = infoList;
+                                        points.push(marker);
+                                    }
+                                });
+                                clusterGroup.addLayers(points);
+                                newLayer = clusterGroup;
+                                break;
+
+                            case LayerTypes.BUBBLE_TYPE:
+                                var markers = [];
+                                $.each(geojson.features, function (idx, geo) {
+                                    var poly = L.geoJson(geo);
+                                    var pcode = geo.properties[mapData.shapefile.joinColumn];
+                                    if (layerInfo.getThresholdIndex(pcode) > -1) {
+                                        var marker = L.circleMarker(poly.getBounds().getCenter(), layerInfo.getBubbleStyle(geo));
+
+                                        markers.push(marker);
+                                        marker.feature = geo;
+                                        marker.on("click", angular.bind(layerInfo, layerInfo.onLayerClick));
+                                        marker.on("mousemove", angular.bind(layerInfo, layerInfo.onLayerMouseMove));
+                                        marker.on("mouseout", angular.bind(layerInfo, layerInfo.onLayerMouseOut));
+                                        //marker.addTo(map);
+                                    }
+                                });
+                                newLayer = L.featureGroup(markers);
+                                newLayer.resetStyle = function (layer) {
+                                    layer.setStyle(layerInfo.getBubbleStyle(layer.feature));
+                                };
+                                break;
+
+                            default:
+                                console.error("Unknown layer type");
+                        }
+
+                        if ($scope.layerMap[layerType]) {
+                            layerGroup.removeLayer($scope.layerMap[layerType]);
+                        }
+                        $scope.layerMap[layerType] = newLayer;
+                        newLayer.values = values;
+                        newLayer.colors = colors;
+                        newLayer.types = firstLayer.type;
+                        newLayer.layerInfo = layerInfo;
+                        newLayer.addTo(layerGroup);
+                        $scope.$broadcast("sliceCreated", newLayer);
+
+                        if ($scope.layerMap[LayerTypes.CHOROPLETH_TYPE]) {
+                            $scope.layerMap[LayerTypes.CHOROPLETH_TYPE].bringToFront();
+                        }
+                        if ($scope.layerMap[LayerTypes.BUBBLE_TYPE]) {
+                            $scope.layerMap[LayerTypes.BUBBLE_TYPE].bringToFront();
+                        }
+                        if ($scope.layerMap[LayerTypes.POINT_TYPE]) {
+                            $scope.layerMap[LayerTypes.POINT_TYPE].bringToFront();
+                        }
+
+                        mapFitBounds();
+
+                    }, function (err) {
+                        console.error(err);
+                    }
+                );
+            }
+            else {
+                var legendColors = firstLayer.colors.slice(0);
+                if ( legendColors.length == 1){
+                    for (var i=0; i<5; i++) {
+                        legendColors.push(legendColors[0]);
+                    }
+                }
+                var fakeLayer = {
+                    colors: legendColors,
+                    types:firstLayer.types,
+                    layerInfo: {
+                        name: vizDataName,
+                        type: type,
+                        colors: legendColors,
+                        sourceUrl: vizDataUrl
+                    }
+                };
+                $scope.layerMap[type] = fakeLayer;
+                $scope.$broadcast("sliceCreated", fakeLayer);
+            }
         }
 
         function generatePcodeValueMap(data, layerData) {
