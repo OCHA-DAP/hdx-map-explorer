@@ -69,7 +69,7 @@
           "type": "sum",
           "options": {
             "groupByColumn": "#affected+type",
-            "avgColumn": "#affected+displaced"
+            "statsColumn": "#affected+displaced"
           }
         }
       ]
