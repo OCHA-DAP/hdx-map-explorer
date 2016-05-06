@@ -13,11 +13,11 @@
     <div class="legend-item" ng-repeat="(type,item) in legends track by type">
         <div class="row">
             <div class="col-xs-7">
-                <div class="text-normal">Map layer {{$index + 1}}</div>
+                <div class="text-normal">Data layer {{$index + 1}} ({{type}})</div>
             </div>
             <div class="col-xs-5 legend-actions">
                 <a href="{{item.layerInfo.sourceUrl}}" target="_blank"><span class="text-normal">Info</span></a>
-                <span class="dropdown">
+                <span class="dropdown" ng-if="!item.hideSettingsIcon">
                     <a id="dLabel" href type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="glyphicon glyphicon-cog"></i>
                     </a>
@@ -44,8 +44,8 @@
         </div>
         <div>
             <ul class="legend-colors">
-                <li ng-repeat="color in item.layerInfo.colors" style="background-color: {{color}}">
-                    <span>{{item.layerInfo.threshold[$index]}}</span>
+                <li ng-repeat="color in item.layerInfo.colors track by $index" style="background-color: {{color}}">
+                    <span ng-if="item.layerInfo.threshold">{{item.layerInfo.threshold[$index]}}</span>
                 </li>
             </ul>
 

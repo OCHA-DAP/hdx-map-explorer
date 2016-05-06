@@ -59,6 +59,7 @@
                     var legends = $scope.legends;
                     legends[data.layerInfo.type] = data;
                     $scope.legends = legends;
+                    data.hideSettingsIcon = data.layerInfo.type == LayerTypes.CHART_ONLY;
                 });
 
                 $scope.selectSlice = function(item){
