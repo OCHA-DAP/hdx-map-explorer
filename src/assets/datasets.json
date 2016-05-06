@@ -35,7 +35,7 @@
     "url": "assets/fatalities.json"
   },
   {
-    "name": "Funding Progress on Latest Appeal",
+    "name": "Funding Progress on Latest Appeal [Chart only]",
     "id": "6",
     "description": "Percentage of current requirements that have been met",
     "type": "Humanitarian Funding",
