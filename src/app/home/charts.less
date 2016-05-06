@@ -112,6 +112,7 @@
   }
 }
 
+
 @media (max-width: @screen-sm-max){
   //styles for mobile landscape and tablet portrait
   #charts {
@@ -174,16 +175,14 @@
     #chart-item-holder{
       flex-flow: nowrap;
       .chart-item {
-        height: 266px;
-        width: 355px;
-        //flex: 1 1 50%;
+        height: 400px;
+        width: 769px;
       }
       .chart-box {
         border-bottom-width: 0;
       }
       > .chart-item{
         padding: 30px 0;
-        width: 375px;
       }
     }
 
@@ -233,6 +232,58 @@
       .dot{
         display: inline-block;
         margin-right: 5px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 568px) { 
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: 330px;
+        width: 240px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 414px) and (orientation: portrait) { 
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: 290px;
+        width: 415px;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) and (orientation: portrait) { 
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: 266px;
+        width: 375px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 320px) and (orientation: portrait) { 
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: 220px;
+        width: 320px;
+      }
+    }
+    .powered-by{
+      .text-larger{
+        font-size: 7px;
       }
     }
   }

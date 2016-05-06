@@ -111,7 +111,6 @@ layer-legend {
           margin-bottom: 15px;
           position: relative;
           span {
-            font-size: 8px;
             position: absolute;
             bottom: -15px;
           }
@@ -135,6 +134,13 @@ layer-legend {
       width: 280px;
       z-index: 1000;
     }
+    .legend-list {
+      .legend-item {
+        .selector.ui-select-bootstrap > .ui-select-match > .btn {
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 
@@ -152,3 +158,21 @@ layer-legend {
     }
   }
 }
+
+@media (max-width: 568px) { 
+  .layer-legend-toggle {
+    &.leaflet-control {
+      margin-top: 9px;
+    }
+  }
+  layer-legend {
+    &.leaflet-control {
+      top: 49px;
+      width: 265px;
+    }
+  }
+  .dropdown-menu{
+    font-size: 12px;
+  }
+}
+

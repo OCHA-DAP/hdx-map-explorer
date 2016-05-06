@@ -33,7 +33,6 @@
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManger = null;
 
-
             if (true) {
                 $scope.touchManger = initTouchManager();
             }
