@@ -75,14 +75,17 @@
             getChoroplethStyle: function (feature) {
                 var pcode = feature.properties[this.shapeJoinColumn];
                 var threshold = this.getThresholdIndex(pcode);
-                var color = (threshold == -1) ? "#000000" : "#ffffff";
-                var dashArray = (threshold == -1) ? "5, 10" : null;
+                var isEmpty = threshold == -1;
+                var color = ( isEmpty) ? "#000000" : "#ffffff";
+                var dashArray = (isEmpty) ? "5, 10" : null;
+                var weight = (isEmpty) ? 2 : 2;
+                var fillColor = (isEmpty) ? "#dddddd" : this.getColor(pcode);
                 return {
-                    weight: 2,
+                    weight: weight,
                     opacity: 0.2,
                     color: color,
                     fillOpacity: 0.7,
-                    fillColor: this.getColor(pcode),
+                    fillColor: fillColor,
                     dashArray: dashArray
                 };
             },

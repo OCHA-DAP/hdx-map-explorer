@@ -1,5 +1,5 @@
 (function(module) {
-    module.directive("layerLegend", function(DataFetcher, $timeout){
+    module.directive("layerLegend", function(DataFetcher, $timeout, LayerTypes){
         return {
             restrict: "E",
             scope: {
@@ -13,6 +13,28 @@
                 var map = $scope.map;
 
                 $scope.legends = {};
+                $scope.layerTypes = [
+                    {
+                        name: "Shaded",
+                        image: "assets/images/shaded.png",
+                        type: LayerTypes.CHOROPLETH_TYPE
+                    },
+                    {
+                        name: "Bubble",
+                        image: "assets/images/bubble.png",
+                        type: LayerTypes.BUBBLE_TYPE
+                    },
+                    {
+                        name: "Point",
+                        image: "assets/images/point.png",
+                        type: LayerTypes.POINT_TYPE
+                    },
+                    {
+                        name: "Heatmap",
+                        image: "assets/images/heatmap.png",
+                        type: null
+                    }
+                ];
 
                 L.Control.Picker = L.Control.extend({
                     options: {
@@ -35,7 +57,7 @@
 
                 $scope.$on("sliceCreated", function(event, data){
                     var legends = $scope.legends;
-                    legends[data.type] = data;
+                    legends[data.layerInfo.type] = data;
                     $scope.legends = legends;
                 });
 
@@ -49,6 +71,19 @@
                     var legends = $scope.legends;
                     delete legends[type];
                     $scope.legends = legends;
+                };
+
+                $scope.changeType = function(type, newType){
+                    if (type != newType){
+                        $scope.removeSlice(newType);
+                        var legends = $scope.legends;
+                        delete legends[type];
+                        $scope.legends = legends;
+                        $scope.$emit("changeSlice", {
+                            oldType: type,
+                            newType: newType
+                        });
+                    }
                 };
 
             },
@@ -73,7 +108,7 @@
                         }
                     });
             },
-            templateUrl: "home/legend.tpl.html"
+            templateUrl: "home/legend/legend.tpl.html"
         };
     });
-}(angular.module("hdx.map.explorer.home")));
+}(angular.module("hdx.map.explorer.home.legend")));

@@ -2,12 +2,19 @@
 
     module.service("FilterBuilder", function($q, $http){
 
-        function FilterSelect(type, options){
-            this.type = type;
+        var OPERATIONS = [FilterSelect, FilterSum, FilterMax, FilterSort, FilterRemoveDuplicates, FilterKeepRemove];
+
+        /**
+         * SELECT (filtering) operation
+         * @param options
+         * @constructor
+         */
+        function FilterSelect(options){
             this.options = options;
             this.indicesNeeded = 1;
             this.generatedUrl = '';
         }
+        FilterSelect.prototype.type = "select";
         FilterSelect.prototype.buildUrlStringFromList = function (paramList) {
             var urlString = '';
             if (paramList) {
@@ -34,64 +41,158 @@
             return this;
         };
 
-        function FilterSum(type, options){
-            FilterSelect.call(this, type, options);
+        /**
+         * SUM operation
+         * @param options
+         * @constructor
+         */
+        function FilterSum(options){
+            FilterSelect.call(this, options);
             this.indicesNeeded = 3;
+            this.aggregationType = "sum";
         }
         FilterSum.prototype = new FilterSelect();
+        FilterSum.prototype.type = "sum";
         FilterSum.prototype.generateURL = function (index) {
+
+            var keepColumnName = "#meta+" + this.aggregationType;
+            var newTagName = this.options.avgColumn + "+" + this.aggregationType;
+
             var idx = this.generateIndexString(index);
             var paramList = [
                 {"key": "filter" + idx, "value": "count"},
                 {"key": "count-tags" + idx, "value": this.options.groupByColumn},
                 {"key": "count-aggregate-tag" + idx, "value": this.options.avgColumn}
             ];
-            // var preParam = "filter" + idx + "=count&";
-            // var param = "count-tags" + idx + "=" + encodeURIComponent(this.options.groupByColumn) + "&";
-            // var paramAggregate = "count-aggregate-tag" + idx + "=" + encodeURIComponent(this.options.avgColumn) + "&";
+
             var idx2 = this.generateIndexString(index+1);
             paramList.push({"key": "filter" + idx2, "value": "cut"});
-            paramList.push({"key": "cut-include-tags" + idx2, "value": this.options.groupByColumn + ",#meta+sum"});
+            paramList.push({
+                "key": "cut-include-tags" + idx2,
+                "value": this.options.groupByColumn + "," + keepColumnName
+            });
 
             var idx3 = this.generateIndexString(index+2);
             paramList.push({"key": "filter" + idx3, "value": "rename"});
-            paramList.push({"key": "rename-oldtag" + idx3, "value": "#meta+sum"});
-            paramList.push({"key": "rename-newtag" + idx3, "value": this.options.avgColumn + "+sum"});
-            paramList.push({"key": "rename-header" + idx3, "value": this.options.avgColumn + "+sum"});
+            paramList.push({"key": "rename-oldtag" + idx3, "value": keepColumnName});
+            paramList.push({"key": "rename-newtag" + idx3, "value": newTagName});
+            paramList.push({"key": "rename-header" + idx3, "value": newTagName});
 
             this.generatedUrl = this.buildUrlStringFromList(paramList);
 
             return this;
         };
 
-        function FilterSort(type, options) {
-            FilterSelect.call(this, type, options);
+        /**
+         * MAX operation
+         * @param options
+         * @constructor
+         */
+        function FilterMax(options){
+            FilterSum.call(this, options);
+            this.aggregationType = "max";
+        }
+        FilterMax.prototype = new FilterSum();
+        FilterMax.prototype.type = "max";
+
+        /**
+         * SORT operation
+         * @param options
+         * @constructor
+         */
+        function FilterSort(options) {
+            FilterSelect.call(this, options);
         }
 
         FilterSort.prototype = new FilterSelect();
+        FilterSort.prototype.type = "sort";
         FilterSort.prototype.generateURL = function (index) {
             var idx = this.generateIndexString(index);
             var paramList = [
                 {"key": "filter" + idx, "value": "sort"},
-                {"key": "sort-tags" + idx, "value": this.options.columns}
+                {"key": "sort-tags" + idx, "value": this.options.columns ? this.options.columns.toString() : ""}
             ];
+
+            if ( this.options.order &&
+                ["desc", "descending"].indexOf(this.options.order) >= 0 ) {
+                paramList.push({"key": "sort-reverse" + idx, "value": "on"});
+            }
+
             this.generatedUrl = this.buildUrlStringFromList(paramList);
             return this;
         };
 
+
+        /**
+         * KEEP OR REMOVE COLUMNS operation
+         * @param options
+         * @constructor
+         */
+        function FilterKeepRemove(options){
+            FilterSelect.call(this, options);
+        }
+        FilterKeepRemove.prototype = new FilterSelect();
+        FilterKeepRemove.prototype.type = "keep-remove";
+        FilterKeepRemove.prototype.generateURL = function (index) {
+            var idx = this.generateIndexString(index);
+            var paramList = [
+                {"key": "filter" + idx, "value": "cut"},
+                {
+                    "key": "cut-include-tags" + idx,
+                    "value": this.options.keepColumns ? this.options.keepColumns.toString() : ""
+                },
+                {
+                    "key": "cut-exclude-tags" + idx,
+                    "value": this.options.removeColumns ? this.options.removeColumns.toString() : ""
+                }
+            ];
+
+            this.generatedUrl = this.buildUrlStringFromList(paramList);
+
+            return this;
+        };
+
+        /**
+         * REMOVE DUPLICATE COLUMNS operation
+         * @param options
+         * @constructor
+         */
+        function FilterRemoveDuplicates(options){
+            FilterSelect.call(this, options);
+        }
+        FilterRemoveDuplicates.prototype = new FilterSelect();
+        FilterRemoveDuplicates.prototype.type = "remove-duplicates";
+        FilterRemoveDuplicates.prototype.generateURL = function (index) {
+            var idx = this.generateIndexString(index);
+            var paramList = [
+                {"key": "filter" + idx, "value": "dedup"},
+                {
+                    "key": "dedup-tags" + idx,
+                    "value": this.options.columns ? this.options.columns.toString() : ""
+                }
+            ];
+
+            this.generatedUrl = this.buildUrlStringFromList(paramList);
+
+            return this;
+        };
+
+        var TYPE_TO_OPERATION = null;
         function constructFilterElement(type, options){
-            if (type=='select') {
-                return new FilterSelect(type, options);
+            if (!TYPE_TO_OPERATION) {
+                TYPE_TO_OPERATION = {};
+                for (var i=0; i<OPERATIONS.length; i++) {
+                    var op = OPERATIONS[i];
+                    TYPE_TO_OPERATION[op.prototype.type] = op;
+                }
             }
-            else if (type=='sum') {
-                return new FilterSum(type, options);
+
+            if (TYPE_TO_OPERATION[type]){
+                return new TYPE_TO_OPERATION[type](options);
             }
-            else if (type=='sort') {
-                return new FilterSort(type, options);
-            }
-            else {
-                throw "Unsupported filter type " + type;
-            }
+
+            throw "Unsupported filter type " + type;
+
         }
 
         function buildFilter(operationList) {
