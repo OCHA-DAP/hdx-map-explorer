@@ -43,7 +43,7 @@
           "type": "sum",
           "options": {
             "groupByColumn": "#country+name",
-            "avgColumn": "#population"
+            "statsColumn": "#population"
           }
         }
       ]

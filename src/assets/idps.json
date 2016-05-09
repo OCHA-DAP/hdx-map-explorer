@@ -76,7 +76,7 @@
           "type": "sum",
           "options": {
             "groupByColumn": "#date+bin",
-            "avgColumn": "#affected+displaced"
+            "statsColumn": "#affected+displaced"
           }
         }
       ]
@@ -112,7 +112,7 @@
           "type": "sum",
           "options": {
             "groupByColumn": "#affected+type",
-            "avgColumn": "#affected+displaced"
+            "statsColumn": "#affected+displaced"
           }
         }
       ]
