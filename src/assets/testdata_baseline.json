@@ -1,6 +1,6 @@
 {
-  "name": "Some data vs last month",
-  "id": "7",
+  "name": "Some data vs baseline",
+  "id": "8",
   "description": "some data",
   "source": "http://data.hdx.rwlabs.org/dataset/",
   "url": "https://dl.dropboxusercontent.com/u/18962396/dumbcopy.csv",
@@ -13,9 +13,9 @@
       {
         "type": ["choropleth"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#meta+test1",
+        "valueColumn": "#meta+test2",
         "threshold": [-50,0,5,10,15,30],
-        "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
+        "colors": ["#150B41","#401F63","#753B85","#A65CA0","#C489AD","#DFB8C4"]
       }
     ]
   },
@@ -43,7 +43,7 @@
           "type": "max",
           "options": {
             "groupByColumn": "#country+name",
-            "statsColumn": "#meta+test1"
+            "statsColumn": "#meta+test2"
           }
         }
       ]

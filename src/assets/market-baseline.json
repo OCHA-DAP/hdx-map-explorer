@@ -25,7 +25,7 @@
       "options": {
         "data": {
           "x": "#country+name",
-          "y": "#meta+sum",
+          "y": "#meta+max",
           "type": "bar"
         },
         "axis": {
@@ -40,7 +40,7 @@
       },
       "operations": [
         {
-          "type": "sum",
+          "type": "max",
           "options": {
             "groupByColumn": "#country+name",
             "avgColumn": "#meta+test1"
