@@ -7,13 +7,6 @@
     "url": "assets/idps.json"
   },
   {
-    "name": "Displaced Persons [Bubble Map]",
-    "id": "2",
-    "description": "Proportional circles indicating total number of displaced persons (IDP + Refugee) in each first level administrative unit",
-    "type": "Displacement",
-    "url": "assets/idps2.json"
-  },
-   {
     "name": "Baseline Population, 2016 Estimate [Shaded Map]",
     "id": "5",
     "description": "Current population estmations from a variety of sources",
