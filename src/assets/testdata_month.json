@@ -11,7 +11,7 @@
     },
     "layers": [
       {
-        "type": ["choropleth"],
+        "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#meta+test1",
         "threshold": [-50,0,5,10,15,30],

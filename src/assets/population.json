@@ -11,7 +11,7 @@
     },
     "layers": [
       {
-        "type": ["choropleth"],
+        "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#population",
         "threshold": [0,250000,1000000,3000000,5000000,10000000],  

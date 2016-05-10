@@ -1,29 +1,29 @@
 [
   {
-    "name": "Displaced Persons [Shaded Map]",
+    "name": "Displaced Persons",
     "id": "1",
-    "description": "Shaded map indicating total number of displaced persons (IDP + Refugee) in each first level administrative unit",
+    "description": "Map indicating total number of displaced persons (IDP + Refugee) in each first level administrative unit",
     "type": "Displacement",
     "url": "assets/idps.json"
   },
   {
-    "name": "Baseline Population, 2016 Estimate [Shaded Map]",
+    "name": "Estimated Baseline Population",
     "id": "5",
     "description": "Current population estmations from a variety of sources",
     "type": "Displacement",
     "url": "assets/population.json"
   },
   {
-    "name": "Conflict Events [Location Map]",
+    "name": "Conflict Events",
     "id": "3",
     "description": "Points representing the location of individual conflict events",
     "type": "Conflict Events",
     "url": "assets/event_locations.json"
   },
   {
-    "name": "Fatalities from Conflict Events [Bubble Map]",
+    "name": "Fatalities from Conflict Events",
     "id": "4",
-    "description": "Proportional circles indicating total number of fatalities in conflict incidents in each first level administrative unit",
+    "description": "Map indicating total number of fatalities in conflict incidents in each first level administrative unit",
     "type": "Conflict Events",
     "url": "assets/fatalities.json"
   },
