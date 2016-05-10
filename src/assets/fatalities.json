@@ -29,7 +29,7 @@
             "type": "sum",
             "options": {
               "groupByColumn": "#adm1+name",
-              "avgColumn": "#affected+killed"
+              "statsColumn": "#affected+killed"
             }
           }
         ]
@@ -76,7 +76,7 @@
           "type": "sum",
           "options": {
             "groupByColumn": "#date",
-            "avgColumn": "#affected+killed"
+            "statsColumn": "#affected+killed"
           }
         }
       ]

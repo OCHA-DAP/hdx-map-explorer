@@ -56,13 +56,13 @@
         FilterSum.prototype.generateURL = function (index) {
 
             var keepColumnName = "#meta+" + this.aggregationType;
-            var newTagName = this.options.avgColumn + "+" + this.aggregationType;
+            var newTagName = this.options.statsColumn + "+" + this.aggregationType;
 
             var idx = this.generateIndexString(index);
             var paramList = [
                 {"key": "filter" + idx, "value": "count"},
                 {"key": "count-tags" + idx, "value": this.options.groupByColumn},
-                {"key": "count-aggregate-tag" + idx, "value": this.options.avgColumn}
+                {"key": "count-aggregate-tag" + idx, "value": this.options.statsColumn}
             ];
 
             var idx2 = this.generateIndexString(index+1);
