@@ -64,3 +64,23 @@ html, body, .full-height {
     vertical-align: middle;
   }
 }
+
+
+//hide close button on desktop view
+.leaflet-container a.leaflet-popup-close-button{
+  display: none;
+}
+
+@media (max-width: @screen-sm-max) {
+  //styles for mobile landscape
+  .leaflet-container a.leaflet-popup-close-button{
+    display: block;
+  }
+}
+
+@media (max-width: @screen-sm-max) and (orientation: portrait) {
+  //styles for mobile portrait view -- charts appear at bottom of screen
+  .leaflet-container a.leaflet-popup-close-button{
+    display: block;
+  }
+}
