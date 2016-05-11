@@ -8,10 +8,10 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li ng-repeat="chart in data.charts"><a ng-click="onChangeCharts($index)" href>{{chart.name}}</a></li>
         </ul>
-        <span ng-if="appliedFilters">Filtered by {{appliedFilters}}</span>
+        <span ng-if="appliedFilters" class="filterby-title">Filtered by {{appliedFilters}}</span>
     </div>
     <div ng-if="!hasMoreCharts" class="dropdown">
-        <span class="grouping-title">{{selectedChart.name}}</span> <span ng-if="appliedFilters">Filtered by {{appliedFilters}}</span>
+        <span class="grouping-title">{{selectedChart.name}}</span> <span ng-if="appliedFilters"  class="filterby-title">Filtered by {{appliedFilters}}</span>
     </div>
     <div id="{{chartId}}" class="{{chartWrapperClass}}">
 
