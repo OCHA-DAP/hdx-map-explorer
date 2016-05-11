@@ -37,8 +37,9 @@
     padding: 10px;
     background-color: transparent;
     .grouping-title {
-      font-family: "Source Sans Pro", sans-serif;
-      font-size: 20px;
+      .gothamBoldFont(14px);
+      color: @darkGrayColor;
+      letter-spacing: 0.01em;
     }
     //.dropdown {
     //  margin-bottom: 10px;
@@ -58,6 +59,14 @@
     //&.rendered{
     //}
   }
+
+  .filterby-title{
+    .sourceSansProFont(400, 12px);
+    letter-spacing: 0.01em;
+    line-height: 18px;
+    color: @blackColor;
+  }
+
   .powered-by{
     position: absolute;
     right:10px;
@@ -132,8 +141,9 @@
       > .chart-item{
         padding: 40px 10px;
         .grouping-title {
-          font-size: 14px;
-          font-weight: 700;
+          .gothamBoldFont(14px);
+          color: @darkGrayColor;
+          letter-spacing: 0.01em;
         }
       }
     }
