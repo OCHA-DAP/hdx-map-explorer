@@ -74,6 +74,16 @@
                     $scope.legends = legends;
                 };
 
+                $scope.resetAll = function(){
+                    for (var type in $scope.legends){
+                        $scope.resetSlice(type);
+                    }
+                };
+
+                $scope.resetSlice = function(type){
+                    $scope.$emit("resetSlice", type);
+                };
+
                 $scope.changeType = function(type, newType){
                     if (type != newType){
                         $scope.removeSlice(newType);

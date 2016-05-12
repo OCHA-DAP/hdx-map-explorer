@@ -9,6 +9,8 @@
                 <div ng-bind="item.name | highlight: $select.search"></div>
             </ui-select-choices>
         </ui-select>
+
+        <a href class="reset-link" ng-click="resetAll();">Reset all layers</a>
     </div>
     <div class="legend-item" ng-repeat="(type,item) in legends track by type">
         <div class="row">
@@ -48,7 +50,9 @@
                     <span ng-if="item.layerInfo.threshold">{{item.layerInfo.threshold[$index]}}</span>
                 </li>
             </ul>
-
+        </div>
+        <div>
+            <a href class="reset-link" ng-click="resetSlice(type);">Reset</a>
         </div>
     </div>
 </div>

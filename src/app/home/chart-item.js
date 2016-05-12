@@ -165,7 +165,7 @@
                 });
 
                 $scope.$on("layerSelect", function(event, data){
-                    if ($scope.chart){
+                    if ($scope.chart && (data.type == $scope.type)){
                         changeChartData(chartUrl, $scope.selectedChart, data.filters).then(generateAppliedFiltersString);
                     }
                 });
