@@ -124,14 +124,16 @@ layer-legend {
 
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
+  @leafletRightSpace: 42%;
   .leaflet-right{
-    right: 42%;
+    right: @leafletRightSpace;
   }
   layer-legend {
+    @leafletControlWidthSm: 280px;
     &.leaflet-control {
-      right: 42%;
+      right: @leafletRightSpace;
       top: 55px;
-      width: 280px;
+      width: @leafletControlWidthSm;
       z-index: 1000;
     }
     .legend-list {
@@ -146,15 +148,13 @@ layer-legend {
 
 @media (max-width: @screen-sm-max) and (orientation: portrait) {
   //styles for mobile portrait view -- charts appear at bottom of screen
+  @leafletRightSpace: 2%;
   .leaflet-right{
-    right: 2%;
+    right: @leafletRightSpace;
   }
   layer-legend {
     &.leaflet-control {
-      width: 280px;
-      right: 2%;
-      top: 55px;
-      z-index: 1000;
+      right: @leafletRightSpace;
     }
   }
 }
@@ -166,9 +166,10 @@ layer-legend {
     }
   }
   layer-legend {
+    @leafletControlWidthXs: 265px;
     &.leaflet-control {
       top: 49px;
-      width: 265px;
+      width: @leafletControlWidthXs;
     }
   }
   .dropdown-menu{
