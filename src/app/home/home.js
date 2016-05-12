@@ -26,6 +26,7 @@
 
             $scope.$on("addSlice", addSlice);
             $scope.$on("removeSlice", removeSlice);
+            $scope.$on("resetSlice", resetSlice);
             $scope.$on("changeSlice", changeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
@@ -61,6 +62,17 @@
             layerInfo.filters = additionalFilters;
 
             addLayer(layerInfo.name, layerInfo.sourceUrl, layerInfo.dataUrl, layerInfo.mapData, type, layerInfo.filters);
+        }
+
+        function resetSlice(event, data) {
+            chartPointClicked(event, {
+                type: data,
+                filters: null
+            });
+
+            $scope.$broadcast("layerSelect", {
+                type: data
+            });
         }
 
         function changeSlice(event, data) {

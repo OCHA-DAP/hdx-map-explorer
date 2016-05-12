@@ -62,7 +62,15 @@ layer-legend {
           color: @grayColor;
         }
       }
-
+      .reset-link {
+        .sourceSansProFont(400, 12px);
+        color: @blueColor;
+        margin-top: 10px;
+        text-transform: uppercase;
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
       .legend-actions{
         text-align: right;
         a {
@@ -101,6 +109,7 @@ layer-legend {
 
       .legend-colors{
         margin-top: 5px;
+        margin-bottom: 0;
         list-style: none;
         padding: 0;
 
