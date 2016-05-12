@@ -69,7 +69,7 @@
 
   .powered-by{
     position: absolute;
-    right:10px;
+    right: 10px;
     bottom: 5px;
     z-index: 1001;
   }
@@ -103,23 +103,27 @@
     display: none;
     position: absolute;
     right: 0;
+    @chart-pagination-dot-size: 10px;
+    @chart-pagination-active: 0.6;
+    @chart-pagination-inactive: 0.2;
     .dot{
-      background-color: #000;
+      background-color: @blackColor;
       border-radius: 50%;
       display: block;
-      height: 10px;
+      height: @chart-pagination-dot-size;
       margin-right: 5px;
-      opacity: 0.2;
-      width: 10px;
+      opacity: @chart-pagination-inactive;
+      width: @chart-pagination-dot-size;
       &:first-child{
-        opacity: .6;
+        opacity: @chart-pagination-active;
       }
       &.active{
-        opacity: .6;
+        opacity: @chart-pagination-active;
       }
     }
   }
 }
+
 
 @media (max-width: @screen-sm-max){
   //styles for mobile landscape and tablet portrait
@@ -131,9 +135,11 @@
     #chart-item-holder{
       height: auto;
       flex-flow: row wrap;
+      @chart-item-width: 290px;
+      @chart-item-height: 375px;
       .chart-item{
-        height: 375px;
-        width: 290px;
+        height: @chart-item-height;
+        width: @chart-item-width;
       }
       .chart-box{
         border: 0;
@@ -183,17 +189,17 @@
     height: 40%;
     #chart-item-holder{
       flex-flow: nowrap;
+      @chart-item-width: 769px;
+      @chart-item-height: 400px;
       .chart-item {
-        height: 266px;
-        width: 355px;
-        //flex: 1 1 50%;
+        height: @chart-item-height;
+        width: @chart-item-width;
       }
       .chart-box {
         border-bottom-width: 0;
       }
       > .chart-item{
         padding: 30px 0;
-        width: 375px;
       }
     }
 
@@ -243,6 +249,70 @@
       .dot{
         display: inline-block;
         margin-right: 5px;
+      }
+    }
+  }
+}
+
+@iphone5W: 320px;
+@iphone6W: 375px;
+@iphone6PlusW: 414px;
+@iphone5H: 568px;
+
+@media (max-width: @iphone5H) { 
+  @chart-item-width: 240px;
+  @chart-item-height: 330px;
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: chartItemH;
+        width: @chart-item-width;
+      }
+    }
+  }
+}
+
+
+@media (max-width: @iphone6PlusW) and (orientation: portrait) { 
+  @chart-item-width: @iphone6PlusW;
+  @chart-item-height: 290px;
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: chartItemH;
+        width: @chart-item-width;
+      }
+    }
+  }
+}
+
+@media (max-width: @iphone6W) and (orientation: portrait) { 
+  @chart-item-width: @iphone6W;
+  @chart-item-height: 266px;
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: chartItemH;
+        width: @chart-item-width;
+      }
+    }
+  }
+}
+
+
+@media (max-width: @iphone5W) and (orientation: portrait) { 
+  @chart-item-width: @iphone5W;
+  @chart-item-height: 220px;
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        height: chartItemH;
+        width: @chart-item-width;
+      }
+    }
+    .powered-by{
+      .text-larger{
+        font-size: 7px;
       }
     }
   }
