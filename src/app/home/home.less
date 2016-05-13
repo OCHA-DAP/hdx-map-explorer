@@ -72,23 +72,27 @@ html, body, .full-height {
 }
 
 #mobile-header{
+  @mobile-header-height: 73px;
+  @mobile-header-font-size: 14px;
+  @mobile-header-top-padding: 10px;
+  @mobile-header-padding: 15px;
   display: none;
   background-color: @extraLightBlueColor;
   border-bottom: 1px solid @lightGrayColor;
-  max-height: 73px;
-  padding: 10px 15px 15px;
+  max-height: @mobile-header-height;
+  padding: @mobile-header-top-padding @mobile-header-padding @mobile-header-padding;
   position: relative;
   i{
     position: absolute;
-    right: 15px;
-    top: 10px;
+    right: @mobile-header-padding;
+    top: @mobile-header-top-padding;
   }
   p{
-    .sourceSansProFont(400, 14px);
-    line-height: 16px;
+    .sourceSansProFont(400, @mobile-header-font-size);
+    line-height: @mobile-header-font-size+2;
     margin-bottom: 0;
     &.title{
-      .gothamBoldFont(14px);
+      .gothamBoldFont(@mobile-header-font-size);
       margin-bottom: 3px;
     }
   }
