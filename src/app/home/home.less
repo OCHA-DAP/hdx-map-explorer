@@ -71,8 +71,38 @@ html, body, .full-height {
   display: none;
 }
 
+#mobile-header{
+  @mobile-header-height: 73px;
+  @mobile-header-font-size: 14px;
+  @mobile-header-top-padding: 10px;
+  @mobile-header-padding: 15px;
+  display: none;
+  background-color: @extraLightBlueColor;
+  border-bottom: 1px solid @lightGrayColor;
+  max-height: @mobile-header-height;
+  padding: @mobile-header-top-padding @mobile-header-padding @mobile-header-padding;
+  position: relative;
+  i{
+    position: absolute;
+    right: @mobile-header-padding;
+    top: @mobile-header-top-padding;
+  }
+  p{
+    .sourceSansProFont(400, @mobile-header-font-size);
+    line-height: @mobile-header-font-size+2;
+    margin-bottom: 0;
+    &.title{
+      .gothamBoldFont(@mobile-header-font-size);
+      margin-bottom: 3px;
+    }
+  }
+}
+
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
+  #mobile-header{
+    display: block;
+  }
   .leaflet-container a.leaflet-popup-close-button{
     display: block;
   }
