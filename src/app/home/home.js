@@ -64,7 +64,6 @@
         }
 
         function resetSlice(event, data) {
-            console.log("resetSlice");
             chartPointClicked(event, {
                 type: data,
                 filters: null
@@ -76,7 +75,6 @@
         }
 
         function changeSlice(event, data) {
-            console.log("changeSlice");
             var currentLayer = $scope.layerMap[data.oldType];
 
             if (checkType(currentLayer.types, data.newType)){
@@ -103,7 +101,6 @@
         }
 
         function addSlice(event, data) {
-            console.log("addSlice");
             var url = data.url;
             
             function parseData(data) {
@@ -149,7 +146,6 @@
         }
 
         function removeSlice(event, data) {
-            console.log("removeSlice");
             var type = data;
             var layer = $scope.layerMap[type];
 
@@ -183,7 +179,6 @@
         }
 
         function addLayer(vizDataName, vizDataSource, vizDataUrl, vizDataMap, type, additionalFilters) {
-            console.log("addLayer");
             var mapData = vizDataMap;
             var firstLayer = mapData.layers[0];
             if (LayerTypes.CHART_ONLY != type) {
