@@ -7,25 +7,45 @@
              * This object will be populated with the loaded and modified configs/layers
              * This is the object that will be sent to CKAN and saved in a powerview
              */
+
+            /**
+             *
+             * @param {string} type choropleth, bubble, etc (check util.js)
+             * @returns {?string}
+             * @private
+             */
+            function _findSliceNameByType(type) {
+                try {
+                    return $scope.layerMap[type].layerInfo.name;
+                }
+                catch(e) {
+                    console.log("Layer name could not be found probably because of missing data");
+                }
+                return null;
+            }
             this.currentConfig = {
                 "title": (Math.random() + 1).toString(36) + " - " + new Date().toISOString(),
                 "config": []
             };
+
             $scope.$on("renderSlice", function(event, data){
                 this.addSlice(data);
             }.bind(this));
             
             $scope.$on("removeSlice", function(event, data){
-                var sliceName = $scope.layerMap[data].layerInfo.name;
+                var sliceName = _findSliceNameByType(data);
                 this.removeSlice(sliceName);
             }.bind(this));
 
             $scope.$on("chartPointClicked", function (event, data) {
-                var sliceName = $scope.layerMap[data.type].layerInfo.name;
+                var sliceName = _findSliceNameByType(data);
                 this.setChartSelection(sliceName, data.filters);
             }.bind(this));
 
             $scope.$on("layerSelect", function (event, data) {
+                if (!data.name) {
+                    data.name = _findSliceNameByType(data.type);
+                }
                 this.setLayerSelection(data.name, data.filters);
             }.bind(this));
         }
@@ -50,14 +70,14 @@
             // if ( !sliceConfig.chartSelection ){
             //     sliceConfig.chartSelection = [];
             // }
-            sliceConfig.chartSelection = additionalFilters;
+            sliceConfig.chartSelection = additionalFilters ? additionalFilters : null;
         };
         ConfigManager.prototype.setLayerSelection = function(sliceName, additionalFilters) {
             var sliceConfig = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
             // if ( !sliceConfig.layerSelection ){
             //     sliceConfig.layerSelection = [];
             // }
-            sliceConfig.layerSelection = additionalFilters;
+            sliceConfig.layerSelection = additionalFilters ? additionalFilters : null;
         };
         ConfigManager.prototype.saveCurrentConfigToServer = function (title, description) {
             CkanSaver.saveCurrentConfigToServer(this.currentConfig, title, description);
