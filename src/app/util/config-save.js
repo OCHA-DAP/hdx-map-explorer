@@ -34,7 +34,17 @@
             
             $scope.$on("removeSlice", function(event, data){
                 var sliceName = _findSliceNameByType(data);
-                this.removeSlice(sliceName);
+
+                // According to the application's logic it's ok to generate removeSlice events
+                // even when that slice type doesn't exist.
+                if (sliceName) {
+                    this.removeSlice(sliceName);
+                }
+            }.bind(this));
+            
+            $scope.$on("changeSlice", function(event, data){
+                var sliceName = _findSliceNameByType(data.oldType);
+                this.changeLayerType(sliceName, data.newType);
             }.bind(this));
 
             $scope.$on("chartPointClicked", function (event, data) {
@@ -64,6 +74,15 @@
             if (removeId >= 0) {
                 this.currentConfig.config.splice(removeId, 1);
             }
+        };
+        ConfigManager.prototype.changeLayerType = function(sliceName, newType){
+            var config = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
+            var layerTypesArray = config.map.layers[0].type;
+
+            this._moveToStartOfArray(layerTypesArray, function(elem) {
+                return elem == newType;
+            });
+
         };
         ConfigManager.prototype.setChartSelection = function(sliceName, additionalFilters) {
             var sliceConfig = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
@@ -96,6 +115,32 @@
                 }
             }
             return idx;
+        };
+
+
+        /**
+         * Test function for finding the element to be moved
+         * @callback testFunction
+         * @param elem - element of the array
+         * @returns {boolean}
+         */
+        /**
+         *
+         * @param arr The array that should be modified
+         * @param {testFunction} testFunction a function called for each element in arr
+         * @private
+         */
+        ConfigManager.prototype._moveToStartOfArray = function(arr, testFunction) {
+            if (arr && arr.length) {
+                var temp = arr[0];
+                for (var i=0; i<arr.length; i++) {
+                    if (testFunction(arr[i])){
+                        arr[0] = arr[i];
+                        arr[i] = temp;
+                        break;
+                    }
+                }
+            }
         };
 
         return ConfigManager;
