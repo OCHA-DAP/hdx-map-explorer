@@ -26,6 +26,7 @@
             </div>
         </div>
         <div id="chart-pagination" data-index="0">
+            <div ng-repeat="(type, charts) in chartsGroup" class="dot" ng-class="{'active': $index == chartPaginationIndex }"></div>
         </div>
     </div>
 </div>
