@@ -152,6 +152,10 @@
                 $scope.onChangeCharts = function (index) {
                     $scope.selectedChart = charts[index];
                     createChart($scope.url, $scope.selectedChart);
+                    $scope.$emit("chartReplaced",{
+                        type: $scope.type,
+                        chartName: $scope.selectedChart.name
+                    });
 
                 };
 

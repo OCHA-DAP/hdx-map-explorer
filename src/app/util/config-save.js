@@ -41,10 +41,16 @@
                     this.removeSlice(sliceName);
                 }
             }.bind(this));
-            
+
             $scope.$on("changeSlice", function(event, data){
                 var sliceName = _findSliceNameByType(data.oldType);
                 this.changeLayerType(sliceName, data.newType);
+            }.bind(this));
+
+            $scope.$on("chartReplaced", function(event, data){
+                var sliceName = _findSliceNameByType(data.type);
+                this.changeChartType(sliceName, data.chartName);
+
             }.bind(this));
 
             $scope.$on("chartPointClicked", function (event, data) {
@@ -75,6 +81,7 @@
                 this.currentConfig.config.splice(removeId, 1);
             }
         };
+
         ConfigManager.prototype.changeLayerType = function(sliceName, newType){
             var config = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
             var layerTypesArray = config.map.layers[0].type;
@@ -84,6 +91,16 @@
             });
 
         };
+
+        ConfigManager.prototype.changeChartType = function(sliceName, chartName){
+            var config = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
+
+            config.layerSelection = null;
+            this._moveToStartOfArray(config.charts, function(elem){
+                return elem.name == chartName;
+            });
+        };
+
         ConfigManager.prototype.setChartSelection = function(sliceName, additionalFilters) {
             var sliceConfig = this.currentConfig.config[this._findSliceIdxByName(sliceName)];
             // if ( !sliceConfig.chartSelection ){
