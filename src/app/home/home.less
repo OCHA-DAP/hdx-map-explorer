@@ -98,6 +98,29 @@ html, body, .full-height {
   }
 }
 
+#charts {
+  .noLayers {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    & > div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      img {
+        width: 100px;
+      }
+      p {
+        margin-top: 30px;
+        color: @lightGrayColor;
+        .sourceSansProFont(400, 14px);
+      }
+    }
+  }
+}
+
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
   #mobile-header{

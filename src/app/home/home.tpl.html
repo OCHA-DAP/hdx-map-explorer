@@ -18,6 +18,12 @@
             <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
                 <chart-item chart-id="'chart-item' + $index" data="charts" url="charts.url" type="type"></chart-item>
             </div>
+            <div class="noLayers" ng-if="sizeOf(chartsGroup) == 0">
+                <div >
+                    <img src="/assets/images/bar-chart.svg">
+                    <p>No layers selected</p>
+                </div>
+            </div>
         </div>
         <div id="chart-pagination" data-index="0">
         </div>
