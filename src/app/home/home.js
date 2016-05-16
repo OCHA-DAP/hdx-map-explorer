@@ -32,10 +32,10 @@
             $scope.initialSliceId = $stateParams.sliceId;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
-            $scope.touchManger = null;
+            $scope.touchManager = null;
 
             if (true) {
-                $scope.touchManger = initTouchManager();
+                $scope.touchManager = initTouchManager();
             }
             
             if ($scope.loadConfigUrl) {
@@ -160,8 +160,7 @@
 
             //reset pagination
             $('#chart-pagination .dot:last-child').remove();
-            $('#chart-item-holder').css('left', '0').css('top', '0');
-            initTouchManager();
+            $scope.touchManager.swipeReset();
         }
 
         function loadJson(url) {
@@ -402,7 +401,8 @@
         }
 
         function initTouchManager() {
-            var chartIndex = 1;
+            console.log("initTouchManager");
+            var chartIndex = 0;
             var touchManager = {
                 swipeInit: function () {
                     //swipe events for charts on touch devices
@@ -414,49 +414,68 @@
                         var chartW = $('.chart-item').outerWidth();
                         var chartH = $('.chart-item').outerHeight();
                         var chartNum = $('#charts chart-item').length;
+                        chartIndex = $('#chart-pagination').data('index');
+                        //console.log("------hammer swipe", ev.type);
                         //portrait mode
                         if (chartHolder.width() > $('body').width()) {
-                            if (ev.type == 'swipeleft' && chartIndex < chartNum) {
+                            if (ev.type == 'swipeleft' && chartIndex < chartNum-1) {
                                 //swipe to the next chart
-                                chartHolder.animate({left: '-=' + (chartW - 10) + 'px'});
                                 chartIndex++;
                             }
-                            if (ev.type == 'swiperight' && chartIndex > 1) {
+                            if (ev.type == 'swiperight' && chartIndex > 0) {
                                 //swipe to previous chart
-                                chartHolder.animate({left: '+=' + (chartW - 10) + 'px'});
                                 chartIndex--;
                             }
+                            chartHolder.animate({left: '-' + (chartW * chartIndex) + 'px'});
                         }
                         //landscape mode
                         if (chartHolder.height() > $('body').height()) {
                             if (ev.type == 'swipeup' && chartIndex < chartNum) {
                                 //swipe to the next chart
-                                chartHolder.animate({top: '-=' + (chartH) + 'px'});
                                 chartIndex++;
                             }
-                            if (ev.type == 'swipedown' && chartIndex > 1) {
+                            if (ev.type == 'swipedown' && chartIndex > 0) {
                                 //swipe to previous chart
-                                chartHolder.animate({top: '+=' + (chartH) + 'px'});
                                 chartIndex--;
                             }
+                            chartHolder.animate({top: '-' + (chartH * chartIndex) + 'px'});
                         }
 
                         //set chart pagination
-                        $('#chart-pagination .dot').css('opacity', 0.2);
-                        $('#chart-pagination .dot:nth-child(' + (chartIndex) + ')').css('opacity', 0.6);
+                        //setChartPagination(chartIndex);
+                        touchManager.swipePagination(chartIndex);
                     });
 
                 },
                 swipeReset: function () {
-                    chartIndex = 1;
-                    $('#chart-item-holder').css('left', 'auto');
-                    $('#chart-item-holder').removeAttr('style');
+                    chartIndex = 0;
+                    //setChartPagination(chartIndex);
+                    touchManager.swipePagination(chartIndex);
+                },
+                swipePagination: function(id) {
+                    $('#chart-pagination .dot').removeClass('active');
+                    $('#chart-pagination .dot:nth-child(' + (id+1) + ')').addClass('active');
+                    $('#chart-pagination').data('index', id);
+                    if (id===0){
+                        $('#chart-item-holder').removeAttr('style');
+                        $('#chart-item-holder').css('left', 0).css('top', 0);
+                    }
                 }
             };
             touchManager.swipeInit();
             $scope.$on('windowResized', touchManager.swipeReset);
             return touchManager;
         }
+
+        // function setChartPagination(id){
+        //     $('#chart-pagination .dot').removeClass('active');
+        //     $('#chart-pagination .dot:nth-child(' + (id+1) + ')').addClass('active');
+        //     $('#chart-pagination').data('index', id);
+        //     if (id===0){
+        //         $('#chart-item-holder').removeAttr('style');
+        //         $('#chart-item-holder').css('left', 0).css('top', 0);
+        //     }
+        // }
 
     });
 }(angular.module("hdx.map.explorer.home")));

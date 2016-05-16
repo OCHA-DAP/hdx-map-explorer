@@ -115,9 +115,6 @@
       margin-right: 5px;
       opacity: @chart-pagination-inactive;
       width: @chart-pagination-dot-size;
-      &:first-child{
-        opacity: @chart-pagination-active;
-      }
       &.active{
         opacity: @chart-pagination-active;
       }
@@ -289,12 +286,15 @@
 
 @media (max-width: @iphone6W) and (orientation: portrait) { 
   @chart-item-width: @iphone6W;
-  @chart-item-height: 266px;
+  @chart-item-height: 260px;
   #charts{
     #chart-item-holder{
       .chart-item {
         height: @chart-item-height;
         width: @chart-item-width;
+      }
+      > .chart-item{
+        padding: 30px 10px;
       }
     }
   }
