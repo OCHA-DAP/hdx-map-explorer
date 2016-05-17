@@ -87,9 +87,9 @@
   }
   .toggle{
     display: none;
-    left: 20px;
+    left: 15px;
     position: absolute;
-    top: 20px;
+    top: 15px;
     z-index: 1000;
     .glyphicon-chevron-right{
       display: block;
@@ -122,6 +122,20 @@
   }
 }
 
+@media (max-width: 1024px) and (orientation: landscape) {
+  @chart-item-width: 25vw;
+  #charts{
+    #chart-item-holder{
+      .chart-item {
+        width: @chart-item-width;
+      }
+    }
+    .chart-item .grouping-title{
+      text-align: left;
+      white-space: normal;
+    }
+  }
+}
 
 @media (max-width: @screen-sm-max){
   //styles for mobile landscape and tablet portrait
@@ -133,8 +147,8 @@
     #chart-item-holder{
       height: auto;
       flex-flow: row wrap;
-      @chart-item-width: 290px;
-      @chart-item-height: 375px;
+      @chart-item-width: 100vw;;
+      @chart-item-height: 40vh;
       .chart-item{
         height: @chart-item-height;
         width: @chart-item-width;
@@ -143,11 +157,13 @@
         border: 0;
       }
       > .chart-item{
-        padding: 40px 10px;
+        padding: 34px 10px;
         .grouping-title {
-          .gothamBoldFont(14px);
+          .gothamBoldFont(12px);
           color: @darkGrayColor;
           letter-spacing: 0.01em;
+          text-align: left;
+          white-space: normal;
         }
       }
     }
@@ -187,12 +203,6 @@
     height: 40%;
     #chart-item-holder{
       flex-flow: nowrap;
-      @chart-item-width: 769px;
-      @chart-item-height: 400px;
-      .chart-item {
-        height: @chart-item-height;
-        width: @chart-item-width;
-      }
       .chart-box {
         border-bottom-width: 0;
       }
@@ -252,14 +262,13 @@
   }
 }
 
-@iphone5W: 320px;
-@iphone6W: 375px;
-@iphone6PlusW: 414px;
-@iphone5H: 568px;
+@iphone6P-height: 736px;
+@iphone6P-width: 414px;
+@iphone5-width: 320px;
 
-@media (max-width: @iphone5H) { 
-  @chart-item-width: 240px;
-  @chart-item-height: 330px;
+@media (max-width: @iphone6P-height) and (orientation: landscape) { 
+  @chart-item-width: 40vw;
+  @chart-item-height: 100vh;
   #charts{
     #chart-item-holder{
       .chart-item {
@@ -270,10 +279,9 @@
   }
 }
 
-
-@media (max-width: @iphone6PlusW) and (orientation: portrait) { 
-  @chart-item-width: @iphone6PlusW;
-  @chart-item-height: 290px;
+@media (max-width: @iphone6P-width) and (orientation: portrait) { 
+  @chart-item-height: 40vh;
+  @chart-item-width: 100vw;
   #charts{
     #chart-item-holder{
       .chart-item {
@@ -284,37 +292,10 @@
   }
 }
 
-@media (max-width: @iphone6W) and (orientation: portrait) { 
-  @chart-item-width: @iphone6W;
-  @chart-item-height: 260px;
-  #charts{
-    #chart-item-holder{
-      .chart-item {
-        height: @chart-item-height;
-        width: @chart-item-width;
-      }
-      > .chart-item{
-        padding: 30px 10px;
-      }
+@media (max-width: @iphone5-width){ 
+    .text-larger{
+      font-size: 7px !important;
     }
-  }
 }
 
 
-@media (max-width: @iphone5W) and (orientation: portrait) { 
-  @chart-item-width: @iphone5W;
-  @chart-item-height: 220px;
-  #charts{
-    #chart-item-holder{
-      .chart-item {
-        height: chartItemH;
-        width: @chart-item-width;
-      }
-    }
-    .powered-by{
-      .text-larger{
-        font-size: 7px;
-      }
-    }
-  }
-}

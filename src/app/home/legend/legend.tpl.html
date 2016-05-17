@@ -12,47 +12,49 @@
 
         <a href class="reset-link" ng-click="resetAll();">Reset all layers</a>
     </div>
-    <div class="legend-item" ng-repeat="(type,item) in legends track by type">
-        <div class="row">
-            <div class="col-xs-7">
-                <div class="text-normal">Data layer {{$index + 1}} ({{type}})</div>
-            </div>
-            <div class="col-xs-5 legend-actions">
-                <a href="{{item.layerInfo.sourceUrl}}" target="_blank"><span class="text-normal">Info</span></a>
-                <span class="dropdown" ng-if="!item.hideSettingsIcon">
-                    <a id="dLabel" href type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="glyphicon glyphicon-cog"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dLabel">
-                        <div class="text-info">Display the layer as:</div>
-                        <ul>
-                            <a ng-repeat="lType in layerTypes" ng-if="item.types | contains:lType.type" href ng-click="changeType(type, lType.type)">
-                                <li>
-                                    <img ng-src="{{lType.image}}">
-                                    <span>{{lType.name}}</span>
-                                </li>
-                            </a>
-                        </ul>
-                    </div>
+    <div class="legend-item-container">
+        <div class="legend-item" ng-repeat="(type,item) in legends track by type">
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="text-normal">Data layer {{$index + 1}} ({{type}})</div>
+                </div>
+                <div class="col-xs-5 legend-actions">
+                    <a href="{{item.layerInfo.sourceUrl}}" target="_blank"><span class="text-normal">Info</span></a>
+                    <span class="dropdown" ng-if="!item.hideSettingsIcon">
+                        <a id="dLabel" href type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dLabel">
+                            <div class="text-info">Display the layer as:</div>
+                            <ul>
+                                <a ng-repeat="lType in layerTypes" ng-if="item.types | contains:lType.type" href ng-click="changeType(type, lType.type)">
+                                    <li>
+                                        <img ng-src="{{lType.image}}">
+                                        <span>{{lType.name}}</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </div>
 
-                </span>
-                <i ng-click="removeSlice(type);" class="glyphicon glyphicon-remove"></i>
+                    </span>
+                    <i ng-click="removeSlice(type);" class="glyphicon glyphicon-remove"></i>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="title-normal">{{item.layerInfo.name}}</div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="title-normal">{{item.layerInfo.name}}</div>
+                </div>
             </div>
-        </div>
-        <div>
-            <ul class="legend-colors">
-                <li ng-repeat="color in item.layerInfo.colors track by $index" style="background-color: {{color}}">
-                    <span ng-if="item.layerInfo.threshold">{{item.layerInfo.threshold[$index]}}</span>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <a href class="reset-link" ng-click="resetSlice(type);">Reset</a>
+            <div>
+                <ul class="legend-colors">
+                    <li ng-repeat="color in item.layerInfo.colors track by $index" style="background-color: {{color}}">
+                        <span ng-if="item.layerInfo.threshold">{{item.layerInfo.threshold[$index]}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <a href class="reset-link" ng-click="resetSlice(type);">Reset</a>
+            </div>
         </div>
     </div>
 </div>

@@ -129,11 +129,29 @@ html, body, .full-height {
   .leaflet-container a.leaflet-popup-close-button{
     display: block;
   }
+  #charts {
+    .noLayers {
+      & > div {
+        left: auto;
+        padding: 40% 0;
+        position: relative;
+        top: auto;
+        transform: none;
+      }
+    }
+  }
 }
 
 @media (max-width: @screen-sm-max) and (orientation: portrait) {
   //styles for mobile portrait view -- charts appear at bottom of screen
   .leaflet-container a.leaflet-popup-close-button{
     display: block;
+  }
+  #charts {
+    .noLayers {
+      & > div {
+        padding: 15% 0;
+      }
+    }
   }
 }
