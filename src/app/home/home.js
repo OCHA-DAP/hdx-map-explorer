@@ -41,7 +41,7 @@
             if (true) {
                 $scope.touchManager = initTouchManager();
             }
-            
+
             if ($scope.loadConfigUrl) {
                 $scope.$emit("addSlice", {url: $scope.loadConfigUrl});
             }
@@ -118,9 +118,19 @@
                 return configData;
             }
 
+            function populateScope(data) {
+                var configData = data.data;
+                if (configData.result && configData.success) { // If config comes from CKAN powerview
+                    $scope.configName = configData.result.title;
+                    $scope.configDescription = configData.result.description;
+                    $scope.configCreator = "";
+                }
+            }
+
             loadJson(url).then(
                 function (data) {
                     var configList = parseData(data);
+                    populateScope(data);
                     var currentTime = new Date().getTime();
                     for (var i=0; i<configList.length; i++){
                         var vizData = configList[i];
