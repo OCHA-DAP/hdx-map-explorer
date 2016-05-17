@@ -136,56 +136,91 @@ layer-legend {
 
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
-  @leafletRightSpace: 42%;
+  @leaflet-right-space: 42%;
+  @leaflet-control-width: 47%;
+  @legend-list-height: 180px;
   .leaflet-right{
-    right: @leafletRightSpace;
+    right: @leaflet-right-space;
   }
   layer-legend {
-    @leafletControlWidthSm: 280px;
     &.leaflet-control {
-      right: @leafletRightSpace;
+      max-width: 337px;
+      right: @leaflet-right-space;
       top: 55px;
-      width: @leafletControlWidthSm;
+      width: @leaflet-control-width;
       z-index: 1000;
+    }
+    .ui-select-search{
+      width: 100%;
     }
     .legend-list {
       .legend-item {
-        .selector.ui-select-bootstrap > .ui-select-match > .btn {
-          font-size: 14px;
+        .selector{
+          &.ui-select-bootstrap{
+            > .ui-select-match{
+              > .btn {
+                font-size: 14px;
+              }
+            }
+            > .ui-select-choices{
+              max-height: @legend-list-height;
+              overflow-y: scroll;
+            }
+          }
         }
       }
+    }
+  }
+  .dropdown-menu{
+    font-size: 12px;
+  }
+  .ui-select-bootstrap{
+    .ui-select-choices-row > a{
+      white-space: normal;
     }
   }
 }
 
 @media (max-width: @screen-sm-max) and (orientation: portrait) {
   //styles for mobile portrait view -- charts appear at bottom of screen
-  @leafletRightSpace: 2%;
+  @leaflet-right-space: 2%;
+  @leaflet-control-width: 77%;
+  @legend-item-container-height: 350px;
   .leaflet-right{
-    right: @leafletRightSpace;
+    right: @leaflet-right-space;
   }
   layer-legend {
     &.leaflet-control {
-      right: @leafletRightSpace;
+      right: @leaflet-right-space;
+      width: @leaflet-control-width;
+    }
+    .legend-item-container{
+      max-height: @legend-item-container-height;
+      overflow-y: scroll;
     }
   }
 }
 
-@media (max-width: 568px) { 
-  .layer-legend-toggle {
-    &.leaflet-control {
-      margin-top: 9px;
-    }
-  }
+@media (max-width: 667px) and (orientation: landscape) { 
+  @legend-item-container-height: 190px;
   layer-legend {
-    @leafletControlWidthXs: 265px;
-    &.leaflet-control {
-      top: 49px;
-      width: @leafletControlWidthXs;
+    .legend-item-container{
+      max-height: @legend-item-container-height;
+      overflow-y: scroll;
     }
-  }
-  .dropdown-menu{
-    font-size: 12px;
   }
 }
 
+@media (max-width: 568px) and (orientation: landscape) { 
+  @legend-item-container-height: 135px;
+  @legend-list-height: 125px;
+  layer-legend {
+    .legend-item-container{
+      max-height: @legend-item-container-height;
+    }
+    .legend-list .legend-item .selector.ui-select-bootstrap > .ui-select-choices{
+      max-height: @legend-list-height;
+      overflow-y: scroll;
+    }
+  }
+}
