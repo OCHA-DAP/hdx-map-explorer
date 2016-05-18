@@ -27,9 +27,6 @@
                     var chartWrapperEls = $("#" + chartWrapperClass);
                     var chartSize = null;
 
-                    //update chart pagination for created chart
-                    addChartPagination();
-                    
                     if (chartWrapperEls.length > 0 && chartWrapperEls[0].id != $scope.chartId ) {
                         //sizing controlled by css
                         // chartSize = {
@@ -183,13 +180,6 @@
 
     function dataError(error) {
         console.error(error);
-    }
-
-    function addChartPagination(){
-        var chartIndex = $('#chart-pagination').data('index');
-        $('#chart-pagination').append('<div class="dot"></div>');
-        $('#chart-pagination .dot').removeClass('active');
-        $('#chart-pagination .dot:nth-child(' + (chartIndex+1) + ')').addClass('active');
     }
 
     function decideChartColor(colorList) {

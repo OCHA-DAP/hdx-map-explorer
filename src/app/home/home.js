@@ -21,6 +21,7 @@
             $scope.chartsGroup = {};
             $scope.layerMap = {};
             $scope.popup = popup;
+            $scope.chartPaginationIndex = 0;
 
             angular.element($window).bind('resize', broadcastWindowResizeEvent);
 
@@ -171,9 +172,6 @@
             var chartsGroup = $scope.chartsGroup;
             delete chartsGroup[type];
             $scope.chartsGroup = chartsGroup;
-
-            //reset pagination
-            $('#chart-pagination .dot:last-child').remove();
             $scope.touchManager.swipeReset();
         }
 
@@ -457,6 +455,7 @@
 
                         //set chart pagination
                         //setChartPagination(chartIndex);
+                        $scope.chartPaginationIndex = chartIndex;
                         touchManager.swipePagination(chartIndex);
                     });
 
