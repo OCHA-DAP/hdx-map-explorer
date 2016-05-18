@@ -116,7 +116,7 @@
             sliceConfig.layerSelection = additionalFilters ? additionalFilters : null;
         };
         ConfigManager.prototype.saveCurrentConfigToServer = function (title, description) {
-            CkanSaver.saveCurrentConfigToServer(this.currentConfig, title, description);
+            return CkanSaver.saveCurrentConfigToServer(this.currentConfig, title, description);
         };
 
         ConfigManager.prototype.getCurrentConfig = function() {
@@ -178,12 +178,14 @@
             
             currentConfig.title = title;
 
-            $http.post(url, {
+            var promise = $http.post(url, {
                 "title": title,
                 "description": description,
                 "view_type": "Map Explorer",
                 "config": currentConfig
             });
+
+            return promise;
         };
     });
 

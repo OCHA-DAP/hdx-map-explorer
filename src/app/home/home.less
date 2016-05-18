@@ -83,13 +83,22 @@ html, body, .full-height {
   }
 }
 
+.modal-header {
+  background-color: @blueColor;
+  color: @whiteColor;
+  button.close {
+    color: @whiteColor;
+    opacity: 0.8;
+  }
+}
+
 .widget-header{
   background-color: @extraLightBlueColor;
   border-bottom: 1px solid @lightGrayColor;
   vertical-align: middle;
   line-height: 42px;
   padding: 0 @headerLeftRightMargin;
-  div {
+  &>div {
     display: inline-block;
     color: @grayColor;
     .sourceSansProFont(400, @headerFontSize);
@@ -144,7 +153,7 @@ html, body, .full-height {
       top: @mobile-header-top-padding;
       display: inline;
     }
-    div {
+    &>div {
       display: block;
       line-height: @mobile-header-font-size+2;
       margin-bottom: 0;

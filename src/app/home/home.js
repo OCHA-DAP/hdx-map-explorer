@@ -11,7 +11,7 @@
          * manager for the map explorer configuration.
          * @type {ConfigManager}
          */
-        configManager = new ConfigManager($scope);
+        configManager = $scope.configManager = new ConfigManager($scope);
 
         init();
 
