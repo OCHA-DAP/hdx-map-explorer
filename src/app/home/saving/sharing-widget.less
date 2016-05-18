@@ -1,0 +1,29 @@
+.mx-modal.modal {
+  .modal-header {
+    .gothamBoldFont(16px);
+    background-color: @blueColor;
+    color: @whiteColor;
+    padding: 20px;
+    button {
+      &.close {
+        color: @whiteColor;
+        opacity: 0.8;
+      }
+    }
+  }
+  .btn {
+    min-width: 150px;
+    .gothamBoldFont(12px);
+    text-transform: uppercase;
+    text-shadow: none;
+  }
+  .btn-primary {
+    background-color: @blueColor;
+  }
+  .modal-body{
+      .sourceSansProFont(400, 14px);
+      .important{
+        .sourceSansProFont(800, 16px);
+      }
+  }
+}

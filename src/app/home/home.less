@@ -1,4 +1,6 @@
 @import "legend/legend.less";
+@import "saving/app-header.less";
+@import "saving/sharing-widget.less";
 @import "charts.less";
 @import "loading.less";
 
@@ -78,39 +80,6 @@ html, body, .full-height {
 }
 #app-header{
   flex: 0 0 auto;
-  i {
-    display: none;
-  }
-}
-
-.modal-header {
-  background-color: @blueColor;
-  color: @whiteColor;
-  button.close {
-    color: @whiteColor;
-    opacity: 0.8;
-  }
-}
-
-.widget-header{
-  background-color: @extraLightBlueColor;
-  border-bottom: 1px solid @lightGrayColor;
-  vertical-align: middle;
-  line-height: 42px;
-  padding: 0 @headerLeftRightMargin;
-  &>div {
-    display: inline-block;
-    color: @grayColor;
-    .sourceSansProFont(400, @headerFontSize);
-    &.title {
-      margin-right:15px;
-      color: @darkGrayColor;
-      .gothamBoldFont(@headerFontSize+2);
-    }
-  }
-  .actions{
-    float: right;
-  }
 }
 
 #charts {
@@ -139,34 +108,6 @@ html, body, .full-height {
 
 @media (max-width: @screen-sm-max) {
   //styles for mobile landscape
-  #app-header {
-    @mobile-header-height: 73px;
-    @mobile-header-font-size: @headerFontSize;
-    @mobile-header-top-padding: 10px;
-    @mobile-header-padding: 15px;
-    max-height: @mobile-header-height;
-    padding: @mobile-header-top-padding @mobile-header-padding @mobile-header-padding;
-    //position: relative;
-    i {
-      position: absolute;
-      right: @mobile-header-padding;
-      top: @mobile-header-top-padding;
-      display: inline;
-    }
-    &>div {
-      display: block;
-      line-height: @mobile-header-font-size+2;
-      margin-bottom: 0;
-      &.title {
-        .gothamBoldFont(@mobile-header-font-size);
-        margin-bottom: 3px;
-      }
-    }
-    .actions{
-      display: none;
-    }
-    display: block;
-  }
   .leaflet-container a.leaflet-popup-close-button{
     display: block;
   }
