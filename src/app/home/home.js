@@ -38,6 +38,11 @@
                 return Object.keys(obj).length;
             };
 
+            $scope.loggedIn = false;
+            configManager.isLoggedInPromise().then(function(loggedIn){
+                $scope.loggedIn = loggedIn;
+            });
+
             if (true) {
                 $scope.touchManager = initTouchManager();
             }

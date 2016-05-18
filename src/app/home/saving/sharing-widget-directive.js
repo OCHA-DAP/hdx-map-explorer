@@ -6,19 +6,20 @@
                 configManager: '=',
                 show: '='
             },
-            templateUrl: "home/sharing-widget-directive.tpl.html",
+            templateUrl: "home/saving/sharing-widget-directive.tpl.html",
             link: function ($scope, element, attrs, controller) {
                 $scope.model = {};
                 $scope.model.configName = "";
                 $scope.model.configDescription = "";
                 $scope.mode = "save"; // decides what will be shown in the widget
                 // $scope.title = "Name your visualisation";
-                
+
                 var modal = $(element).find('.modal');
-                $scope.hideWidget = function() {
+                modal.on('hidden.bs.modal', function (e) {
+                    $scope.$apply(function(){$scope.show = false;});
+                });
+                $scope.hideWidget = function () {
                   modal.modal('hide');
-                  $scope.show = false;
-                  console.log("Made show false");
                 };
                 $scope.$watch('show', function () {
                     console.log("Show modified to " + $scope.show);
@@ -56,4 +57,4 @@
 
 
 
-}(angular.module("hdx.map.explorer.home")));
+}(angular.module("hdx.map.explorer.home.saving")));

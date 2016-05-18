@@ -123,6 +123,14 @@
             return this.currentConfig;
         };
 
+        /**
+         * Just a wrapper over the isLoggedInPromise in CkanSaver
+         * @returns {Promise}
+         */
+        ConfigManager.prototype.isLoggedInPromise = function() {
+            return CkanSaver.isLoggedInPromise();
+        };
+
         ConfigManager.prototype._findSliceIdxByName = function(sliceName) {
             var idx = -1;
             for (var i = 0; i < this.currentConfig.config.length; i++) {
@@ -162,10 +170,10 @@
 
         return ConfigManager;
     });
-}(angular.module("hdx.map.explorer.util")));
+}(angular.module("hdx.map.explorer.home.saving")));
 
 (function(module) {
-    module.service("CkanSaver", function ($http, APP_CONFIG){
+    module.service("CkanSaver", function ($q, $http, APP_CONFIG){
         this.saveCurrentConfigToServer = function (currentConfig, title, description) {
             var url = APP_CONFIG.ckanUrl + APP_CONFIG.ckanSavePath;
 
@@ -187,6 +195,31 @@
 
             return promise;
         };
+
+        /**
+         *
+         * @returns {Promise} That resolves to true/false if the user is logged in/not logged in
+         */
+        this.isLoggedInPromise = function () {
+            var deferred = $q.defer();
+            var url = APP_CONFIG.ckanUrl + APP_CONFIG.ckanCheckLogin;
+            $http.get(url).then(
+                function (response) {
+                    try {
+                        if (response.data.success){
+                            deferred.resolve(true);
+                        }
+                    }
+                    catch (e) {
+                        deferred.resolve(false);
+                    }
+                },
+                function () {
+                    deferred.resolve(false);
+                }
+            );
+            return deferred.promise;
+        };
     });
 
-}(angular.module("hdx.map.explorer.util")));
+}(angular.module("hdx.map.explorer.home.saving")));
