@@ -173,7 +173,7 @@
                 description = title = currentConfig.title;
             }
             else if (!description) {
-                description = title + " - " + new Date().toISOString();
+                description = "'" + title + "'" + " was created on " + new Date().toISOString();
             }
             
             currentConfig.title = title;
