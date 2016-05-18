@@ -1,37 +1,37 @@
 [
   {
-    "name": "Displaced Persons",
+    "name": "Number of Displaced People",
     "id": "1",
-    "description": "Map indicating total number of displaced persons (IDP + Refugee) in each first level administrative unit",
-    "type": "Displacement",
+    "description": "Indicates total number of displaced persons (IDP + Refugee) in each first level administrative unit",
+    "type": "DISPLACEMENT",
     "url": "assets/idps.json"
   },
   {
-    "name": "Estimated Baseline Population",
+    "name": "Estimated Total Population",
     "id": "5",
     "description": "Current population estmations from a variety of sources",
-    "type": "Displacement",
+    "type": "DISPLACEMENT",
     "url": "assets/population.json"
   },
   {
     "name": "Conflict Events",
     "id": "3",
     "description": "Points representing the location of individual conflict events",
-    "type": "Conflict Events",
+    "type": "CONFLICTS",
     "url": "assets/event_locations.json"
   },
   {
     "name": "Fatalities from Conflict Events",
     "id": "4",
-    "description": "Map indicating total number of fatalities in conflict incidents in each first level administrative unit",
-    "type": "Conflict Events",
+    "description": "Indicates total number of fatalities in conflict incidents in each first level administrative unit",
+    "type": "CONFLICTS",
     "url": "assets/fatalities.json"
   },
   {
-    "name": "Funding Progress on Latest Appeal [Chart only]",
+    "name": "Funding Progress on Latest Appeal",
     "id": "6",
     "description": "Percentage of current requirements that have been met",
-    "type": "Humanitarian Funding",
+    "type": "HUMANITARIAN FUNDING",
     "url": "assets/fts.json"
   },
   {

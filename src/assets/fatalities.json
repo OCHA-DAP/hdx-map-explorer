@@ -3,7 +3,7 @@
   "id": "4",
   "description": "Fatalities",
   "source": "https://data.hdx.rwlabs.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
-  "url": "https://data.hdx.rwlabs.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/667bd888-50e9-4e7e-96bb-98c4d4411b2e/download/acled_LCR_11.csv",
+  "url": "http://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/eb3f309b-3ed4-45cd-a503-4fe779698359/download/Lake_Chad_Basin_Recent_Conflict_Event_Total_Fatalities.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/gadm28_LCR_adm1.geojson",
@@ -17,14 +17,6 @@
         "threshold": [5,10,50,100,200,500],
         "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
-          {
-            "type": "select",
-            "options": {
-              "column": "#date",
-              "operator": ">=",
-              "value": "2015-01-01"
-            }
-          },
           {
             "type": "sum",
             "options": {
@@ -41,8 +33,8 @@
       "name": "Fatalities",
       "options": {
         "data": {
-          "x": "#date",
-          "y": "#affected+killed+sum",
+          "x": "#date+bin",
+          "y": "#affected+killed",
           "type": "area"
         },
         "axis": {
@@ -59,23 +51,15 @@
       "nextIndex": "02",
       "operations": [
         {
-          "type": "select",
-          "options": {
-            "column": "#date",
-            "operator": ">=",
-            "value": "2015-01-01"
-          }
-        },
-        {
           "type": "sort",
           "options": {
-            "columns": "#date"
+            "columns": "#date+bin"
           }
         },
         {
           "type": "sum",
           "options": {
-            "groupByColumn": "#date",
+            "groupByColumn": "#date+bin",
             "statsColumn": "#affected+killed"
           }
         }
