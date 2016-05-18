@@ -12,7 +12,7 @@
                 $scope.model.configName = "";
                 $scope.model.configDescription = "";
                 $scope.mode = "save"; // decides what will be shown in the widget
-                // $scope.title = "Name your visualisation";
+                $scope.ckanVizList = APP_CONFIG.ckanUrl + '/dashboard/visualizations';
 
                 var modal = $(element).find('.modal');
                 modal.on('hidden.bs.modal', function (e) {
