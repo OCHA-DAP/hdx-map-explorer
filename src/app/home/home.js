@@ -11,7 +11,7 @@
          * manager for the map explorer configuration.
          * @type {ConfigManager}
          */
-        configManager = new ConfigManager($scope);
+        configManager = $scope.configManager = new ConfigManager($scope);
 
         init();
 
@@ -38,6 +38,11 @@
             $scope.sizeOf = function(obj) {
                 return Object.keys(obj).length;
             };
+
+            $scope.loggedIn = false;
+            configManager.isLoggedInPromise().then(function(loggedIn){
+                $scope.loggedIn = loggedIn;
+            });
 
             if (true) {
                 $scope.touchManager = initTouchManager();

@@ -6,5 +6,9 @@
         <span ng-if="description"> - {{description}}</span>
         <span ng-if="user"> - {{user}}</span>
     </div>
-    <div class="actions">Save</div>
+    <div class="actions">
+        <a ng-if="loggedIn" ng-click="showSharingWidget()" href="">Save</a>
+        <a ng-if="!loggedIn" href="{{ckanLoginUrl}}">Login</a>
+    </div>
 </div>
+<sharing-widget show="sharingWidgetVisible" config-manager="configManager"></sharing-widget>

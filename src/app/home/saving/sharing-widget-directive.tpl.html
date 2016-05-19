@@ -1,0 +1,29 @@
+<div class="mx-modal modal">
+    <div class="modal-dialog">
+        <form ng-submit="save(model)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="hideWidget()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span ng-if="mode=='save'">Name your visualisation</span>
+                    <span ng-if="mode!='save'">Share your visualisation</span>
+                </div>
+                <div class="modal-body">
+
+                    <div ng-if="mode=='save'">
+                        <ng-include src="'home/saving/sharing-widget-save-body.tpl.html'"> </ng-include>
+                    </div>
+                    <div ng-if="mode!='save'">
+                        <ng-include src="'home/saving/sharing-widget-share-body.tpl.html'"> </ng-include>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-if="mode=='save'">Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
