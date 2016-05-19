@@ -14,7 +14,7 @@
     "url": "assets/population.json"
   },
   {
-    "name": "Conflict Events",
+    "name": "Conflict Event Locations",
     "id": "3",
     "description": "Points representing the location of individual conflict events",
     "type": "CONFLICTS",
@@ -35,17 +35,17 @@
     "url": "assets/fts.json"
   },
   {
-    "name": "Some data - month",
+    "name": "Quarterly Change in Market Prices",
     "id": "7",
-    "description": "somedata",
-    "type": "test data",
-    "url": "assets/testdata_month.json"
+    "description": "Quarterly Change in Market Prices",
+    "type": "FOOD SECURITY",
+    "url": "assets/market-last-quarter.json"
   },
   {
-    "name": "Some data - baseline",
+    "name": "Baseline Change in Market Prices",
     "id": "8",
-    "description": "somedata",
-    "type": "test data",
-    "url": "assets/testdata_baseline.json"
+    "description": "Baseline Change in Market Prices",
+    "type": "FOOD SECURITY",
+    "url": "assets/market-baseline.json"
   }
 ]
