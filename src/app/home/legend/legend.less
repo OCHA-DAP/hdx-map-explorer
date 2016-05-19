@@ -46,6 +46,16 @@ layer-legend {
       .selector {
         margin-top: 5px;
 
+        &.ui-select-bootstrap .ui-select-choices-row.active>a {
+          color: #333;
+          background-color: #fff;
+          &:hover, &:focus{
+            text-decoration: none;
+            color: #262626;
+            background-color: #f5f5f5;
+          }
+        }
+
         &.ui-select-bootstrap .ui-select-toggle>.caret{
           color: @blueColor;
           border-top-width: 10px;
