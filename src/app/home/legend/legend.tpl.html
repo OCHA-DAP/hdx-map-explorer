@@ -16,7 +16,7 @@
         <div class="legend-item" ng-repeat="(type,item) in legends track by type">
             <div class="row">
                 <div class="col-xs-7">
-                    <div class="text-normal">Data layer {{$index + 1}} ({{type}})</div>
+                    <div class="text-normal">Data layer {{$index + 1}} ({{layerTypeName(type)}})</div>
                 </div>
                 <div class="col-xs-5 legend-actions">
                     <a href="{{item.layerInfo.sourceUrl}}" target="_blank"><span class="text-normal">Info</span></a>

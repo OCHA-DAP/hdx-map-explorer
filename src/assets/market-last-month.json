@@ -2,7 +2,7 @@
   "name": "Change in Market Prices From Previous Month",
   "id": "5",
   "description": "Percentage change in the cost of the localized food basket from the previous month",
-  "source": "http://data.hdx.rwlabs.org/dataset/",
+  "source": "http://data.humdata.org/dataset/",
   "url": "https://dl.dropboxusercontent.com/u/18962396/dumbcopy.csv",
   "map": {
     "shapefile": {

@@ -97,6 +97,16 @@
                     }
                 };
 
+                $scope.layerTypeName = function(type){
+                    for (var idx in $scope.layerTypes){
+                        var lt = $scope.layerTypes[idx];
+                        if (lt.type == type){
+                            return lt.name;
+                        }
+                    }
+                    return type;
+                };
+
             },
             controller: function ($scope){
                 DataFetcher.loadDatasets()

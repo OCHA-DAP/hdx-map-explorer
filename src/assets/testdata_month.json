@@ -2,7 +2,7 @@
   "name": "Some data vs last month",
   "id": "7",
   "description": "some data",
-  "source": "http://data.hdx.rwlabs.org/dataset/",
+  "source": "http://data.humdata.org/dataset/",
   "url": "https://dl.dropboxusercontent.com/u/18962396/dumbcopy.csv",
   "map": {
     "shapefile": {
