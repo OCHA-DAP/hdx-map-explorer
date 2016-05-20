@@ -19,7 +19,7 @@
       "options": {
         "data": {
           "x" : "#country+name",
-          "y": "#x_requirement+x_percent+x_met",
+          "y": "#x_requirement+x_met+x_percent",
           "type": "bar"
         },
         "axis": {
@@ -49,7 +49,7 @@
         {
           "type": "keep-remove",
           "options": {
-            "keepColumns": ["#country+name","#x_requirement+x_percent+x_met"],
+            "keepColumns": ["#country+name","#x_requirement+x_met+x_percent"],
             "removeColumns": []
           }
         }
