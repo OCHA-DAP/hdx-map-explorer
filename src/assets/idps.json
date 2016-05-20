@@ -1,9 +1,9 @@
 {
-  "name": "Number of People Displaced by the Crisis",
+  "name": "Number of Displaced People",
   "id": "1",
-  "description": "IDPs at admin level 1",
-  "source": "https://data.humdata.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2",
-  "url": "https://data.humdata.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/1aaa5281-de4f-4ffa-a5ef-37c754a86478/download/rowca_idp-ref_ffill_2.csv",
+  "description": "Displaced persons by admin level 1",
+  "source": "https://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2",
+  "url": "https://data.hdx.rwlabs.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/1aaa5281-de4f-4ffa-a5ef-37c754a86478/download/rowca_idp-ref_ffill_2.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/gadm28_LCR_adm1.geojson",

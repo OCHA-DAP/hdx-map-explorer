@@ -1,5 +1,5 @@
 {
-  "name": "Fatalities",
+  "name": "Fatalities from Conflict Events",
   "id": "4",
   "description": "Fatalities",
   "source": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
@@ -34,7 +34,7 @@
       "options": {
         "data": {
           "x": "#date+bin",
-          "y": "#affected+killed",
+          "y": "#affected+killed+sum",
           "type": "area"
         },
         "axis": {

@@ -1,9 +1,9 @@
 {
-  "name": "Change in Market Prices From Previous Month",
-  "id": "5",
-  "description": "Percentage change in the cost of the localized food basket from the previous month",
-  "source": "http://data.humdata.org/dataset/",
-  "url": "https://dl.dropboxusercontent.com/u/18962396/dumbcopy.csv",
+  "name": "Change in Market Prices From Previous Quarter",
+  "id": "7",
+  "description": "Percentage change in the cost of the localized food basket from the previous quarter.",
+  "source": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5",
+  "url": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5/resource/e3731c87-beb2-4372-a90a-a6f2af3c5cb5/download/WFP_VAM_MarketMonitor_2016-03-31.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/gadm28_LCR_adm1.geojson",
@@ -13,8 +13,8 @@
       {
         "type": ["choropleth"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#meta+test1",
-        "threshold": [-50,0,5,10,15,30],
+        "valueColumn": "#x_foodprice+qtr+change",
+        "threshold": [-100,0,5,10,15,30],
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
     ]
@@ -25,7 +25,7 @@
       "options": {
         "data": {
           "x": "#country+name",
-          "y": "#meta+sum",
+          "y": "#x_foodprice+qtr+change+max",
           "type": "bar"
         },
         "axis": {
@@ -40,10 +40,10 @@
       },
       "operations": [
         {
-          "type": "sum",
+          "type": "max",
           "options": {
             "groupByColumn": "#country+name",
-            "avgColumn": "#meta+test1"
+            "statsColumn": "#x_foodprice+qtr+change"
           }
         }
       ]
