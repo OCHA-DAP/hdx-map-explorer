@@ -34,7 +34,7 @@
       "options": {
         "data": {
           "x": "#date+bin",
-          "y": "#affected+killed",
+          "y": "#affected+killed+sum",
           "type": "area"
         },
         "axis": {
