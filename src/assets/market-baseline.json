@@ -25,7 +25,7 @@
       "options": {
         "data": {
           "x": "#country+name",
-          "y": "#x_foodprice+baseline+change+max",
+          "y": "#x_foodprice+change+baseline+max",
           "type": "bar"
         },
         "axis": {
