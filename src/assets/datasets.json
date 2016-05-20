@@ -48,12 +48,4 @@
     "type": "FOOD SECURITY",
     "url": "assets/market-baseline.json"
   }
-  ,
-  {
-    "name": "Test Data",
-    "id": "9",
-    "description": "Baseline Change in Market Prices",
-    "type": "TEST",
-    "url": "assets/testdata-baseline.json"
-  }
 ]

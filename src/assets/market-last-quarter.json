@@ -11,7 +11,7 @@
     },
     "layers": [
       {
-        "type": ["choropleth"],
+        "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#x_foodprice+qtr+change",
         "threshold": [-100,0,5,10,15,30],
@@ -21,7 +21,7 @@
   },
     "charts": [
     {
-      "name": "Max change by country",
+      "name": "Maximum change per country",
       "options": {
         "data": {
           "x": "#country+name",
