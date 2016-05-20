@@ -1,6 +1,6 @@
 {
   "name": "Change in Market Prices From Previous Quarter",
-  "id": "5",
+  "id": "7",
   "description": "Percentage change in the cost of the localized food basket from the previous quarter.",
   "source": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5",
   "url": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5/resource/e3731c87-beb2-4372-a90a-a6f2af3c5cb5/download/WFP_VAM_MarketMonitor_2016-03-31.csv",
@@ -13,7 +13,7 @@
       {
         "type": ["choropleth"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#x_foodprice+change+qtr",
+        "valueColumn": "#x_foodprice+qtr+change",
         "threshold": [-100,0,5,10,15,30],
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
@@ -43,7 +43,7 @@
           "type": "max",
           "options": {
             "groupByColumn": "#country+name",
-            "statsColumn": "#x_foodprice+change+qtr"
+            "statsColumn": "#x_foodprice+qtr+change"
           }
         }
       ]
