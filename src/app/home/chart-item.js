@@ -52,7 +52,7 @@
                                 },
                                 y: {
                                     tick: {
-                                        values: decideChartValues(usableData, chartData.options.data.y, 3)
+                                        values: decideChartValues(usableData, chartData.options.data.y, 4)
                                     }
                                 }
 
@@ -87,6 +87,11 @@
                                     };
                                     $scope.$emit("chartPointClicked", data);
                                 }
+                            },
+                            grid: {
+                                y: {
+                                    lines: [{value: 0}]
+                                }
                             }
                             // onresized: function () {
                             //     $scope.chart.destroy();
@@ -120,7 +125,7 @@
                                 var usableData = data.slice(1);
                                 options.data.rows = usableData;
                                 var axis = options.axis;
-                                axis.y.tick.values = decideChartValues(usableData, chartData.options.data.y, 3);
+                                axis.y.tick.values = decideChartValues(usableData, chartData.options.data.y, 4);
                                 chart.load({
                                     rows: usableData,
                                     unload: true
@@ -224,7 +229,7 @@
             values.push(value);
             value += roundedStep;
         }
-        values.push(value);
+        // values.push(value);
 
         function findMaxValue(dataList, valuesColumn) {
             var max = 0;
@@ -268,6 +273,9 @@
             return Math.ceil(step / rounding) * rounding;
         }
 
+        if (values && values.length) {
+            values.splice(0, 0, 0); // add a label at 0
+        }
         return values;
 
     }
