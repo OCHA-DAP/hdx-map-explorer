@@ -104,7 +104,6 @@
                             //     }, 200);
                             // }
                         });
-
                         $scope.chart = c3.generate(options);
                         var cols = unloadColumns(options);
                         $scope.chart.unload(cols);
@@ -189,7 +188,7 @@
     }
 
     function decideChartColor(colorList) {
-        if (colorList.length > 0) {
+        if (colorList && colorList.length > 0) {
             var index = Math.floor(colorList.length / 2);
             return colorList[index];
         }
