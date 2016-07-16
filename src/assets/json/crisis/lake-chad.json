@@ -4,48 +4,48 @@
     "id": "1",
     "description": "Indicates total number of displaced persons (IDP + Refugee) in each first level administrative unit",
     "type": "DISPLACEMENT",
-    "url": "assets/idps.json"
+    "url": "assets/json/crisis/lake-chad/idps.json"
   },
   {
     "name": "Estimated Total Population",
     "id": "5",
     "description": "Current population estmations from a variety of sources",
     "type": "DISPLACEMENT",
-    "url": "assets/population.json"
+    "url": "assets/json/crisis/lake-chad/population.json"
   },
   {
     "name": "Conflict Event Locations",
     "id": "3",
     "description": "Points representing the location of individual conflict events",
     "type": "CONFLICTS",
-    "url": "assets/event_locations.json"
+    "url": "assets/json/crisis/lake-chad/event_locations.json"
   },
   {
     "name": "Fatalities from Conflict Events",
     "id": "4",
     "description": "Indicates total number of fatalities in conflict incidents in each first level administrative unit",
     "type": "CONFLICTS",
-    "url": "assets/fatalities.json"
+    "url": "assets/json/crisis/lake-chad/fatalities.json"
   },
   {
     "name": "Funding Progress on Latest Appeal",
     "id": "6",
     "description": "Percentage of current requirements that have been met",
     "type": "HUMANITARIAN FUNDING",
-    "url": "assets/fts.json"
+    "url": "assets/json/crisis/lake-chad/fts.json"
   },
   {
     "name": "Quarterly Change in Market Prices",
     "id": "7",
     "description": "Quarterly Change in Market Prices",
     "type": "FOOD SECURITY",
-    "url": "assets/market-last-quarter.json"
+    "url": "assets/json/crisis/lake-chad/market-last-quarter.json"
   },
   {
     "name": "Baseline Change in Market Prices",
     "id": "8",
     "description": "Baseline Change in Market Prices",
     "type": "FOOD SECURITY",
-    "url": "assets/market-baseline.json"
+    "url": "assets/json/crisis/lake-chad/market-baseline.json"
   }
 ]

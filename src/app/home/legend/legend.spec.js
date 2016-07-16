@@ -54,7 +54,7 @@ describe('homeLegend section', function () {
         $document = _$document_;
 
         layerListEndpoint = $httpBackend
-            .when('GET', 'assets/datasets.json')
+            .when('GET', 'assets/json/crisis/lake-chad.json')
             .respond(200, layerList);
     }));
 
@@ -64,7 +64,7 @@ describe('homeLegend section', function () {
     });
 
     function createLegend() {
-        $httpBackend.expectGET('assets/datasets.json');
+        $httpBackend.expectGET('assets/json/crisis/lake-chad.json');
         var element = angular.element('<div id="temp-map"></div>');
         $("#temp-map").remove();
         $("html").append(element);

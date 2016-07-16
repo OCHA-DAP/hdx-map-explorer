@@ -83,7 +83,7 @@
         };
 
         ret.loadDatasets = function(){
-            return $http.get('assets/datasets.json');
+            return $http.get('assets/json/crisis/lake-chad.json');
         };
 
         return ret;
