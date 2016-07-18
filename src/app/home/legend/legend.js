@@ -111,27 +111,33 @@
 
             },
             controller: function ($scope){
-                DataFetcher.loadDatasets($scope.crisisName)
-                    .then(function(result){
-                        $scope.title = result.data.title;
+                var loadDatasets = function(crisisName) {
+                    if (crisisName) {
+                        DataFetcher.loadDatasets(crisisName)
+                            .then(function (result) {
+                                $scope.title = result.data.title;
 
-                        var data = $scope.data = result.data.layers;
+                                var data = $scope.data = result.data.layers;
 
-                        if ($scope.initialSlice){
-                            var item;
-                            for (var i = 0; i < data.length; i++){
-                                item = data[i];
-                                if (item.id == $scope.initialSlice){
-                                    break;
+                                if ($scope.initialSlice) {
+                                    var item;
+                                    for (var i = 0; i < data.length; i++) {
+                                        item = data[i];
+                                        if (item.id == $scope.initialSlice) {
+                                            break;
+                                        }
+                                    }
+                                    $timeout(function () {
+                                        if (item != null) {
+                                            $scope.selectSlice(item);
+                                        }
+                                    }, 200);
                                 }
-                            }
-                            $timeout(function(){
-                                if (item != null){
-                                    $scope.selectSlice(item);
-                                }
-                            }, 200);
-                        }
-                    });
+                            });
+                    }
+                };
+                loadDatasets($scope.crisisName);
+                $scope.$watch("crisisName", loadDatasets);
             },
             templateUrl: "home/legend/legend.tpl.html"
         };

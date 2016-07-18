@@ -64,7 +64,19 @@
                 }
                 this.setLayerSelection(data.name, data.filters);
             }.bind(this));
+
+            // $scope.watch("crisisName", function(name){
+            //     this.setCrisisName(name);
+            // }.bind(this));
         }
+
+        /**
+         *
+         * @param {string} crisisName The identifier of the crisis
+         */
+        ConfigManager.prototype.setCrisisName = function(crisisName){
+            this.currentConfig.crisisName = crisisName;    
+        };
         /**
          *
          * @param slice Entire object with slice configuration
@@ -185,6 +197,7 @@
             }
             
             currentConfig.title = title;
+            currentConfig.configVersion = 2;
 
             var promise = $http.post(url, {
                 "title": title,
