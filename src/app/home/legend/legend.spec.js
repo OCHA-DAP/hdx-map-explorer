@@ -69,8 +69,9 @@ describe('homeLegend section', function () {
         $("#temp-map").remove();
         $("html").append(element);
         scope.map = L.map("temp-map", {});
+        scope.name = "lake-chad";
 
-        element = angular.element('<layer-legend map="map"></layer-legend>');
+        element = angular.element('<layer-legend map="map" crisis-name="name"></layer-legend>');
         element = $compile(element)(scope);
         $httpBackend.flush();
         scope.$digest();

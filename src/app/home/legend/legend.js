@@ -4,6 +4,7 @@
             restrict: "E",
             scope: {
                 id: '=',
+                title: "=",
                 map: '=',
                 addAction: '=',
                 removeAction: '=',
@@ -112,7 +113,9 @@
             controller: function ($scope){
                 DataFetcher.loadDatasets($scope.crisisName)
                     .then(function(result){
-                        var data = $scope.data = result.data;
+                        $scope.title = result.data.title;
+
+                        var data = $scope.data = result.data.layers;
 
                         if ($scope.initialSlice){
                             var item;
