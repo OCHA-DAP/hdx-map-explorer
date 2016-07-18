@@ -7,7 +7,8 @@
                 map: '=',
                 addAction: '=',
                 removeAction: '=',
-                initialSlice: '='
+                initialSlice: '=',
+                crisisName: "="
             },
             link: function($scope, element, attrs, controller){
                 var map = $scope.map;
@@ -109,7 +110,7 @@
 
             },
             controller: function ($scope){
-                DataFetcher.loadDatasets()
+                DataFetcher.loadDatasets($scope.crisisName)
                     .then(function(result){
                         var data = $scope.data = result.data;
 

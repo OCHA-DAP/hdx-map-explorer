@@ -31,6 +31,7 @@
             $scope.$on("changeSlice", changeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
+            $scope.crisisName = $stateParams.name;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManager = null;

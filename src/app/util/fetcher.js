@@ -82,8 +82,8 @@
             return promise;
         };
 
-        ret.loadDatasets = function(){
-            return $http.get('assets/json/crisis/lake-chad.json');
+        ret.loadDatasets = function(crisisName){
+            return $http.get('assets/json/crisis/'+crisisName+'.json');
         };
 
         return ret;
