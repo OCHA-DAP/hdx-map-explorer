@@ -52,7 +52,8 @@
                                 },
                                 y: {
                                     tick: {
-                                        values: decideChartValues(usableData, chartData.options.data.y, 4)
+                                        values: decideChartValues(usableData, chartData.options.data.y, 4),
+                                        format: _abbrNum
                                     }
                                 }
 
@@ -103,7 +104,6 @@
                             //     }, 200);
                             // }
                         });
-
                         $scope.chart = c3.generate(options);
                         var cols = unloadColumns(options);
                         $scope.chart.unload(cols);
@@ -188,7 +188,7 @@
     }
 
     function decideChartColor(colorList) {
-        if (colorList.length > 0) {
+        if (colorList && colorList.length > 0) {
             var index = Math.floor(colorList.length / 2);
             return colorList[index];
         }
@@ -208,6 +208,46 @@
         }
         return result;
     }
+
+    function _abbrNum(number) {
+        //fixed decimal places
+        var decPlacesNo = 2;
+        // 2 decimal places => 100, 3 => 1000, etc
+        var decPlaces = Math.pow(10,decPlacesNo);
+        // Enumerate number abbreviations
+        var abbrev = [ "k", "m", "b", "t" ];
+        var sign = 1;
+        if (number < 0){
+            sign = -1;
+        }
+        number = number * sign;
+
+        // Go through the array backwards, so we do the largest first
+        for (var i=abbrev.length-1; i>=0; i--) {
+            // Convert array index to "1000", "1000000", etc
+            var size = Math.pow(10,(i+1)*3);
+            // If the number is bigger or equal do the abbreviation
+            if(size <= number) {
+                // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+                // This gives us nice rounding to a particular decimal place.
+                number = Math.round(number*decPlaces/size)/decPlaces;
+                // Handle special case where we round up to the next abbreviation
+                if((number == 1000) && (i < abbrev.length - 1)) {
+                    number = 1;
+                    i++;
+                }
+                number = number * sign;
+                // Add the letter for the abbreviation
+                number += abbrev[i];
+                // We are done... stop
+                return number;
+            }
+        }
+        //if we got here we just need to set the decimal places
+        number = number * sign;
+        return parseFloat(Math.round(number * decPlaces) / decPlaces).toFixed(decPlacesNo);
+    }
+
 
     /**
      *

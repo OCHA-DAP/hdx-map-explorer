@@ -357,7 +357,7 @@
                         name: vizDataName,
                         type: type,
                         colors: legendColors,
-                        sourceUrl: vizDataUrl
+                        sourceUrl: vizDataSource
                     }
                 };
                 $scope.layerMap[type] = fakeLayer;

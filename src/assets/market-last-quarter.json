@@ -13,7 +13,7 @@
       {
         "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#x_foodprice+qtr+change",
+        "valueColumn": "#x_foodprice+change+qtr",
         "threshold": [-100,0,5,10,15,30],
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
@@ -25,7 +25,7 @@
       "options": {
         "data": {
           "x": "#country+name",
-          "y": "#x_foodprice+qtr+change+max",
+          "y": "#x_foodprice+change+qtr+max",
           "type": "bar"
         },
         "axis": {
@@ -43,7 +43,7 @@
           "type": "max",
           "options": {
             "groupByColumn": "#country+name",
-            "statsColumn": "#x_foodprice+qtr+change"
+            "statsColumn": "#x_foodprice+change+qtr"
           }
         }
       ]

@@ -43,7 +43,7 @@
       "options": {
         "data": {
           "x": "#date+bin",
-          "y": "#affected+sum+displaced",
+          "y": "#affected+displaced+sum",
           "type": "area"
         },
         "axis": {
@@ -86,7 +86,7 @@
       "options": {
         "data": {
           "x": "#affected+type",
-          "y": "#affected+sum+displaced",
+          "y": "#affected+displaced+sum",
           "type": "bar"
         },
         "axis": {
