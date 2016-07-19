@@ -1,0 +1,127 @@
+.fill-and-center {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  > div {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.landing-page{
+  height: 100vh;
+  .title {
+    .sourceSansProFont(700, 30px);
+    margin: 30px 0;
+  }
+
+  @carouselImageHeight: 150px;
+  @carouselItemWidth: 215px;
+  @carouselItemMargin: 40px;
+  .map-item {
+    border: 1px solid @extraLightGrayColor;
+    //float: left;
+
+    &:last-child{
+      margin-right: 0;
+    }
+
+    .map-item-image{
+      position: relative;
+      margin-bottom: 5px;
+
+      &:hover {
+        &.disabled {
+          .map-item-action{
+            display: none;
+          }
+        }
+        .map-item-action{
+          display: block;
+        }
+      }
+      .map-item-action {
+        display: none;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0, 0.3);
+
+        a {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          background-color: @orangeColor;
+          border-radius: 8px;
+          .gothamMediumFont(16px);
+          padding: 10px 40px;
+          text-transform: uppercase;
+          color: @whiteColor;
+        }
+      }
+      .graphic {
+        width: 100%;
+      }
+    }
+
+    .map-item-caption {
+      padding: 20px;
+      color: @blackColor;
+      .title {
+        .gothamBoldFont(16px);
+        margin: 0;
+      }
+      .layers{
+        .gothamBoldFont(14px);
+        color: @grayColor;
+      }
+      .description {
+        .gothamBookFont(12px);
+        margin: 0;
+      }
+    }
+
+  }
+
+
+  .map-item{
+    .item-content {
+      height: 95px;
+
+      .item-title{
+        .sourceSansProFont(700, 16px);
+      }
+      .item-description {
+        color: @darkGrayColor;
+      }
+    }
+  }
+
+  .coming-soon {
+    height: 411px; //feels about right :)
+    background-color: @extraLightGrayColor;
+    position: relative;
+    .center-content{
+      width:140px;
+      position: absolute;
+      top: 50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+
+      color: @lightGrayColor;
+      .sourceSansProFont(400, 12px);
+      text-align: center;
+
+      img {
+        width: 50px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
