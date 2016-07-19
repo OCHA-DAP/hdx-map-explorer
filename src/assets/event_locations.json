@@ -19,7 +19,7 @@
             "options": {
               "column": "#date",
               "operator": ">=",
-              "value": "2015-01-01"
+              "value": "1900-01-01"
             }
           }
         ]
