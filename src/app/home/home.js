@@ -32,7 +32,6 @@
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
             $scope.crisisName = $stateParams.name;
-            configManager.setCrisisName($stateParams.name);
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManager = null;
@@ -136,10 +135,9 @@
 
                     var crisisName = configData.result.config.crisisName;
                     crisisName = crisisName ? crisisName : "lake-chad";
-                    configManager.setCrisisName(crisisName);
                     $scope.crisisName = crisisName;
 
-                    if ( !configData.result.configVersion ) {
+                    if ( !configData.result.config.configVersion ) {
                         // For old saved poweviews we need to compute the path to the geojson
                         overwrittenGeojsonUrl = "assets/json/crisis/" + crisisName + "/boundaries.geojson";
                     }
