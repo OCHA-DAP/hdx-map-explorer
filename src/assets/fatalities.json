@@ -2,25 +2,25 @@
   "name": "Fatalities from Conflict Events",
   "id": "4",
   "description": "Fatalities",
-  "source": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
-  "url": "http://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/eb3f309b-3ed4-45cd-a503-4fe779698359/download/Lake_Chad_Basin_Recent_Conflict_Event_Total_Fatalities.csv",
+  "source": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/a67b85ee-50b4-4345-9102-d88bf9091e95/download/acled_fatalities_southsudan_bydate.csv",
   "map": {
     "shapefile": {
-      "url": "assets/json/gadm28_LCR_adm1.geojson",
-      "joinColumn": "NAME_1"
+      "url": "assets/json/south_sudan.geojson",
+      "joinColumn": "admin2Name"
     },
     "layers": [
       {
         "type": ["bubble", "choropleth"],
-        "joinColumn": "#adm1+name",
+        "joinColumn": "#adm2+name",
         "valueColumn": "#affected+killed+sum",
-        "threshold": [5,10,50,100,200,500],
+        "threshold": [2,4,8,16,32,64],
         "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
           {
             "type": "sum",
             "options": {
-              "groupByColumn": "#adm1+name",
+              "groupByColumn": "#adm2+name",
               "statsColumn": "#affected+killed"
             }
           }
@@ -33,7 +33,7 @@
       "name": "Fatalities",
       "options": {
         "data": {
-          "x": "#date+bin",
+          "x": "#date",
           "y": "#affected+killed+sum",
           "type": "area"
         },
@@ -53,16 +53,17 @@
         {
           "type": "sort",
           "options": {
-            "columns": "#date+bin"
+            "columns": "#date"
           }
         },
         {
           "type": "sum",
           "options": {
-            "groupByColumn": "#date+bin",
+            "groupByColumn": "#date",
             "statsColumn": "#affected+killed"
           }
         }
+
       ]
     }
   ]

@@ -9,8 +9,8 @@ describe('homeLegend section', function () {
     var $document;
     var isolatedScope;
 
-    var LAYER_TYPE = "DISPLACEMENT";
-    var LAYER_NAME = "Number of Displaced People";
+    var LAYER_TYPE = "INNEED";
+    var LAYER_NAME = "Number of People In Need";
 
     var colors = ['#000000', '#333333', '#666666', '#999999', '#cccccc'];
     var types = ['bubble', 'choropleth'];
@@ -23,9 +23,9 @@ describe('homeLegend section', function () {
         {
             "name": LAYER_NAME,
             "id": "1",
-            "description": "Indicates total number of displaced persons (IDP + Refugee) in each first level administrative unit",
+            "description": "Persons in need by admin level 2",
             "type": LAYER_TYPE,
-            "url": "assets/idps.json"
+            "url": "assets/inneed.json"
         }
     ];
 

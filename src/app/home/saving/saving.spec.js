@@ -42,7 +42,7 @@ describe('Saving Module - ', function () {
             scope.$digest();
             var $element = $(element);
             var mainTitle = $element.find('div.title');
-            expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
+            expect(mainTitle.text()).toBe("South Sudan Crisis");
             var login = $element.find('.actions a');
             expect(login.text()).toBe('Login');
         });
@@ -53,7 +53,7 @@ describe('Saving Module - ', function () {
             scope.$digest();
             var $element = $(element);
             var mainTitle = $element.find('div.title');
-            expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
+            expect(mainTitle.text()).toBe("South Sudan Crisis");
             var save = $element.find('.actions a');
             expect(save.text()).toBe('Save');
         });
