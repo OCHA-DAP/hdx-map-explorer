@@ -14,7 +14,7 @@
         "type": ["bubble", "choropleth"],
         "joinColumn": "#adm2+name",
         "valueColumn": "#affected+killed+sum",
-        "threshold": [2,4,8,16,32,64],
+        "threshold": [2,5,10,20,50,100],
         "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
         "operations": [
           {

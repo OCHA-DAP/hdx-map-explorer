@@ -14,7 +14,7 @@
         "type":["choropleth","bubble"],
         "joinColumn": "#adm2+name",
         "valueColumn": "#targeted",
-        "threshold": [1000,10000,50000,100000,500000,1000000],
+        "threshold": [20000,40000,60000,80000,100000,120000],
         "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"]
       }
     ]
