@@ -14,7 +14,7 @@
     {
       "name": "Estimated Total Population",
       "id": "5",
-      "description": "Current population estmations from a variety of sources",
+      "description": "Current population estimations from a variety of sources",
       "type": "DISPLACEMENT",
       "url": "assets/json/crisis/lake-chad/population.json"
     },
