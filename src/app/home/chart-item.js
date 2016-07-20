@@ -47,7 +47,7 @@
                             axis: {
                                 x: {
                                     tick: {
-                                        rotate: 45
+                                        rotate: chartData.options.axis.x.tick.rotate!=null ? chartData.options.axis.x.tick.rotate : 45
                                     }
                                 },
                                 y: {

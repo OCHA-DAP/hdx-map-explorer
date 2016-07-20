@@ -1,9 +1,9 @@
 {
-  "name": "Fatalities from Conflict Events",
+  "name": "Fatalities from Conflict Events (6 months)",
   "id": "4",
   "description": "Fatalities",
-  "source": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data",
-  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/a67b85ee-50b4-4345-9102-d88bf9091e95/download/acled_fatalities_southsudan_bydate.csv",
+  "source": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/a67b85ee-50b4-4345-9102-d88bf9091e95/download/South_Sudan_Recent_Conflict_Event_Total_Fatalities.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/south_sudan.geojson",
@@ -33,7 +33,7 @@
       "name": "Fatalities",
       "options": {
         "data": {
-          "x": "#date",
+          "x": "#date+bin",
           "y": "#affected+killed+sum",
           "type": "area"
         },
@@ -53,13 +53,13 @@
         {
           "type": "sort",
           "options": {
-            "columns": "#date"
+            "columns": "#date+bin"
           }
         },
         {
           "type": "sum",
           "options": {
-            "groupByColumn": "#date",
+            "groupByColumn": "#date+bin",
             "statsColumn": "#affected+killed"
           }
         }

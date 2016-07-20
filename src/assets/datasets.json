@@ -13,6 +13,13 @@
     "type": "TARGETED",
     "url": "assets/targeted.json"
   },
+   {
+    "name": "Conflict Event Locations",
+    "id": "3",
+    "description": "Points representing the location of individual conflict events",
+    "type": "CONFLICTS",
+    "url": "assets/event_locations.json"
+  },
   {
     "name": "Fatalities from Conflict Events",
     "id": "4",

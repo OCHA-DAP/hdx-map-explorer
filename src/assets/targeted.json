@@ -2,7 +2,7 @@
   "name": "Number of People Targeted",
   "id": "1",
   "description": "Persons targeted by admin level 2",
-  "source": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d",
+  "source": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/e4f59ee2-e7c7-4335-a9d9-984b6288af5a/download/2016-South-Sudan-People-Targeted_minimal.csv",
   "map": {
     "shapefile": {
@@ -11,7 +11,7 @@
     },
     "layers": [
       {
-        "type":["choropleth","bubble"],
+        "type":["bubble","choropleth"],
         "joinColumn": "#adm2+name",
         "valueColumn": "#targeted",
         "threshold": [20000,40000,60000,80000,100000,120000],
