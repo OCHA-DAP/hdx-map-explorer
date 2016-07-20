@@ -19,5 +19,19 @@
     "description": "Indicates total number of fatalities in conflict incidents in each second level administrative unit",
     "type": "CONFLICTS",
     "url": "assets/fatalities.json"
+  },
+  {
+    "name": "Baseline Change in Market Prices",
+    "id": "8",
+    "description": "Baseline Change in Market Prices",
+    "type": "FOOD SECURITY",
+    "url": "assets/market-baseline.json"
+  },
+   {
+    "name": "Quarterly Change in Market Prices",
+    "id": "7",
+    "description": "Quarterly Change in Market Prices",
+    "type": "FOOD SECURITY",
+    "url": "assets/market-last-quarter.json"
   }
 ]
