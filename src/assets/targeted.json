@@ -35,7 +35,7 @@
       "options": {
         "data": {
           "x": "#sector",
-          "y": "#targeted",
+          "y": "#targeted+sum",
           "type": "bar"
         },
         "axis": {
