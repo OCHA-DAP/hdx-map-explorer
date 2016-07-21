@@ -1,0 +1,22 @@
+{
+  "name": "Number of People In Need",
+  "id": "1",
+  "description": "Persons in need by admin level 2",
+  "source": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/2421c31a-47ff-425b-be88-a50a047c67bb/download/2016-South-Sudan-People-In-Need_minimal.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/crisis/south-sudan/boundaries.geojson",
+      "joinColumn": "admin2Name"
+    },
+    "layers": [
+      {
+        "type":["choropleth","bubble"],
+        "joinColumn": "#adm2+name",
+        "valueColumn": "#inneed",
+        "threshold": [20000,40000,60000,80000,100000,120000],
+        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"]
+      }
+    ]
+  }
+}
