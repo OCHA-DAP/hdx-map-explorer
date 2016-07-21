@@ -2,7 +2,8 @@
   "name": "Number of People Displaced",
   "id": "2",
   "description": "Persons Displaced at admin level 2",
-  "source": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
+  "source": "OCHA South Sudan",
+  "source_url": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/f500bc1d-a40f-485c-86a4-23be2009f2ff/download/2016-South-Sudan-Population-People-Displaced.csv",
   "map": {
     "shapefile": {

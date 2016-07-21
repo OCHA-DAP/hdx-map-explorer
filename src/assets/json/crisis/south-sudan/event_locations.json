@@ -2,7 +2,8 @@
   "name": "Conflict Event Locations",
   "id": "3",
   "description": "Event Locations",
-  "source": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "source": "ACLED",
+  "source_url": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/3480f362-67bb-44d0-b749-9e8fc0963fc0/download/South_Sudan_Recent_Conflict_Events.csv",
   "map": {
     "layers": [
