@@ -33,7 +33,7 @@
         });
 
         $stateProvider.state('load-slice', {
-            url: '/name/:name/:sliceId',
+            url: '/name/:name/layer/:sliceId',
             views: {
                 "main": {
                     controller: 'HomeController as model',
