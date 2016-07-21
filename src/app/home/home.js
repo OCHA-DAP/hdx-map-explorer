@@ -377,6 +377,7 @@
                 $scope.layerMap[type] = fakeLayer;
                 $scope.$broadcast("sliceCreated", fakeLayer);
             }
+            $scope.$broadcast("windowResized", {}); //resize event so if we have more than 2 charts they get will redraw
         }
 
         function generatePcodeValueMap(data, layerData) {

@@ -12,20 +12,72 @@
 }
 
 .landing-page{
+  @landingPagePadding: 20px;
+  @media (min-width: @screen-sm-min) {
+    overflow: scroll;
+  }
+  @media (max-width: @screen-xs-max) {
+    padding: 0 @landingPagePadding;
+    overflow: scroll;
+  }
+  @media (max-width: @screen-xs-max) and (orientation: landscape) {
+    padding: 0 @landingPagePadding/2;
+    overflow: auto;
+    position: relative;
+    margin: 0;
+
+    .vertical-center {
+      overflow-y: scroll;
+
+    }
+
+    .vertical-center > .row {
+      //padding: 0 25vw;
+      display: inline-flex;
+    }
+  }
+
+
   height: 100vh;
-  overflow: scroll;
 
   .title {
     .sourceSansProFont(700, 30px);
     margin: 30px 0;
+    @media (max-width: @screen-xs-max) and (orientation: landscape) {
+      margin: 0;
+    }
+  }
+
+  @colXs3Width: 33.33333333%;
+  @colXs6Width: 50%;
+  .col-sm-1.item-container {
+    width: @colXs3Width;
+    @media (min-width: @screen-sm-min) {
+      margin-bottom: @grid-gutter-width;
+    }
+    @media (max-width: @screen-xs-max) {
+      width: 100%;
+    }
+    @media (max-width: @screen-xs-max) and (orientation: landscape) {
+      width: 45vw;
+      float:left;
+    }
   }
 
   @carouselImageHeight: 150px;
   @carouselItemWidth: 215px;
   @carouselItemMargin: 40px;
   .map-item {
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: @landingPagePadding;
+    }
+
+    @media (max-width: @screen-xs-max) and (orientation: landscape) {
+      height: 80vh;
+      margin-bottom: 0;
+    }
+
     border: 1px solid @extraLightGrayColor;
-    //float: left;
 
     &:last-child{
       margin-right: 0;
