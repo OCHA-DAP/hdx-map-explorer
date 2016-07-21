@@ -3,7 +3,7 @@
   "title": "South Sudan Crisis",
   "description": "Arti has worked a lot on the Lake Chad Basin Crisis while developing the Map Explore, thus this is 'his favorite' crisis!",
   "thumbnail": "http://..",
-  "datasets" : 10,
+  "datasets" : 5,
   "layers": [
     {
       "name": "Number of People In Need",
