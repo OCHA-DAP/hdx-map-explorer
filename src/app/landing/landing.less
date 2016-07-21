@@ -13,15 +13,19 @@
 
 .landing-page{
   @landingPagePadding: 20px;
+  @media (min-width: @screen-sm-min) {
+    overflow: scroll;
+  }
   @media (max-width: @screen-xs-max) {
     padding: 0 @landingPagePadding;
     overflow: scroll;
   }
-
   @media (max-width: @screen-xs-max) and (orientation: landscape) {
     padding: 0 @landingPagePadding/2;
     overflow: auto;
     position: relative;
+    margin: 0;
+
     .vertical-center {
       overflow-y: scroll;
 
@@ -48,10 +52,12 @@
   @colXs6Width: 50%;
   .col-sm-1.item-container {
     width: @colXs3Width;
+    @media (min-width: @screen-sm-min) {
+      margin-bottom: @grid-gutter-width;
+    }
     @media (max-width: @screen-xs-max) {
       width: 100%;
     }
-
     @media (max-width: @screen-xs-max) and (orientation: landscape) {
       width: 45vw;
       float:left;
