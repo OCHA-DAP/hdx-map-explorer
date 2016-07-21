@@ -42,7 +42,7 @@
           "x": {
             "type": "category",
             "tick": {
-              "rotate": 30
+              "rotate": 45
             },
             "height": 60
           }
