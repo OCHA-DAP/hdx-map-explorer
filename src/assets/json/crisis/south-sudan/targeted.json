@@ -1,8 +1,8 @@
 {
   "name": "Number of People Targeted",
-  "description": "Persons targeted by admin level 2",
+  "description": "Persons targeted at admin level 2",
+  "source": "OCHA South Sudan",
   "sourceUrl": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
-  "source":"",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/e3c97e91-4965-4873-b56b-4442678c6e3a/download/2016-South-Sudan-People-Targeted_stacked.csv",
   "map": {
     "shapefile": {
