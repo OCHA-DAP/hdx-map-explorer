@@ -31,6 +31,7 @@
             $scope.$on("changeSlice", changeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
+            $scope.crisisName = $stateParams.name;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManager = null;
@@ -112,7 +113,8 @@
 
         function addSlice(event, data) {
             var url = data.url;
-            
+            var overwrittenGeojsonUrl = null;
+
             function parseData(data) {
                 var configData = data.data;
                 if (configData.result && configData.success) { // If config comes from CKAN powerview
@@ -130,6 +132,15 @@
                     $scope.configName = configData.result.title;
                     $scope.configDescription = configData.result.description;
                     $scope.configCreator = "";
+
+                    var crisisName = configData.result.config.crisisName;
+                    crisisName = crisisName ? crisisName : "lake-chad";
+                    $scope.crisisName = crisisName;
+
+                    if ( !configData.result.config.configVersion ) {
+                        // For old saved poweviews we need to compute the path to the geojson
+                        overwrittenGeojsonUrl = "assets/json/crisis/" + crisisName + "/boundaries.geojson";
+                    }
                 }
             }
 
@@ -144,6 +155,9 @@
 
                         var layer0Data = vizData.map.layers[0];
                         var layerType = layer0Data.type[0];
+                        if (overwrittenGeojsonUrl && vizData.map.shapefile) {
+                            vizData.map.shapefile.url = overwrittenGeojsonUrl;
+                        }
                         addLayer(vizData.name, vizData.source, vizData.url, vizData.map, layerType, vizData.chartSelection);
                         var groupData = {};
                         var chartsData = vizData.charts;

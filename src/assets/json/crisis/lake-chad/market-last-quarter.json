@@ -6,7 +6,7 @@
   "url": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5/resource/e3731c87-beb2-4372-a90a-a6f2af3c5cb5/download/WFP_VAM_MarketMonitor_2016-03-31.csv",
   "map": {
     "shapefile": {
-      "url": "assets/json/gadm28_LCR_adm1.geojson",
+      "url": "assets/json/crisis/lake-chad/boundaries.geojson",
       "joinColumn": "NAME_1"
     },
     "layers": [

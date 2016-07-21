@@ -14,6 +14,7 @@
              * @returns {?string}
              * @private
              */
+            this.scope = $scope;
             function _findSliceNameByType(type) {
                 try {
                     return $scope.layerMap[type].layerInfo.name;
@@ -64,7 +65,19 @@
                 }
                 this.setLayerSelection(data.name, data.filters);
             }.bind(this));
+
+            // $scope.watch("crisisName", function(name, oldName){
+            //     this.setCrisisName(name);
+            // }.bind(this));
         }
+
+        /**
+         *
+         * @param {string} crisisName The identifier of the crisis
+         */
+        ConfigManager.prototype.setCrisisName = function(crisisName){
+            this.currentConfig.crisisName = crisisName;    
+        };
         /**
          *
          * @param slice Entire object with slice configuration
@@ -116,6 +129,7 @@
             sliceConfig.layerSelection = additionalFilters ? additionalFilters : null;
         };
         ConfigManager.prototype.saveCurrentConfigToServer = function (title, description) {
+            this.setCrisisName(this.scope.crisisName);
             return CkanSaver.saveCurrentConfigToServer(this.currentConfig, title, description);
         };
 
@@ -185,6 +199,7 @@
             }
             
             currentConfig.title = title;
+            currentConfig.configVersion = 2;
 
             var promise = $http.post(url, {
                 "title": title,

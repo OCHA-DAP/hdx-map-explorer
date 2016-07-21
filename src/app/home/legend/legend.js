@@ -4,10 +4,12 @@
             restrict: "E",
             scope: {
                 id: '=',
+                title: "=",
                 map: '=',
                 addAction: '=',
                 removeAction: '=',
-                initialSlice: '='
+                initialSlice: '=',
+                crisisName: "="
             },
             link: function($scope, element, attrs, controller){
                 var map = $scope.map;
@@ -109,25 +111,33 @@
 
             },
             controller: function ($scope){
-                DataFetcher.loadDatasets()
-                    .then(function(result){
-                        var data = $scope.data = result.data;
+                var loadDatasets = function(crisisName) {
+                    if (crisisName) {
+                        DataFetcher.loadDatasets(crisisName)
+                            .then(function (result) {
+                                $scope.title = result.data.title;
 
-                        if ($scope.initialSlice){
-                            var item;
-                            for (var i = 0; i < data.length; i++){
-                                item = data[i];
-                                if (item.id == $scope.initialSlice){
-                                    break;
+                                var data = $scope.data = result.data.layers;
+
+                                if ($scope.initialSlice) {
+                                    var item;
+                                    for (var i = 0; i < data.length; i++) {
+                                        item = data[i];
+                                        if (item.id == $scope.initialSlice) {
+                                            break;
+                                        }
+                                    }
+                                    $timeout(function () {
+                                        if (item != null) {
+                                            $scope.selectSlice(item);
+                                        }
+                                    }, 200);
                                 }
-                            }
-                            $timeout(function(){
-                                if (item != null){
-                                    $scope.selectSlice(item);
-                                }
-                            }, 200);
-                        }
-                    });
+                            });
+                    }
+                };
+                loadDatasets($scope.crisisName);
+                $scope.$watch("crisisName", loadDatasets);
             },
             templateUrl: "home/legend/legend.tpl.html"
         };

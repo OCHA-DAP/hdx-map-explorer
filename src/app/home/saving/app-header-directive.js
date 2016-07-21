@@ -3,6 +3,7 @@
         return {
             restrict: "E",
             scope: {
+                title: "=",
                 name: '=',
                 description: '=',
                 user: '=',
