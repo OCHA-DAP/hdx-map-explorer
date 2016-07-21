@@ -2,7 +2,7 @@
     
     module.config(function ($stateProvider) {
         $stateProvider.state('landing', {
-            url: '/landing',
+            url: '/',
             views: {
                 "main": {
                     controller: 'LandingController as model',

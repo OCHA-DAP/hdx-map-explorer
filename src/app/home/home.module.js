@@ -12,14 +12,14 @@
             data:{ pageTitle: 'Home' }
         });
 
-        $stateProvider.state('default', {
-            url: '/',
-            views: {
-                "main": {
-                    controller: 'RedirectDefaultController as model'
-                }
-            }
-        });
+        // $stateProvider.state('default', {
+        //     url: '/',
+        //     views: {
+        //         "main": {
+        //             controller: 'RedirectDefaultController as model'
+        //         }
+        //     }
+        // });
 
         $stateProvider.state('home', {
             url: '/name/:name',
