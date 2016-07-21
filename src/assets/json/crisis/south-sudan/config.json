@@ -8,56 +8,48 @@
     {
       "name": "Population",
       "id": "1",
-      "description": "Population at admin level 2",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/population.json"
     },
     {
       "name": "Number of People Displaced",
       "id": "2",
-      "description": "Persons Displaced at admin level 2",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/displaced.json"
     },
     {
       "name": "Number of People In Need",
       "id": "3",
-      "description": "Persons in need at admin level 2",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/inneed.json"
     },
     {
       "name": "Number of People Targeted",
       "id": "4",
-      "description": "Persons targeted at admin level 2",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/targeted.json"
     },
     {
       "name": "Conflict Event Locations",
       "id": "5",
-      "description": "Points representing the location of individual conflict events",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/event_locations.json"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "6",
-      "description": "Indicates total number of fatalities in conflict incidents in each second level administrative unit",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/fatalities.json"
     },
     {
       "name": "Baseline Change in Market Prices",
       "id": "7",
-      "description": "Baseline Change in Market Prices",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-baseline.json"
     },
     {
       "name": "Quarterly Change in Market Prices",
       "id": "8",
-      "description": "Quarterly Change in Market Prices",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-last-quarter.json"
     }
