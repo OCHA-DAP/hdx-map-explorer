@@ -1,49 +1,43 @@
 {
   "name": "south-sudan",
   "title": "South Sudan Crisis",
-  "description": "Arti has worked a lot on the Lake Chad Basin Crisis while developing the Map Explore, thus this is 'his favorite' crisis!",
+  "description": "South Sudan Crisis Description",
   "thumbnail": "http://..",
   "datasets" : 5,
   "layers": [
     {
       "name": "Number of People In Need",
       "id": "1",
-      "description": "Persons in need by admin level 2",
       "type": "INNEED",
       "url": "assets/json/crisis/south-sudan/inneed.json"
     },
     {
       "name": "Number of People Targeted",
       "id": "2",
-      "description": "Persons targeted by admin level 2",
       "type": "TARGETED",
       "url": "assets/json/crisis/south-sudan/targeted.json"
     },
     {
       "name": "Conflict Event Locations",
       "id": "3",
-      "description": "Points representing the location of individual conflict events",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/event_locations.json"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "4",
-      "description": "Indicates total number of fatalities in conflict incidents in each second level administrative unit",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/fatalities.json"
     },
     {
       "name": "Baseline Change in Market Prices",
       "id": "5",
-      "description": "Baseline Change in Market Prices",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-baseline.json"
     },
     {
       "name": "Quarterly Change in Market Prices",
       "id": "6",
-      "description": "Quarterly Change in Market Prices",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-last-quarter.json"
     }

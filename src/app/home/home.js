@@ -158,7 +158,7 @@
                         if (overwrittenGeojsonUrl && vizData.map.shapefile) {
                             vizData.map.shapefile.url = overwrittenGeojsonUrl;
                         }
-                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, layerType, vizData.chartSelection);
+                        addLayer(vizData.name, vizData.sourceUrl, vizData.url, vizData.map, layerType, vizData.chartSelection);
                         var groupData = {};
                         var chartsData = vizData.charts;
                         if (chartsData && chartsData.length) {

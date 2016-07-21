@@ -1,56 +1,49 @@
 {
   "name": "lake-chad",
   "title": "Lake Chad Basin Crisis",
-  "description": "Arti has worked a lot on the Lake Chad Basin Crisis while developing the Map Explore, thus this is 'his favorite' crisis!",
+  "description": "Lake Chad Basin Crisis description",
   "thumbnail": "http://..",
-  "datasets" : 10,
+  "datasets" : 5,
   "layers": [
     {
       "name": "Number of Displaced People",
       "id": "1",
-      "description": "Indicates total number of displaced persons (IDP + Refugee) in each first level administrative unit",
       "type": "DISPLACEMENT",
       "url": "assets/json/crisis/lake-chad/idps.json"
     },
     {
       "name": "Estimated Total Population",
-      "id": "5",
-      "description": "Current population estimations from a variety of sources",
+      "id": "2",
       "type": "DISPLACEMENT",
       "url": "assets/json/crisis/lake-chad/population.json"
     },
     {
       "name": "Conflict Event Locations",
       "id": "3",
-      "description": "Points representing the location of individual conflict events",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/lake-chad/event_locations.json"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "4",
-      "description": "Indicates total number of fatalities in conflict incidents in each first level administrative unit",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/lake-chad/fatalities.json"
     },
     {
       "name": "Funding Progress on Latest Appeal",
-      "id": "6",
-      "description": "Percentage of current requirements that have been met",
+      "id": "5",
       "type": "HUMANITARIAN FUNDING",
       "url": "assets/json/crisis/lake-chad/fts.json"
     },
     {
       "name": "Quarterly Change in Market Prices",
-      "id": "7",
-      "description": "Quarterly Change in Market Prices",
+      "id": "6",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/lake-chad/market-last-quarter.json"
     },
     {
       "name": "Baseline Change in Market Prices",
-      "id": "8",
-      "description": "Baseline Change in Market Prices",
+      "id": "7",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/lake-chad/market-baseline.json"
     }
