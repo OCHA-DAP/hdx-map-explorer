@@ -1,0 +1,78 @@
+{
+  "name": "Crisis-Related Displaced Persons [Bar Chart]",
+  "id": "1",
+  "description": "IDPs at adm1. Choropleth + area chart",
+  "source": "https://data.humdata.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2",
+  "url": "https://data.humdata.org/dataset/2d3c4e22-4603-45b8-b231-82cc2d45abf2/resource/1aaa5281-de4f-4ffa-a5ef-37c754a86478/download/rowca_idp-ref_ffill_2.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/gadm28_LCR_adm1.geojson",
+      "joinColumn": "NAME_1"
+    },
+    "layers": [
+      {
+        "type":["bubble"],
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#affected+displaced",
+        "threshold": [1000,10000,50000,100000,500000,1000000],
+        "colors": ["#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#005a32"],
+        "operations": [
+          {
+            "type": "select",
+            "options": {
+              "column": "#affected+type",
+              "operator": "=",
+              "value": "idp"
+            }
+          },
+          {
+            "type": "select",
+            "options": {
+              "column": "#date+bin",
+              "operator": "=",
+              "value": "2016-04-30"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "name": "By Affected Type",
+      "options": {
+        "data": {
+          "x": "#affected+type",
+          "y": "#affected+sum+displaced",
+          "type": "bar"
+        },
+        "axis": {
+          "x": {
+            "type": "category",
+            "tick": {
+              "rotate": 30
+            },
+            "height": 60
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "select",
+          "options": {
+            "column": "#date+bin",
+            "operator": "=",
+            "value": "2016-04-30"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#affected+type",
+            "statsColumn": "#affected+displaced"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -105,7 +105,7 @@
           "options": {
             "column": "#date+bin",
             "operator": "=",
-            "value": "2016-04-30"
+            "value": "2016-06-30"
           }
         },
         {
