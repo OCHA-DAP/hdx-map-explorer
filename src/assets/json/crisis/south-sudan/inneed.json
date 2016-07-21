@@ -3,7 +3,7 @@
   "id": "3",
   "description": "Persons in need at admin level 2",
   "source": "OCHA South Sudan",
-  "source_url": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
+  "source-url": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/42bd1d8d-2c76-4233-897c-3fa73e38ce41/download/2016-South-Sudan-People-In-Need_stacked.csv",
   "map": {
     "shapefile": {
