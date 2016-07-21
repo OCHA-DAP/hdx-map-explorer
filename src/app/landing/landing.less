@@ -13,6 +13,8 @@
 
 .landing-page{
   height: 100vh;
+  overflow: scroll;
+
   .title {
     .sourceSansProFont(700, 30px);
     margin: 30px 0;
@@ -71,7 +73,7 @@
     }
 
     .map-item-caption {
-      padding: 20px;
+      padding: 21px 20px;
       color: @blackColor;
       .title {
         .gothamBoldFont(16px);
@@ -104,9 +106,13 @@
   }
 
   .coming-soon {
-    height: 411px; //feels about right :)
     background-color: @extraLightGrayColor;
-    position: relative;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
     .center-content{
       width:140px;
       position: absolute;

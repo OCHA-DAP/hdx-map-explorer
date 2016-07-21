@@ -23,6 +23,9 @@
                     var result = [];
                     for (var i = 0; i < crises.length; i++){
                         var c = crises[i].data;
+                        if (!c.datasets) {
+                            c.datasets = 0;
+                        }
                         result.push(c);
                     }
 
