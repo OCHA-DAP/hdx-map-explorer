@@ -1,46 +1,49 @@
 <div class="landing-page">
     <div class="title">Map explorer</div>
 
-    <div class="row ">
-        <div class="col-xs-12 col-sm-4 item-center" ng-repeat="crisis in crisisList">
-            <div class="map-item">
-                <div class="map-item-image">
-                    <img class="graphic" ng-src="/assets/json/crisis/{{crisis.name}}/thumbnail.png">
-                    <div class="map-item-action">
-                        <a href ui-sref="home({name: crisis})" class="btn">Explore</a>
-                    </div>
-                </div>
-
-                <a href ui-sref="home({name: crisis.name})" >
-                    <div class="map-item-caption">
-                        <p class="title">{{crisis.title}}</p>
-                        <p class="layers">{{crisis.datasets | number}} Datasets</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 item-center">
-            <div class="" style="position: relative;">
+    <div class="vertical-center">
+        <div class="row ">
+            <!-- Overriding col split in LESS col-sm-1 used just for the other styles -->
+            <div class="col-sm-1 item-container" ng-repeat="crisis in crisisList">
                 <div class="map-item">
                     <div class="map-item-image">
-                        <img class="graphic" ng-src="/assets/json/crisis/{{crisisList[0].name}}/thumbnail.png">
+                        <img class="graphic" ng-src="/assets/json/crisis/{{crisis.name}}/thumbnail.png">
                         <div class="map-item-action">
-                            <a href ui-sref="home({name: crisis})" class="btn">Explore</a>
+                            <a href ui-sref="home({name: crisis.name})" class="btn">Explore</a>
                         </div>
                     </div>
 
                     <a href ui-sref="home({name: crisis.name})" >
                         <div class="map-item-caption">
-                            <p class="title">{{crisisList[0].title}}</p>
-                            <p class="layers">{{crisisList[0].datasets | number}} Datasets</p>
+                            <p class="title">{{crisis.title}}</p>
+                            <p class="layers">{{crisis.datasets | number}} Datasets</p>
                         </div>
                     </a>
                 </div>
+            </div>
+            <div class="col-sm-1 item-container">
+                <div class="" style="position: relative;">
+                    <div class="map-item">
+                        <div class="map-item-image">
+                            <img class="graphic" ng-src="/assets/json/crisis/{{crisisList[0].name}}/thumbnail.png">
+                            <div class="map-item-action">
+                                <a href ui-sref="home({name: crisis})" class="btn">Explore</a>
+                            </div>
+                        </div>
 
-                <div class="coming-soon">
-                    <div class="center-content">
-                        <img src="assets/images/bar-chart.svg">
-                        <p>More maps to explore soon</p>
+                        <a href ui-sref="home({name: crisis.name})" >
+                            <div class="map-item-caption">
+                                <p class="title">{{crisisList[0].title}}</p>
+                                <p class="layers">{{crisisList[0].datasets | number}} Datasets</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="coming-soon">
+                        <div class="center-content">
+                            <img src="assets/images/bar-chart.svg">
+                            <p>More maps to explore soon</p>
+                        </div>
                     </div>
                 </div>
             </div>
