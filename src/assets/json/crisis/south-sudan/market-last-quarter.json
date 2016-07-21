@@ -23,11 +23,7 @@
         },
         "axis": {
           "x": {
-            "type": "category",
-            "tick": {
-              "rotate": 0
-            },
-            "height": 100
+            "type": "category"
           }
         }
       },

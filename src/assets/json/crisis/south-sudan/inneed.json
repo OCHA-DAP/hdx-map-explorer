@@ -40,11 +40,7 @@
         },
         "axis": {
           "x": {
-            "type": "category",
-            "tick": {
-              "rotate": 45
-            },
-            "height": 60
+            "type": "category"
           }
         }
       },
