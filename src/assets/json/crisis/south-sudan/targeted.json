@@ -14,8 +14,8 @@
         "type":["bubble","choropleth"],
         "joinColumn": "#adm2+name",
         "valueColumn": "#targeted",
-        "threshold": [0,20000,40000,60000,80000,100000,120000],
-        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#ff1111"],
+        "threshold": [0,25000,50000,75000,100000,125000],
+        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"],
         "operations": [
            {
             "type": "select",
@@ -50,8 +50,11 @@
       },
       "operations": [
         {
-          "type": "sum",
+          "type": "select",
           "options": {
+            "column": "#sector",
+            "operator": "<>",
+            "value": "targeted",
             "groupByColumn": "#sector",
             "statsColumn": "#targeted"
           }
