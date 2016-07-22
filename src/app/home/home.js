@@ -227,12 +227,14 @@
                         var data = promiseValues[0].data,
                             geojson = promiseValues[1].data;
                         var values = angular.bind(this, generatePcodeValueMap)(data, firstLayer);
-                        var stepCount = 10;
+
                         var colors = firstLayer.colors;
-                        var step = (values.max - values.min) / stepCount;
+
                         var threshold = firstLayer.threshold;
                         if (!threshold) {
                             threshold = [];
+                            var stepCount = colors.length;
+                            var step = (values.max - values.min) / stepCount;
                             for (var sIdx = 0; sIdx < stepCount; sIdx++) {
                                 threshold.push(values.min + sIdx * step);
                             }
@@ -257,7 +259,7 @@
                         var mapDataJoinColumn = firstLayer.joinColumn;
 
                         var layerInfo = new LayerInfo($scope, vizDataName, layerType, colors, threshold, values,
-                            shapeJoinColumn, mapDataJoinColumn, stepCount, vizDataSource, vizDataUrl, mapData);
+                            shapeJoinColumn, mapDataJoinColumn, vizDataSource, vizDataUrl, mapData);
 
                         switch (layerType) {
                             case LayerTypes.CHOROPLETH_TYPE:
