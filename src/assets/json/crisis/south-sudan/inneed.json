@@ -49,8 +49,13 @@
           "type": "select",
           "options": {
             "column": "#sector",
-            "operator": "<>",
-            "value": "inneed",
+            "operator": "!=",
+            "value": "inneed"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
             "groupByColumn": "#sector",
             "statsColumn": "#inneed"
           }

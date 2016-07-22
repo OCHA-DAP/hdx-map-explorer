@@ -53,14 +53,18 @@
           "type": "select",
           "options": {
             "column": "#sector",
-            "operator": "<>",
-            "value": "targeted",
+            "operator": "!=",
+            "value": "targeted"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
             "groupByColumn": "#sector",
             "statsColumn": "#targeted"
           }
         }
       ]
-
     }
   ]
 }
