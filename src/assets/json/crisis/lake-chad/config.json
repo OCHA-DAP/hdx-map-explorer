@@ -13,7 +13,8 @@
       "name": "Number of Displaced People",
       "id": "1",
       "type": "DISPLACEMENT",
-      "url": "assets/json/crisis/lake-chad/idps.json"
+      "url": "assets/json/crisis/lake-chad/idps.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Estimated Total Population",
