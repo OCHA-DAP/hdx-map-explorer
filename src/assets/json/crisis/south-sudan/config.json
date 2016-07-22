@@ -2,7 +2,6 @@
   "name": "south-sudan",
   "title": "South Sudan Crisis",
   "description": "South Sudan Crisis Description",
-  "thumbnail": "http://..",
   "datasets" : 8,
   "mapCenter": {
     "lat": 6.8770,
@@ -14,49 +13,57 @@
       "name": "Population",
       "id": "1",
       "type": "AFFECTED",
-      "url": "assets/json/crisis/south-sudan/population.json"
+      "url": "assets/json/crisis/south-sudan/population.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Number of People Displaced",
       "id": "2",
       "type": "AFFECTED",
-      "url": "assets/json/crisis/south-sudan/displaced.json"
+      "url": "assets/json/crisis/south-sudan/displaced.json",,
+      "sourceName": "OCHA"
     },
     {
       "name": "Number of People In Need",
       "id": "3",
       "type": "AFFECTED",
-      "url": "assets/json/crisis/south-sudan/inneed.json"
+      "url": "assets/json/crisis/south-sudan/inneed.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Number of People Targeted",
       "id": "4",
       "type": "AFFECTED",
-      "url": "assets/json/crisis/south-sudan/targeted.json"
+      "url": "assets/json/crisis/south-sudan/targeted.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Conflict Event Locations",
       "id": "5",
       "type": "CONFLICTS",
-      "url": "assets/json/crisis/south-sudan/event_locations.json"
+      "url": "assets/json/crisis/south-sudan/event_locations.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "6",
       "type": "CONFLICTS",
-      "url": "assets/json/crisis/south-sudan/fatalities.json"
+      "url": "assets/json/crisis/south-sudan/fatalities.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Baseline Change in Market Prices",
       "id": "7",
       "type": "FOOD SECURITY",
-      "url": "assets/json/crisis/south-sudan/market-baseline.json"
+      "url": "assets/json/crisis/south-sudan/market-baseline.json",
+      "sourceName": "OCHA"
     },
     {
       "name": "Quarterly Change in Market Prices",
       "id": "8",
       "type": "FOOD SECURITY",
-      "url": "assets/json/crisis/south-sudan/market-last-quarter.json"
+      "url": "assets/json/crisis/south-sudan/market-last-quarter.json",
+      "sourceName": "OCHA"
     }
   ]
 }

@@ -41,7 +41,9 @@ Single crisis config file
       /* layer category, used for grouping inside layer select dropdown */
       "type": "DISPLACEMENT",                                   
       /* layer config file url */
-      "url": "assets/json/crisis/lake-chad/idps.json"           
+      "url": "assets/json/crisis/lake-chad/idps.json",
+      /* source name that will appear under the layer name in the layer select dropdown */
+      "sourceName": "OCHA"
     },
 ```
 

@@ -1,7 +1,6 @@
 {
   "name": "Fatalities from Conflict Events",
   "description": "Fatalities",
-  "source":"",
   "sourceUrl": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
   "url": "http://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/eb3f309b-3ed4-45cd-a503-4fe779698359/download/Lake_Chad_Basin_Recent_Conflict_Event_Total_Fatalities.csv",
   "map": {
