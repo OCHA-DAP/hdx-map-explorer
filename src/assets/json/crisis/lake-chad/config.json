@@ -4,6 +4,11 @@
   "description": "Lake Chad Basin Crisis description",
   "thumbnail": "http://..",
   "datasets" : 5,
+  "mapCenter": {
+    "lat": 10,
+    "long": 10,
+    "zoom": 5
+  },
   "layers": [
     {
       "name": "Number of Displaced People",

@@ -118,7 +118,6 @@
                                 $scope.title = result.data.title;
 
                                 var data = $scope.data = result.data.layers;
-
                                 if ($scope.initialSlice) {
                                     var item;
                                     for (var i = 0; i < data.length; i++) {
@@ -132,6 +131,18 @@
                                             $scope.selectSlice(item);
                                         }
                                     }, 200);
+                                }
+
+                                if ($scope.map){
+                                    var DEFAULT_LAT = 10, DEFAULT_LONG = 10, DEFAULT_ZOOM = 5;
+                                    if (!result.data.mapCenter){
+                                        $scope.map.setView([DEFAULT_LAT, DEFAULT_LONG], DEFAULT_ZOOM);
+                                    } else {
+                                        var lat = result.data.mapCenter.lat || DEFAULT_LAT;
+                                        var long = result.data.mapCenter.long || DEFAULT_LONG;
+                                        var zoom = result.data.mapCenter.zoom || DEFAULT_ZOOM;
+                                        $scope.map.setView([lat, long], zoom);
+                                    }
                                 }
                             });
                     }

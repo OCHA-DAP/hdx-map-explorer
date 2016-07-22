@@ -199,7 +199,7 @@
         }
 
         function buildBaseMap() {
-            var map = L.map("map", {zoomControl: true}).setView([10, 10], 5);
+            var map = L.map("map", {zoomControl: true});//.setView([10, 10], 5);
             $scope.map = map;
             map.on("resize", function () {
                 mapFitBounds();
