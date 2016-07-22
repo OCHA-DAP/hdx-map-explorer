@@ -61,7 +61,7 @@
          */
         function broadcastWindowResizeEvent() {
             console.log("Sending resized event");
-            $scope.$broadcast("windowResized", {});
+            $scope.$broadcast("windowRyesized", {});
         }
 
         function chartPointClicked(event, data) {
@@ -158,6 +158,7 @@
                         if (overwrittenGeojsonUrl && vizData.map.shapefile) {
                             vizData.map.shapefile.url = overwrittenGeojsonUrl;
                         }
+                        removeSlice(null, layerType);
                         addLayer(vizData.name, vizData.sourceUrl, vizData.url, vizData.map, layerType, vizData.chartSelection);
                         var groupData = {};
                         var chartsData = vizData.charts;
@@ -331,9 +332,11 @@
                                 console.error("Unknown layer type");
                         }
 
-                        if ($scope.layerMap[layerType]) {
-                            layerGroup.removeLayer($scope.layerMap[layerType]);
-                        }
+                        // Should be no longer needed. Added a removeSlice() call before addSlice()
+                        // if ($scope.layerMap[layerType]) {
+                        //     layerGroup.removeLayer($scope.layerMap[layerType]);
+                        // }
+
                         $scope.layerMap[layerType] = newLayer;
                         newLayer.values = values;
                         newLayer.colors = colors;
