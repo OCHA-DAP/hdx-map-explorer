@@ -4,6 +4,11 @@
   "description": "South Sudan Crisis Description",
   "thumbnail": "http://..",
   "datasets" : 8,
+  "mapCenter": {
+    "lat": 6.8770,
+    "long": 31.3070,
+    "zoom": 5
+  },
   "layers": [
     {
       "name": "Population",
