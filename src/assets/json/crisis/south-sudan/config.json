@@ -14,56 +14,56 @@
       "id": "1",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/population.json",
-      "sourceName": "OCHA"
+      "sourceName": "OCHA South Sudan"
     },
     {
       "name": "Number of People Displaced",
       "id": "2",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/displaced.json",
-      "sourceName": "OCHA"
+      "sourceName": "OCHA South Sudan"
     },
     {
       "name": "Number of People In Need",
       "id": "3",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/inneed.json",
-      "sourceName": "OCHA"
+      "sourceName": "OCHA South Sudan"
     },
     {
       "name": "Number of People Targeted",
       "id": "4",
       "type": "AFFECTED",
       "url": "assets/json/crisis/south-sudan/targeted.json",
-      "sourceName": "OCHA"
+      "sourceName": "OCHA South Sudan"
     },
     {
       "name": "Conflict Event Locations",
       "id": "5",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/event_locations.json",
-      "sourceName": "OCHA"
+      "sourceName": "ACLED"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "6",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/south-sudan/fatalities.json",
-      "sourceName": "OCHA"
+      "sourceName": "ACLED"
     },
     {
       "name": "Baseline Change in Market Prices",
       "id": "7",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-baseline.json",
-      "sourceName": "OCHA"
+      "sourceName": "WFP"
     },
     {
       "name": "Quarterly Change in Market Prices",
       "id": "8",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-last-quarter.json",
-      "sourceName": "OCHA"
+      "sourceName": "WFP"
     }
   ]
 }
