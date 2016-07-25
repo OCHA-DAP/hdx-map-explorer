@@ -1,0 +1,69 @@
+{
+  "name": "Fatalities from Conflict Events (6 months)",
+  "description": "Fatalities",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/a67b85ee-50b4-4345-9102-d88bf9091e95/download/South_Sudan_Recent_Conflict_Event_Total_Fatalities.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/crisis/south-sudan/boundaries.geojson",
+      "joinColumn": "admin2Name"
+    },
+    "layers": [
+      {
+        "type": ["bubble", "choropleth"],
+        "joinColumn": "#adm2+name",
+        "valueColumn": "#affected+killed+sum",
+        "threshold": [1,5,10,20,50,100],
+        "colors": ["#edf8fb","#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"],
+        "operations": [
+          {
+            "type": "sum",
+            "options": {
+              "groupByColumn": "#adm2+name",
+              "statsColumn": "#affected+killed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "name": "Fatalities",
+      "options": {
+        "data": {
+          "x": "#date+bin",
+          "y": "#affected+killed+sum",
+          "type": "area"
+        },
+        "axis": {
+          "x": {
+            "type": "timeseries",
+            "tick": {
+              "format": "%B %Y",
+              "rotate": 30
+            },
+            "height": 60
+          }
+        }
+      },
+      "nextIndex": "02",
+      "operations": [
+        {
+          "type": "sort",
+          "options": {
+            "columns": "#date+bin"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#date+bin",
+            "statsColumn": "#affected+killed"
+          }
+        }
+
+      ]
+    }
+  ]
+}

@@ -1,8 +1,7 @@
 {
   "name": "Funding Progress on Latest Appeal",
-  "id": "6",
   "description": "Current funding as a percentage of current requirements",
-  "source": "http://data.humdata.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a",
+  "sourceUrl": "http://data.humdata.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a",
   "url": "http://data.humdata.org/dataset/6c4260fe-35b9-4dcd-b963-babb0d49d42a/resource/3106b05f-e171-49ac-a353-d7b56aed918f/download/FTS-Appeals_v4.csv",
   "map": {
     "layers": [

@@ -82,8 +82,8 @@
             return promise;
         };
 
-        ret.loadDatasets = function(){
-            return $http.get('assets/datasets.json');
+        ret.loadDatasets = function(crisisName){
+            return $http.get('assets/json/crisis/'+crisisName+'/config.json');
         };
 
         return ret;

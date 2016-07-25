@@ -23,6 +23,7 @@ describe('Saving Module - ', function () {
         beforeEach(function(){
            angular.extend(scope, {
                name: "Test Header",
+               title: "Lake Chad Basin Crisis",
                loggedIn: "HDX"
            });
         });
@@ -36,7 +37,7 @@ describe('Saving Module - ', function () {
         });
 
         it('should render the header with login button', function(){
-            var element = angular.element('<app-header name="name"></app-header>');
+            var element = angular.element('<app-header name="name" title="title"></app-header>');
             element = $compile(element)(scope);
             
             scope.$digest();
@@ -48,7 +49,7 @@ describe('Saving Module - ', function () {
         });
 
         it('should render the header with save button', function(){
-            var element = angular.element('<app-header name="name" logged-in="loggedIn"></app-header>');
+            var element = angular.element('<app-header name="name" title="title" logged-in="loggedIn"></app-header>');
             element = $compile(element)(scope);
             scope.$digest();
             var $element = $(element);

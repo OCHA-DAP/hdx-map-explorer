@@ -1,0 +1,69 @@
+{
+  "name": "south-sudan",
+  "title": "South Sudan Crisis",
+  "description": "South Sudan Crisis Description",
+  "datasets" : 8,
+  "mapCenter": {
+    "lat": 6.8770,
+    "long": 31.3070,
+    "zoom": 5
+  },
+  "layers": [
+    {
+      "name": "Population",
+      "id": "1",
+      "type": "AFFECTED",
+      "url": "assets/json/crisis/south-sudan/population.json",
+      "sourceName": "OCHA South Sudan"
+    },
+    {
+      "name": "Number of People Displaced",
+      "id": "2",
+      "type": "AFFECTED",
+      "url": "assets/json/crisis/south-sudan/displaced.json",
+      "sourceName": "OCHA South Sudan"
+    },
+    {
+      "name": "Number of People In Need",
+      "id": "3",
+      "type": "AFFECTED",
+      "url": "assets/json/crisis/south-sudan/inneed.json",
+      "sourceName": "OCHA South Sudan"
+    },
+    {
+      "name": "Number of People Targeted",
+      "id": "4",
+      "type": "AFFECTED",
+      "url": "assets/json/crisis/south-sudan/targeted.json",
+      "sourceName": "OCHA South Sudan"
+    },
+    {
+      "name": "Conflict Event Locations",
+      "id": "5",
+      "type": "CONFLICTS",
+      "url": "assets/json/crisis/south-sudan/event_locations.json",
+      "sourceName": "ACLED"
+    },
+    {
+      "name": "Fatalities from Conflict Events",
+      "id": "6",
+      "type": "CONFLICTS",
+      "url": "assets/json/crisis/south-sudan/fatalities.json",
+      "sourceName": "ACLED"
+    },
+    {
+      "name": "Baseline Change in Market Prices",
+      "id": "7",
+      "type": "FOOD SECURITY",
+      "url": "assets/json/crisis/south-sudan/market-baseline.json",
+      "sourceName": "WFP"
+    },
+    {
+      "name": "Quarterly Change in Market Prices",
+      "id": "8",
+      "type": "FOOD SECURITY",
+      "url": "assets/json/crisis/south-sudan/market-last-quarter.json",
+      "sourceName": "WFP"
+    }
+  ]
+}
