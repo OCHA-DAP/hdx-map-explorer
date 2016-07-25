@@ -14,28 +14,28 @@
       "id": "1",
       "type": "DISPLACEMENT",
       "url": "assets/json/crisis/lake-chad/idps.json",
-      "sourceName": "OCHA"
+      "sourceName": "IOM, UNHCR, UNOCHA"
     },
     {
       "name": "Estimated Total Population",
       "id": "2",
       "type": "DISPLACEMENT",
       "url": "assets/json/crisis/lake-chad/population.json",
-      "sourceName": "OCHA"
+      "sourceName": "UNFPA"
     },
     {
       "name": "Conflict Event Locations",
       "id": "3",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/lake-chad/event_locations.json",
-      "sourceName": "OCHA"
+      "sourceName": "ACLED"
     },
     {
       "name": "Fatalities from Conflict Events",
       "id": "4",
       "type": "CONFLICTS",
       "url": "assets/json/crisis/lake-chad/fatalities.json",
-      "sourceName": "OCHA"
+      "sourceName": "ACLED"
     },
     {
       "name": "Funding Progress on Latest Appeal",
@@ -49,14 +49,14 @@
       "id": "6",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/lake-chad/market-last-quarter.json",
-      "sourceName": "OCHA"
+      "sourceName": "WFP"
     },
     {
       "name": "Baseline Change in Market Prices",
       "id": "7",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/lake-chad/market-baseline.json",
-      "sourceName": "OCHA"
+      "sourceName": "WFP"
     }
   ]
 }
