@@ -31,6 +31,7 @@
             $scope.$on("changeSlice", changeSlice);
             $scope.$on("chartPointClicked", chartPointClicked);
             $scope.initialSliceId = $stateParams.sliceId;
+            $scope.crisisName = $stateParams.name;
             //detect touch device
             $scope.isTouch = 'ontouchstart' in document.documentElement;
             $scope.touchManager = null;
@@ -60,7 +61,7 @@
          */
         function broadcastWindowResizeEvent() {
             console.log("Sending resized event");
-            $scope.$broadcast("windowResized", {});
+            $scope.$broadcast("windowRyesized", {});
         }
 
         function chartPointClicked(event, data) {
@@ -112,7 +113,8 @@
 
         function addSlice(event, data) {
             var url = data.url;
-            
+            var overwrittenGeojsonUrl = null;
+
             function parseData(data) {
                 var configData = data.data;
                 if (configData.result && configData.success) { // If config comes from CKAN powerview
@@ -130,6 +132,15 @@
                     $scope.configName = configData.result.title;
                     $scope.configDescription = configData.result.description;
                     $scope.configCreator = "";
+
+                    var crisisName = configData.result.config.crisisName;
+                    crisisName = crisisName ? crisisName : "lake-chad";
+                    $scope.crisisName = crisisName;
+
+                    if ( !configData.result.config.configVersion ) {
+                        // For old saved poweviews we need to compute the path to the geojson
+                        overwrittenGeojsonUrl = "assets/json/crisis/" + crisisName + "/boundaries.geojson";
+                    }
                 }
             }
 
@@ -144,7 +155,11 @@
 
                         var layer0Data = vizData.map.layers[0];
                         var layerType = layer0Data.type[0];
-                        addLayer(vizData.name, vizData.source, vizData.url, vizData.map, layerType, vizData.chartSelection);
+                        if (overwrittenGeojsonUrl && vizData.map.shapefile) {
+                            vizData.map.shapefile.url = overwrittenGeojsonUrl;
+                        }
+                        removeSlice(null, layerType);
+                        addLayer(vizData.name, vizData.sourceUrl, vizData.url, vizData.map, layerType, vizData.chartSelection);
                         var groupData = {};
                         var chartsData = vizData.charts;
                         if (chartsData && chartsData.length) {
@@ -185,7 +200,7 @@
         }
 
         function buildBaseMap() {
-            var map = L.map("map", {zoomControl: true}).setView([10, 10], 5);
+            var map = L.map("map", {zoomControl: true});//.setView([10, 10], 5);
             $scope.map = map;
             map.on("resize", function () {
                 mapFitBounds();
@@ -213,12 +228,14 @@
                         var data = promiseValues[0].data,
                             geojson = promiseValues[1].data;
                         var values = angular.bind(this, generatePcodeValueMap)(data, firstLayer);
-                        var stepCount = 10;
+
                         var colors = firstLayer.colors;
-                        var step = (values.max - values.min) / stepCount;
+
                         var threshold = firstLayer.threshold;
                         if (!threshold) {
                             threshold = [];
+                            var stepCount = colors.length;
+                            var step = (values.max - values.min) / stepCount;
                             for (var sIdx = 0; sIdx < stepCount; sIdx++) {
                                 threshold.push(values.min + sIdx * step);
                             }
@@ -243,7 +260,7 @@
                         var mapDataJoinColumn = firstLayer.joinColumn;
 
                         var layerInfo = new LayerInfo($scope, vizDataName, layerType, colors, threshold, values,
-                            shapeJoinColumn, mapDataJoinColumn, stepCount, vizDataSource, vizDataUrl, mapData);
+                            shapeJoinColumn, mapDataJoinColumn, vizDataSource, vizDataUrl, mapData);
 
                         switch (layerType) {
                             case LayerTypes.CHOROPLETH_TYPE:
@@ -315,9 +332,11 @@
                                 console.error("Unknown layer type");
                         }
 
-                        if ($scope.layerMap[layerType]) {
-                            layerGroup.removeLayer($scope.layerMap[layerType]);
-                        }
+                        // Should be no longer needed. Added a removeSlice() call before addSlice()
+                        // if ($scope.layerMap[layerType]) {
+                        //     layerGroup.removeLayer($scope.layerMap[layerType]);
+                        // }
+
                         $scope.layerMap[layerType] = newLayer;
                         newLayer.values = values;
                         newLayer.colors = colors;
@@ -363,6 +382,7 @@
                 $scope.layerMap[type] = fakeLayer;
                 $scope.$broadcast("sliceCreated", fakeLayer);
             }
+            $scope.$broadcast("windowResized", {}); //resize event so if we have more than 2 charts they get will redraw
         }
 
         function generatePcodeValueMap(data, layerData) {

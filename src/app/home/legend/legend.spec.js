@@ -54,7 +54,7 @@ describe('homeLegend section', function () {
         $document = _$document_;
 
         layerListEndpoint = $httpBackend
-            .when('GET', 'assets/datasets.json')
+            .when('GET', 'assets/json/crisis/lake-chad/config.json')
             .respond(200, layerList);
     }));
 
@@ -64,13 +64,14 @@ describe('homeLegend section', function () {
     });
 
     function createLegend() {
-        $httpBackend.expectGET('assets/datasets.json');
+        $httpBackend.expectGET('assets/json/crisis/lake-chad/config.json');
         var element = angular.element('<div id="temp-map"></div>');
         $("#temp-map").remove();
         $("html").append(element);
         scope.map = L.map("temp-map", {});
+        scope.name = "lake-chad";
 
-        element = angular.element('<layer-legend map="map"></layer-legend>');
+        element = angular.element('<layer-legend map="map" crisis-name="name" title="title"></layer-legend>');
         element = $compile(element)(scope);
         $httpBackend.flush();
         scope.$digest();
@@ -83,7 +84,7 @@ describe('homeLegend section', function () {
 
         var $layerChoicesList = $element.find(".legend-list .selector ul.ui-select-choices");
         var $choiceGroup = $layerChoicesList.find("li.ui-select-choices-group .ui-select-choices-group-label");
-        expect($choiceGroup.text()).toBe(LAYER_TYPE);
+        // expect($choiceGroup.text()).toBe(LAYER_TYPE);
         var $choiceOptions = $layerChoicesList.find("li.ui-select-choices-group");//
         expect($choiceOptions.find('ul').length).toBe(0); //since the dropdown isn't open it won't show the options
     });

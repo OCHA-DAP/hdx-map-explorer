@@ -1,0 +1,28 @@
+{
+  "name": "Conflict Event Locations",
+  "description": "Event Locations",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/3480f362-67bb-44d0-b749-9e8fc0963fc0/download/South_Sudan_Recent_Conflict_Events.csv",
+  "map": {
+    "layers": [
+      {
+        "type":["point"],
+        "valueColumn": "#affected+killed",
+        "latColumn": "#geo+lat",
+        "longColumn": "#geo+lon",
+        "threshold": [0,10,50,100,500,1000],
+        "colors": ["#ffffff", "#e6ffe6", "#66ff66", "#ffffb3", "#e6e600", "#ff8566"],
+        "operations": [
+          {
+            "type": "select",
+            "options": {
+              "column": "#date",
+              "operator": ">=",
+              "value": "1900-01-01"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

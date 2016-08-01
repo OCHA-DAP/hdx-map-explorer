@@ -1,0 +1,65 @@
+{
+  "name": "Number of People In Need",
+  "description": "Persons in need at admin level 2",
+  "sourceUrl": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
+  "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/42bd1d8d-2c76-4233-897c-3fa73e38ce41/download/2016-South-Sudan-People-In-Need_stacked.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/crisis/south-sudan/boundaries.geojson",
+      "joinColumn": "admin2Name"
+    },
+    "layers": [
+      {
+        "type":["choropleth","bubble"],
+        "joinColumn": "#adm2+name",
+        "valueColumn": "#inneed",
+        "threshold": [0,25000,50000,75000,100000,125000],
+        "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"],
+        "operations": [
+           {
+            "type": "select",
+            "options": {
+              "column": "#sector",
+              "operator": "=",
+              "value": "Inneed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "name": "Number of People In Need By Sector",
+      "options": {
+        "data": {
+          "x": "#sector",
+          "y": "#inneed+sum",
+          "type": "bar"
+        },
+        "axis": {
+          "x": {
+            "type": "category"
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "select",
+          "options": {
+            "column": "#sector",
+            "operator": "!=",
+            "value": "Inneed"
+          }
+        },
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#sector",
+            "statsColumn": "#inneed"
+          }
+        }
+      ]
+    }
+  ]
+}

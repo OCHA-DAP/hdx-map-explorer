@@ -4,6 +4,7 @@
             restrict: "E",
             scope: {
                 configManager: '=',
+                crisisTitle: '=',
                 show: '='
             },
             templateUrl: "home/saving/sharing-widget-directive.tpl.html",
@@ -28,7 +29,7 @@
                         modal.modal('show');
                     }
                 });
-                
+
                 $scope.save = function(model) {
                     $scope.configManager.saveCurrentConfigToServer(model.configName, model.configDescription)
                         .then(function(response){
