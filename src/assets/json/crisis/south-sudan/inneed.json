@@ -21,7 +21,7 @@
             "options": {
               "column": "#sector",
               "operator": "=",
-              "value": "inneed"
+              "value": "Inneed"
             }
           }
         ]
@@ -49,7 +49,7 @@
           "options": {
             "column": "#sector",
             "operator": "!=",
-            "value": "inneed"
+            "value": "Inneed"
           }
         },
         {
