@@ -21,7 +21,7 @@
             "options": {
               "column": "#sector",
               "operator": "=",
-              "value": "targeted"
+              "value": "Targeted"
             }
           }
         ]
@@ -53,7 +53,7 @@
           "options": {
             "column": "#sector",
             "operator": "!=",
-            "value": "targeted"
+            "value": "Targeted"
           }
         },
         {
