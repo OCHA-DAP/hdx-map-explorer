@@ -1,6 +1,6 @@
 (function (module) {
     module.factory("LayerInfo", function(){
-        function LayerInfo($scope, name, type, colors, threshold, values, shapeJoinColumn, mapDataJoinColumn, stepCount,
+        function LayerInfo($scope, name, type, colors, threshold, values, shapeJoinColumn, mapDataJoinColumn,
                             sourceUrl, dataUrl, mapData){
             this.$scope = $scope;
             this.name = name;
@@ -10,23 +10,36 @@
             this.values = values;
             this.shapeJoinColumn = shapeJoinColumn;
             this.mapDataJoinColumn = mapDataJoinColumn;
-            this.stepCount = stepCount;
             this.sourceUrl = sourceUrl;
             this.dataUrl = dataUrl;
             this.mapData = mapData;
         }
         LayerInfo.prototype = {
+            /**
+             * Example: for colors: ['gray', 'orange', 'red'] and thresholds = [0,50,100]
+             * The returned value will be:
+             *  - 0 (gray) for values < 50,
+             *  - 1 (orange) for 50 <= values <100,
+             *  - 2 (red) for  100 <= values
+             * @param value the value of the shape we're coloring ( ex number of people )
+             * @returns {number} The index of the threshold (which determines the color) for this shape
+             */
             getThresholdIndexByValue: function (value){
                 if (!value) {
                     return -1;
                 }
 
-                for (var i = 0; i < this.stepCount; i++) {
-                    if (value < this.threshold[i]) {
-                        return i;
+                if (this.threshold.length) {
+                    for (var i = 1; i < this.threshold.length; i++) {
+                        if (value < this.threshold[i]) {
+                            return i-1;
+                        }
                     }
+                    return this.colors.length - 1;
                 }
-                return this.colors.length - 1;
+
+                return -1;
+
             },
 
             getThresholdIndex: function (pcode) {

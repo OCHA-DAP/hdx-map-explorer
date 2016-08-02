@@ -23,4 +23,5 @@
     'hdx.map.explorer.util.loader',
     'hdx.map.explorer.home.legend',
     'hdx.map.explorer.home.saving',
+    'hdx.map.explorer.landing',
 ])));

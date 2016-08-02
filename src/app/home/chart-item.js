@@ -42,12 +42,14 @@
                     var promise = DataFetcher.fetchData(url, chartData, additionalFilters);
                     promise.then(function (result) {
                         var usableData = result.data.slice(1);
+                        var tickObject = chartData.options.axis.x.tick;
                         options = $.extend(true, {}, $scope.selectedChart.options, {
                             bindto: chartId,
                             axis: {
                                 x: {
                                     tick: {
-                                        rotate: 45
+                                        rotate: tickObject != null && tickObject.rotate!=null ? tickObject.rotate : 30,
+                                        multiline: tickObject != null && tickObject.multiline!=null ? tickObject.multiline : false
                                     }
                                 },
                                 y: {
