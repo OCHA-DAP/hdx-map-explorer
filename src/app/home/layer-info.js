@@ -120,7 +120,7 @@
                 //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
                 var content = '';
                 $.each(infoList, function (idx, elem) {
-                    content += '<strong>' + elem.tag + '</strong>: ' + elem.value + '<br />';
+                    content += '<strong>' + elem.tag + '</strong>: ' + (elem.value || "n.a.") + '<br />';
                 });
                 if (content === ''){
                     content = "No data!";
