@@ -26,7 +26,12 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames":{
+      "#adm2+name": "District",
+      "#inneed": "People in need",
+      "#sector": "Sector"
+    }
   },
   "charts": [
     {
@@ -35,7 +40,10 @@
         "data": {
           "x": "#sector",
           "y": "#inneed+sum",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#inneed+sum": "People in need"
+          }
         },
         "axis": {
           "x": {

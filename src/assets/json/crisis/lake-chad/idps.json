@@ -34,7 +34,14 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames":{
+      "#country+name": "Country Name",
+      "#adm1+name": "Region name",
+      "#date+bin": "Date",
+      "#affected+type": "Type",
+      "#affected+displaced": "Displaced people"
+    }
   },
   "charts": [
     {
@@ -43,7 +50,10 @@
         "data": {
           "x": "#date+bin",
           "y": "#affected+displaced+sum",
-          "type": "area"
+          "type": "area",
+          "names": {
+            "#affected+displaced+sum": "Displaced people"
+          }
         },
         "axis": {
           "x": {
@@ -86,7 +96,10 @@
         "data": {
           "x": "#affected+type",
           "y": "#affected+displaced+sum",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#affected+displaced+sum": "Displaced people"
+          }
         },
         "axis": {
           "x": {

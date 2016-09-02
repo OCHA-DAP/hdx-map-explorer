@@ -16,7 +16,13 @@
         "threshold": [0,250000,1000000,3000000,5000000,10000000],  
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
-    ]
+    ],
+    "columnNames":{
+      "#country+name": "Country Name",
+      "#adm1+name": "Region name",
+      "#date": "Date",
+      "#population": "Population"
+    }
   },
     "charts": [
     {
@@ -25,7 +31,10 @@
         "data": {
           "x": "#country+name",
           "y": "#population+sum",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#population+sum": "Population"
+          }
         },
         "axis": {
           "x": {

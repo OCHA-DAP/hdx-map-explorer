@@ -25,7 +25,11 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames":{
+      "#adm2+name": "District name",
+      "#affected+killed+sum": "Number of fatalities"
+    }
   },
   "charts": [
     {
@@ -34,7 +38,10 @@
         "data": {
           "x": "#date+bin",
           "y": "#affected+killed+sum",
-          "type": "area"
+          "type": "area",
+          "names": {
+            "#affected+killed+sum": "Number of fatalities"
+          }
         },
         "axis": {
           "x": {

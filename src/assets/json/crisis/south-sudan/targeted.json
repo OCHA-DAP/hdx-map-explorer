@@ -26,7 +26,12 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames":{
+      "#adm2+name": "District",
+      "#targeted": "People targeted",
+      "#sector": "Sector"
+    }
   },
   "charts": [
     {
@@ -35,7 +40,10 @@
         "data": {
           "x": "#sector",
           "y": "#targeted+sum",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#targeted+sum": "People targeted"
+          }
         },
         "axis": {
           "x": {

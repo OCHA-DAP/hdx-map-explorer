@@ -25,7 +25,10 @@
         "data": {
           "x": "#country+name",
           "y": "#x_foodprice+change+qtr+max",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#x_foodprice+change+qtr+max": "Change in market price"
+          }
         },
         "axis": {
           "x": {

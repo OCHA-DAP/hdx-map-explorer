@@ -19,7 +19,10 @@
         "data": {
           "x" : "#country+name",
           "y": "#x_requirement+x_met+x_percent",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#x_requirement+x_met+x_percent": "Funding progress"
+          }
         },
         "axis": {
           "x": {

@@ -114,7 +114,15 @@ Layer config file for layer "Number of Displaced People"
           }
         ]
       }
-    ]
+    ],
+    /* setup how to translate column names into readable names that appear on the chart */
+    "columnNames": {
+      "#country+name": "Country Name",
+      "#adm1+name": "Region name",
+      "#date+bin": "Date",
+      "#affected+type": "Type",
+      "#affected+displaced": "Displaced people"
+    }
   },
   /* available charts configuration - optional */
   "charts": [
@@ -132,7 +140,11 @@ Layer config file for layer "Number of Displaced People"
           /* column for y axis */
           "y": "#affected+displaced+sum",
           /* chart type: area/bar/line/etc - see c3js API */
-          "type": "area"
+          "type": "area",
+          /* setup how to translate column names into readable names that appear on the chart */
+          "names": {
+            "#affected+displaced+sum": "Displaced people"
+          }
         },
         /* axis config */
         "axis": {
