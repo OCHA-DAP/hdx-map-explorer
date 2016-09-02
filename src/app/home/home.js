@@ -205,7 +205,7 @@
             map.on("resize", function () {
                 mapFitBounds();
             });
-            BaseLayers.get().CartoDB_Positron.addTo(map);
+            BaseLayers.get().OpenStreetMap_HOT.addTo(map);
             //L.control.layers(BaseLayers, null, {collapsed: true, position: "topright"}).addTo(map);
             layerGroup.addTo(map);
         }
