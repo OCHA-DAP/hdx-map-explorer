@@ -21,7 +21,8 @@
                         class="hdx-logo"></span></a>
             </div>
             <div id="chart-item-holder">
-                <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
+                <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.url">
+                    <div>{{ charts.track }}</div>
                     <chart-item chart-id="'chart-item' + $index" data="charts" url="charts.url"
                                 type="type"></chart-item>
                 </div>

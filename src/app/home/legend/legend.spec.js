@@ -131,7 +131,7 @@ describe('homeLegend section', function () {
         expect(isolatedScope.$emit).toHaveBeenCalledWith("removeSlice", sliceType);
     });
 
-    it('should emit the addSlice event wieh a new slice is selected', function(){
+    it('should emit the addSlice event when a new slice is selected', function(){
         var $element = createLegend();
         $rootScope.$broadcast("sliceCreated", fakeLayer);
         scope.$digest();
