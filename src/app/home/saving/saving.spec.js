@@ -45,7 +45,7 @@ describe('Saving Module - ', function () {
             var mainTitle = $element.find('div.title');
             expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
             var login = $element.find('.actions a');
-            expect(login.text()).toBe('Login');
+            expect(login.text()).toBe('SAVE');
         });
 
         it('should render the header with save button', function(){
@@ -56,7 +56,7 @@ describe('Saving Module - ', function () {
             var mainTitle = $element.find('div.title');
             expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
             var save = $element.find('.actions a');
-            expect(save.text()).toBe('Save');
+            expect(save.text()).toBe('SAVE');
         });
     });
 
