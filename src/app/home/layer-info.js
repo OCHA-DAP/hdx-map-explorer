@@ -124,7 +124,7 @@
                     if (!title){
                         title = elem.tag;
                     }
-                    content += '<strong>' + title + '</strong>: ' + (elem.value || "n.a.") + '<br />';
+                    content += '<strong>' + title + '</strong>: ' + (elem.value || "No data") + '<br />';
                 }.bind(this));
                 if (content === ''){
                     content = "No data!";
