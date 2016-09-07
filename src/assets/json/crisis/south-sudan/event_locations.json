@@ -23,6 +23,21 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames": {
+      "#event+code": "Event code",
+      "#date": "Date",
+      "#event+type": "Type",
+      "#actor": "Actor",
+      "#country+name": "Country",
+      "#adm1+name": "Region",
+      "#adm2+name": "District",
+      "#loc+name": "Location",
+      "#geo+lat": "Latitude",
+      "#geo+lon": "Longitude",
+      "#meta+source": "Meta source",
+      "#notes": "Notes",
+      "#affected+killed": "People killed"
+    }
   }
 }

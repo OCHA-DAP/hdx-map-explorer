@@ -7,8 +7,8 @@
         <span ng-if="user"> - {{user}}</span>
     </div>
     <div class="actions">
-        <a ng-if="loggedIn" ng-click="showSharingWidget()" href="">Save</a>
-        <a ng-if="!loggedIn" target="_parent" href="{{ckanLoginUrl}}">Login</a>
+        <a class="btn btn-primary" ng-if="loggedIn" ng-click="showSharingWidget()" href="">SAVE</a>
+        <a class="btn btn-primary" ng-if="!loggedIn" target="_parent" href="{{ckanLoginUrl}}">SAVE</a>
     </div>
 </div>
 <sharing-widget show="sharingWidgetVisible" config-manager="configManager" crisis-title="title" cr></sharing-widget>

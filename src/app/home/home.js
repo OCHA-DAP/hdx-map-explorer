@@ -61,7 +61,7 @@
          */
         function broadcastWindowResizeEvent() {
             console.log("Sending resized event");
-            $scope.$broadcast("windowRyesized", {});
+            $scope.$broadcast("windowResized", {});
         }
 
         function chartPointClicked(event, data) {
@@ -332,10 +332,10 @@
                                 console.error("Unknown layer type");
                         }
 
-                        // Should be no longer needed. Added a removeSlice() call before addSlice()
-                        // if ($scope.layerMap[layerType]) {
-                        //     layerGroup.removeLayer($scope.layerMap[layerType]);
-                        // }
+                        // Don't remove check it is being used as a check for when we refresh the layer on various events
+                        if ($scope.layerMap[layerType]) {
+                            layerGroup.removeLayer($scope.layerMap[layerType]);
+                        }
 
                         $scope.layerMap[layerType] = newLayer;
                         newLayer.values = values;

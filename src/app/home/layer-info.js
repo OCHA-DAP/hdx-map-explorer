@@ -120,8 +120,12 @@
                 //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
                 var content = '';
                 $.each(infoList, function (idx, elem) {
-                    content += '<strong>' + elem.tag + '</strong>: ' + (elem.value || "n.a.") + '<br />';
-                });
+                    var title = this.mapData.columnNames ? this.mapData.columnNames[elem.tag] : elem.tag;
+                    if (!title){
+                        title = elem.tag;
+                    }
+                    content += '<strong>' + title + '</strong>: ' + (elem.value || "n.a.") + '<br />';
+                }.bind(this));
                 if (content === ''){
                     content = "No data!";
                 }

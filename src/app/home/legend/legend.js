@@ -77,6 +77,7 @@
                 };
 
                 $scope.resetAll = function(){
+
                     for (var type in $scope.legends){
                         $scope.resetSlice(type);
                     }

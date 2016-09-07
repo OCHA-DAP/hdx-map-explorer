@@ -17,6 +17,11 @@
         "threshold": [0,25000,50000,75000,100000,125000],
         "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"]
       }
-    ]
+    ],
+    "columnNames":{
+      "#adm2+name": "District",
+      "#population": "Population",
+      "#affected+displaced": "Displaced people"
+    }
   }
 }
