@@ -389,7 +389,10 @@
             var pCodeValueMap = {};
             var pCodeInfoMap = {};
             var pcodeIndex, valueIndex;
+            var columnRow = data[0];
             var hxlRow = data[1];
+            var columnNames = {};
+
             for (var i = 0; i < hxlRow.length; i++) {
                 if (hxlRow[i] == layerData.joinColumn) {
                     pcodeIndex = i;
@@ -397,6 +400,7 @@
                 if (hxlRow[i] == layerData.valueColumn) {
                     valueIndex = i;
                 }
+                columnNames[hxlRow[i]] = columnRow[i];
             }
 
             var min = null, max = null;
@@ -418,6 +422,7 @@
             }
 
             return {
+                columnNames: columnNames,
                 map: pCodeValueMap,
                 infoMap: pCodeInfoMap,
                 min: min,

@@ -41,6 +41,9 @@
                     }
                     var promise = DataFetcher.fetchData(url, chartData, additionalFilters);
                     promise.then(function (result) {
+                        var columnData = result.data[0];
+                        var hxlData = result.data[1];
+
                         var usableData = result.data.slice(1);
                         var tickObject = chartData.options.axis.x.tick;
                         options = $.extend(true, {}, $scope.selectedChart.options, {
@@ -106,6 +109,20 @@
                             //     }, 200);
                             // }
                         });
+                        if (!options.data.names){
+                            options.data.names = {};
+                        }
+
+                        for (var i = 0; i < hxlData.length; i++){
+                            if (!options.data.names[hxlData[i]]){
+                                var colName = columnData[i];
+                                if (!colName){
+                                    colName = hxlData[i];
+                                }
+                                options.data.names[hxlData[i]] = colName;
+                            }
+                        }
+
                         $scope.chart = c3.generate(options);
                         var cols = unloadColumns(options);
                         $scope.chart.unload(cols);

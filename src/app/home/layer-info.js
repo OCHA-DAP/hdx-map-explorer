@@ -120,8 +120,11 @@
                 //popup.setContent("<div><strong>" + pcode + "</strong>: " + values.map[pcode] + "</div>");
                 var content = '';
                 $.each(infoList, function (idx, elem) {
-                    var title = this.mapData.columnNames ? this.mapData.columnNames[elem.tag] : elem.tag;
-                    if (!title){
+                    var title = this.mapData.columnNames ? this.mapData.columnNames[elem.tag] : null;
+                    if (!title) {
+                        title = this.values.columnNames[elem.tag];
+                    }
+                    if (!title) {
                         title = elem.tag;
                     }
                     content += '<strong>' + title + '</strong>: ' + (elem.value || "No data") + '<br />';
