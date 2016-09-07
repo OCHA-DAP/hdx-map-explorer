@@ -202,9 +202,10 @@
         function buildBaseMap() {
             var map = L.map("map", {zoomControl: true});//.setView([10, 10], 5);
             $scope.map = map;
-            map.on("resize", function () {
-                mapFitBounds();
-            });
+            //Disabled per HDX-4811
+            // map.on("resize", function () {
+            //     mapFitBounds();
+            // });
             BaseLayers.get().OpenStreetMap_HOT.addTo(map);
             //L.control.layers(BaseLayers, null, {collapsed: true, position: "topright"}).addTo(map);
             layerGroup.addTo(map);
@@ -355,7 +356,8 @@
                             $scope.layerMap[LayerTypes.POINT_TYPE].bringToFront();
                         }
 
-                        mapFitBounds();
+                        //Disabled per HDX-4811
+                        // mapFitBounds();
 
                     }, function (err) {
                         console.error(err);
