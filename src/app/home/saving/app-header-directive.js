@@ -8,7 +8,8 @@
                 description: '=',
                 user: '=',
                 configManager: '=',
-                loggedIn: '='
+                loggedIn: '=',
+                appHeaderConfig: '='
             },
             templateUrl: "home/saving/app-header-directive.tpl.html",
             link: function ($scope, element, attrs, controller) {

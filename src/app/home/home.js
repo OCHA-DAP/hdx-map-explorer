@@ -1,5 +1,6 @@
 (function (module) {
-    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
+    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, $location,
+                                                  DataFetcher,
                                                   FilterBuilder, BaseLayers, LayerInfo, LayerTypes, ConfigManager) {
         var model = this;
 
@@ -53,7 +54,11 @@
                 $scope.$emit("addSlice", {url: $scope.loadConfigUrl});
             }
 
-
+            $scope.appHeaderConfig = {
+                showTitle: $location.search()['showTitle'] != 'false',
+                showSaveButton: $location.search()['showSaveButton'] != 'false',
+                showHeader: $location.search()['showHeader'] != 'false'
+            };
         }
 
         /**
