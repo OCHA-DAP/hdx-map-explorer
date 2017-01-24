@@ -28,5 +28,9 @@
     "lodash": "^2.4.1",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.7"
+  },
+  "engines": {
+    "node": "4.x",
+    "npm": "3.10.x"
   }
 }

@@ -6,7 +6,7 @@
             <ui-select-match placeholder="Select layers">
                 <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
-            <ui-select-choices group-by="'type'" repeat="item in data track by item.url">
+            <ui-select-choices group-by="'type'" repeat="item in data track by item.url" position="down">
                 <div ng-bind="item.name | highlight: $select.search"></div>
                 <div ng-if="item.sourceName.length > 0" class="source-title">[source: {{item.sourceName | limitTo:40}}{{item.sourceName.length > 40 ? '...' : ''}} ]</div>
             </ui-select-choices>
