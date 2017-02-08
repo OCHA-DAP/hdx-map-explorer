@@ -45,11 +45,13 @@
                     },
                     onAdd: function(map){
                         var controlDiv = L.DomUtil.create('div', 'layer-legend-toggle leaflet-control-layers ');
-                        var icon = L.DomUtil.create("i", "glyphicon glyphicon-menu-hamburger", controlDiv);
+                        var icon = L.DomUtil.create("i", "glyphicon glyphicon-remove", controlDiv);
                         L.DomEvent
                             .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
                             .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
                             .addListener(controlDiv, 'click', function() {
+                                $(icon).toggleClass("glyphicon-menu-hamburger");
+                                $(icon).toggleClass("glyphicon-remove");
                                 $(element).toggle(100);
                             });
                         return controlDiv;
