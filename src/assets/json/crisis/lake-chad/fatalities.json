@@ -1,8 +1,8 @@
 {
   "name": "Fatalities from Conflict Events",
   "description": "Fatalities",
-  "sourceUrl": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
-  "url": "http://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/eb3f309b-3ed4-45cd-a503-4fe779698359/download/Lake_Chad_Basin_Recent_Conflict_Event_Total_Fatalities.csv",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2017",
+  "url": "https://data.humdata.org/dataset/27d2a6fd-4e12-4795-a5c8-a1714fbef8af/resource/3792ee5d-ca30-4e5c-96c8-618c6b625d12/download/Lake_Chad_Basin_Recent_Conflict_Event_Total_Fatalities.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/crisis/lake-chad/boundaries.geojson",

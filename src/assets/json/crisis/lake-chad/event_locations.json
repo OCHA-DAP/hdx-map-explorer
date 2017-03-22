@@ -1,8 +1,8 @@
 {
   "name": "Conflict Event Locations",
   "description": "Event Locations",
-  "sourceUrl": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445",
-  "url": "https://data.humdata.org/dataset/25a34072-a69d-4437-a476-44b0f1bd3445/resource/667bd888-50e9-4e7e-96bb-98c4d4411b2e/download/acled_LCR_10.csv",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2017",
+  "url": "https://data.humdata.org/dataset/27d2a6fd-4e12-4795-a5c8-a1714fbef8af/resource/fc396bf2-d204-48b2-84d2-337ada015273/download/Lake_Chad_Basin_Recent_Conflict_Events.csv",
   "map": {
     "layers": [
       {

@@ -1,7 +1,7 @@
 {
   "name": "Fatalities from Conflict Events (6 months)",
   "description": "Fatalities",
-  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2017",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/a67b85ee-50b4-4345-9102-d88bf9091e95/download/South_Sudan_Recent_Conflict_Event_Total_Fatalities.csv",
   "map": {
     "shapefile": {

@@ -1,0 +1,64 @@
+{
+  "name": "South Sudan HPF Budget",
+  "description": "CBPF budget at admin level 2",
+  "sourceUrl": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data",
+  "url": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data/resource/d6b18405-5982-4075-bb0a-a1a85f09d842/download/2017-CBPF-BudgetCost.csv",
+  "map": {
+    "shapefile": {
+      "url": "assets/json/crisis/south-sudan/boundaries.geojson",
+      "joinColumn": "admin1Name"
+    },
+    "layers": [
+      {
+        "type": [
+          "choropleth",
+          "bubble"
+        ],
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#budget",
+        "threshold": [
+          0,
+          400000,
+          800000,
+          1600000,
+          3200000,
+          6400000
+        ],
+        "colors": [
+          "#ffffcc",
+          "#ffeda0",
+          "#fed976",
+          "#feb24c",
+          "#fd8d3c",
+          "#fc4e2a"
+        ]
+      }
+    ],
+    "columnNames": {
+      "#adm1+name": "Region",
+      "#budget": "HPF Budget"
+    }
+  },
+  "charts": [
+    {
+      "name": "South Sudan HPF Budget",
+      "options": {
+        "data": {
+          "x": "#adm1+name",
+          "y": "#budget",
+          "type": "bar",
+          "names": {
+            "#budget": "HPF Budget"
+          }
+        },
+        "axis": {
+          "x": {
+            "type": "category"
+          }
+        }
+      }
+    }
+  ]
+
+}
+
