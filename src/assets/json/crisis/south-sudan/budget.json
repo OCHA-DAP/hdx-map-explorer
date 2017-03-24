@@ -58,7 +58,7 @@
           "y": "#cashflow+value+sum",
           "type": "bar",
           "names": {
-            "#cashflow+value+sum": "Cashflows"
+            "#cashflow+value+sum": "Cashflows (USD)"
           }
         },
         "axis": {
