@@ -7,10 +7,7 @@ ARG TAG
 ENV NPM_CONFIG_PROGRESS=false \
     NPM_CONFIG_SPIN=false
 
-#COPY . /src/
-
 RUN mkdir -p /src /srv/www && \
-    echo $TAG && exit 1 && \
     apk add --update-cache \
         git \
         nodejs-lts \
