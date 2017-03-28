@@ -10,11 +10,13 @@ ENV NPM_CONFIG_PROGRESS=false \
 #COPY . /src/
 
 RUN mkdir -p /src /srv/www && \
+    env && exit 1 && \
     apk add --update-cache \
         git \
         nodejs-lts \
         nginx && \
-    git clone --branch $TAG /src && \
+    git clone --branch $TAG \
+        https://github.com/OCHA-DAP/hdx-map-explorer.git /src && \
     mkdir -p /run/nginx && \
     mv /src/env/etc/nginx/conf.d/default.conf /etc/nginx/conf.d/ && \
     npm install -g \
