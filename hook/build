@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Build hook running"
+
+docker build \
+    -build-arg TAG=`git describe --tags` \
+    -t $IMAGE_NAME .
