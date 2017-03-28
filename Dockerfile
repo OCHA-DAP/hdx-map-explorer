@@ -8,7 +8,7 @@ ENV DST_DIR=/srv/www \
 
 WORKDIR /src
 
-COPY . /src/
+#COPY . /src/
 
 RUN mkdir -p /srv/www && \
     apk add --update-cache \
