@@ -10,7 +10,7 @@ ENV NPM_CONFIG_PROGRESS=false \
 #COPY . /src/
 
 RUN mkdir -p /src /srv/www && \
-    env && exit 1 && \
+    echo $TAG && exit 1 && \
     apk add --update-cache \
         git \
         nodejs-lts \
