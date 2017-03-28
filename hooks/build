@@ -2,6 +2,8 @@
 
 echo "Build hook running"
 
+TAG=$(git describe --tags 2>/dev/null) || TAG=$(git symbolic-ref --short HEAD 2>/dev/null)
+
 docker build \
-    --build-arg TAG=`git describe --tags` \
+    --build-arg TAG=$TAG \
     -t $IMAGE_NAME .
