@@ -11,6 +11,7 @@ WORKDIR /src
 #COPY . /src/
 
 RUN mkdir -p /srv/www && \
+    env && \
     apk add --update-cache \
         git \
         nodejs-lts \
