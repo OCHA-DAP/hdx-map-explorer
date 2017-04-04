@@ -21,7 +21,6 @@ docker run --privileged --rm \
             grunt-cli && \
         npm install && \
         bower --allow-root install && \
-        grunt default-no-tests && \
-        mv bin/* html"
+        grunt default-no-tests"
 
 echo "Prebuild complete."

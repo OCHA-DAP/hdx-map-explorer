@@ -2,7 +2,7 @@ FROM alpine:3.5
 
 MAINTAINER "Serban Teodorescu <teodorescu.serban@gmail.com>"
 
-COPY ./html /var/www/
+COPY ./bin /var/www/
 
 RUN apk add --update-cache \
         nginx && \
