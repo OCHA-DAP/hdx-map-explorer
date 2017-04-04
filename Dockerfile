@@ -38,3 +38,5 @@ RUN mkdir -p /srv/www && \
     rm -rf /tmp/* && \
     rm -rf /root/.cache && \
     rm -rf /var/cache/apk/*
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
