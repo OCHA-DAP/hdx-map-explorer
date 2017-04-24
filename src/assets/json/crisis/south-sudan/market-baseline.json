@@ -4,12 +4,33 @@
   "sourceUrl": "https://data.humdata.org/dataset/market-monitor",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/eb8d4927-5f58-437e-a429-e9aead2560a1/download/WFP_VAM_MarketMonitor_2016-03-31.csv",
   "map": {
+    "shapefile": {
+      "url": "assets/json/crisis/south-sudan/boundaries.geojson",
+      "joinColumn": "admin1Name"
+    },
     "layers": [
       {
-        "type":["chart-only"],
-        "colors": ["#66ff66"]
+        "type": [
+          "choropleth",
+          "bubble"
+        ],
+        "joinColumn": "#adm1+name",
+        "valueColumn": "#x_foodprice+change+baseline",
+        "threshold": [-100,0,100,200,400,800],
+        "colors": [
+          "#b5eef3",
+          "#82dde5",
+          "#4fcad5",
+          "#2fa8b4",
+          "#197b84",
+          "#084e55"
+        ]
       }
-    ]
+    ],
+    "columnNames": {
+      "#adm1+name": "State",
+      "#x_foodprice+change+baseline": "% Change from Baseline"
+    }
   },
   "charts": [
     {

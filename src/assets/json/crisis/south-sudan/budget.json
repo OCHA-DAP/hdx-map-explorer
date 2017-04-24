@@ -1,6 +1,6 @@
 {
   "name": "South Sudan HPF Budget",
-  "description": "CBPF budget at admin level 2",
+  "description": "South Sudan HPF budget per state (admin level 1)",
   "sourceUrl": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data",
   "url": "https://data.humdata.org/dataset/south-sudan-crisis-map-explorer-data/resource/d6b18405-5982-4075-bb0a-a1a85f09d842/download/2017-CBPF-BudgetCost.csv",
   "map": {
@@ -15,7 +15,7 @@
           "bubble"
         ],
         "joinColumn": "#adm1+name",
-        "valueColumn": "#budget",
+        "valueColumn": "#cashflow+value",
         "threshold": [
           0,
           400000,
@@ -31,24 +31,34 @@
           "#feb24c",
           "#fd8d3c",
           "#fc4e2a"
+        ],
+        "operations": [
+           {
+            "type": "select",
+            "options": {
+              "column": "#cashflow+type",
+              "operator": "=",
+              "value": "Budget"
+            }
+          }
         ]
       }
     ],
     "columnNames": {
-      "#adm1+name": "Region",
-      "#budget": "HPF Budget"
+      "#adm1+name": "State",
+      "#cashflow+value": "HPF Budget"
     }
   },
   "charts": [
     {
-      "name": "South Sudan HPF Budget",
+      "name": "South Sudan HPF Cash Flows",
       "options": {
         "data": {
-          "x": "#adm1+name",
-          "y": "#budget",
+          "x": "#cashflow+type",
+          "y": "#cashflow+value+sum",
           "type": "bar",
           "names": {
-            "#budget": "HPF Budget"
+            "#cashflow+value+sum": "Cash Flows (USD)"
           }
         },
         "axis": {
@@ -56,7 +66,16 @@
             "type": "category"
           }
         }
-      }
+      },
+      "operations": [
+        {
+          "type": "sum",
+          "options": {
+            "groupByColumn": "#cashflow+type",
+            "statsColumn": "#cashflow+value"
+          }
+        }
+      ]
     }
   ]
 

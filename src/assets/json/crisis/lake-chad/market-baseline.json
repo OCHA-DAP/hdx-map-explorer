@@ -13,7 +13,7 @@
         "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#x_foodprice+change+baseline",
-        "threshold": [-100,0,5,10,15,30],
+        "threshold": [-100,0,15,30,60,120],
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
     ]
