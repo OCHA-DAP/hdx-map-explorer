@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "Starting prebuild..."
+
+# make sure we got the latest builder
+docker pull alpine:3.5
+
+# build it
+docker run --privileged --rm \
+    -v $(pwd):/src \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e NPM_CONFIG_PROGRESS=false \
+    -e NPM_CONFIG_SPIN=false \
+    alpine:3.5 \
+    sh -c "cd /src && \
+        apk add --update-cache \
+            git \
+            nodejs-lts && \
+        npm install -g \
+            bower \
+            grunt-cli && \
+        npm install && \
+        bower --allow-root install && \
+        grunt default-no-tests"
+
+echo "Prebuild complete."
