@@ -1,8 +1,8 @@
 {
   "name": "Change in Market Prices From Baseline",
   "description": "Percentage change in the cost of the localized food basket from the baseline",
-  "sourceUrl": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5",
-  "url": "http://data.humdata.org/dataset/985b35e6-4bab-4332-af04-6b146be55eb5/resource/e3731c87-beb2-4372-a90a-a6f2af3c5cb5/download/WFP_VAM_MarketMonitor_2016-03-31.csv",
+  "sourceUrl": "https://data.humdata.org/dataset/market-monitor",
+  "url": "https://data.humdata.org/dataset/27d2a6fd-4e12-4795-a5c8-a1714fbef8af/resource/f3ba8ac3-5e1f-4084-bb72-173fbf50b136/download/WFP_VAM_MarketMonitor_2017-02-27.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/crisis/lake-chad/boundaries.geojson",
@@ -13,7 +13,7 @@
         "type": ["choropleth","bubble"],
         "joinColumn": "#adm1+name",
         "valueColumn": "#x_foodprice+change+baseline",
-        "threshold": [-100,0,5,10,15,30],
+        "threshold": [-100,0,15,30,60,120],
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
     ]
@@ -25,7 +25,10 @@
         "data": {
           "x": "#country+name",
           "y": "#x_foodprice+change+baseline+max",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#x_foodprice+change+baseline+max": "Change in market price"
+          }
         },
         "axis": {
           "x": {

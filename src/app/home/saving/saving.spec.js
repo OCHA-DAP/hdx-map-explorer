@@ -24,7 +24,12 @@ describe('Saving Module - ', function () {
            angular.extend(scope, {
                name: "Test Header",
                title: "Lake Chad Basin Crisis",
-               loggedIn: "HDX"
+               loggedIn: "HDX",
+               appHeaderConfig: {
+                   showTitle: true,
+                   showSaveButton: true,
+                   showHeader: true
+               }
            });
         });
 
@@ -37,7 +42,7 @@ describe('Saving Module - ', function () {
         });
 
         it('should render the header with login button', function(){
-            var element = angular.element('<app-header name="name" title="title"></app-header>');
+            var element = angular.element('<app-header name="name" title="title" app-header-config="appHeaderConfig"></app-header>');
             element = $compile(element)(scope);
             
             scope.$digest();
@@ -45,18 +50,18 @@ describe('Saving Module - ', function () {
             var mainTitle = $element.find('div.title');
             expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
             var login = $element.find('.actions a');
-            expect(login.text()).toBe('Login');
+            expect(login.text()).toBe('SAVE');
         });
 
         it('should render the header with save button', function(){
-            var element = angular.element('<app-header name="name" title="title" logged-in="loggedIn"></app-header>');
+            var element = angular.element('<app-header name="name" title="title" logged-in="loggedIn" app-header-config="appHeaderConfig"></app-header>');
             element = $compile(element)(scope);
             scope.$digest();
             var $element = $(element);
             var mainTitle = $element.find('div.title');
             expect(mainTitle.text()).toBe("Lake Chad Basin Crisis");
             var save = $element.find('.actions a');
-            expect(save.text()).toBe('Save');
+            expect(save.text()).toBe('SAVE');
         });
     });
 

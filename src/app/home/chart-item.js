@@ -41,6 +41,9 @@
                     }
                     var promise = DataFetcher.fetchData(url, chartData, additionalFilters);
                     promise.then(function (result) {
+                        var columnData = result.data[0];
+                        var hxlData = result.data[1];
+
                         var usableData = result.data.slice(1);
                         var tickObject = chartData.options.axis.x.tick;
                         options = $.extend(true, {}, $scope.selectedChart.options, {
@@ -106,6 +109,20 @@
                             //     }, 200);
                             // }
                         });
+                        if (!options.data.names){
+                            options.data.names = {};
+                        }
+
+                        for (var i = 0; i < hxlData.length; i++){
+                            if (!options.data.names[hxlData[i]]){
+                                var colName = columnData[i];
+                                if (!colName){
+                                    colName = hxlData[i];
+                                }
+                                options.data.names[hxlData[i]] = colName;
+                            }
+                        }
+
                         $scope.chart = c3.generate(options);
                         var cols = unloadColumns(options);
                         $scope.chart.unload(cols);
@@ -168,18 +185,20 @@
                         $scope.chart = $scope.chart.destroy();
                     }
                     $(chartId).removeAttr('style');
-                    setTimeout(function () {
+                    // If we need to readd this timeout, we need to find a better solution since it will clash with the
+                    // chart reloading when resetting a layer
+                    // setTimeout(function () {
                         console.log("resized - Dimensions for " + chartId + " are - W " + $(chartId).width() + ", H " + $(chartId).height());
                         options.size = null;
                         $scope.chart = c3.generate(options);
-                    }, 200);
+                    // }, 200);
                 });
 
                 $scope.$on("layerSelect", function(event, data){
                     if ($scope.chart && (data.type == $scope.type)){
                         changeChartData(chartUrl, $scope.selectedChart, data.filters).then(generateAppliedFiltersString);
                     }
-                });
+                }.bind(this));
             },
             templateUrl: "home/chart-item.tpl.html"
         };

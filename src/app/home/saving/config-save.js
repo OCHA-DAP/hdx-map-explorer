@@ -55,7 +55,7 @@
             }.bind(this));
 
             $scope.$on("chartPointClicked", function (event, data) {
-                var sliceName = _findSliceNameByType(data);
+                var sliceName = _findSliceNameByType(data.type);
                 this.setChartSelection(sliceName, data.filters);
             }.bind(this));
 

@@ -1,14 +1,14 @@
-<div id="app-header" class="widget-header">
+<div ng-if="appHeaderConfig.showHeader" id="app-header" class="widget-header">
     <i onclick="$('#app-header').slideUp();" class="glyphicon glyphicon-remove"></i>
-    <div class="title">{{title}}</div>
+    <div ng-if="appHeaderConfig.showTitle" class="title">{{title}}</div>
     <div>
         <span>{{name}}</span>
         <span ng-if="description"> - {{description}}</span>
         <span ng-if="user"> - {{user}}</span>
     </div>
-    <div class="actions">
-        <a ng-if="loggedIn" ng-click="showSharingWidget()" href="">Save</a>
-        <a ng-if="!loggedIn" target="_parent" href="{{ckanLoginUrl}}">Login</a>
+    <div ng-if="appHeaderConfig.showSaveButton" class="actions">
+        <a class="btn btn-primary" ng-if="loggedIn" ng-click="showSharingWidget()" href="">SAVE</a>
+        <a class="btn btn-primary" ng-if="!loggedIn" target="_parent" href="{{ckanLoginUrl}}">SAVE</a>
     </div>
 </div>
 <sharing-widget show="sharingWidgetVisible" config-manager="configManager" crisis-title="title" cr></sharing-widget>

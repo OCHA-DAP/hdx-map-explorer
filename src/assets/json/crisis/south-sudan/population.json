@@ -2,7 +2,7 @@
   "name": "Population",
   "id": "1",
   "description": "Population at admin level 2",
-  "source-url": "https://data.humdata.org/dataset/2016-humanitarian-needs-overview-hno-for-south-sudan-number-of-people-in-need-by-sector",
+  "sourceUrl": "https://data.humdata.org/dataset/south-sudan-humanitarian-needs-overview-2017",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/f500bc1d-a40f-485c-86a4-23be2009f2ff/download/2016-South-Sudan-Population-People-Displaced.csv",
   "map": {
     "shapefile": {
@@ -17,6 +17,11 @@
         "threshold": [0,40000,80000,120000,160000,200000],
         "colors": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a"]
       }
-    ]
+    ],
+    "columnNames":{
+      "#adm2+name": "District",
+      "#population": "Population",
+      "#affected+displaced": "Displaced people"
+    }
   }
 }

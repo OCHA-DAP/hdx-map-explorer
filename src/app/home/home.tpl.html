@@ -1,4 +1,6 @@
-<app-header title="title" name="configName" description="configDescription" user="configCreator" config-manager="configManager" logged-in="loggedIn">
+<app-header title="title" name="configName" description="configDescription"
+            user="configCreator" config-manager="configManager" logged-in="loggedIn"
+            app-header-config="appHeaderConfig">
 </app-header>
 <div id="app-body">
     <div class="container-fluid" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0">
@@ -21,7 +23,8 @@
                         class="hdx-logo"></span></a>
             </div>
             <div id="chart-item-holder">
-                <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.track">
+                <div class="chart-item" ng-repeat="(type, charts) in chartsGroup track by charts.url">
+
                     <chart-item chart-id="'chart-item' + $index" data="charts" url="charts.url"
                                 type="type"></chart-item>
                 </div>

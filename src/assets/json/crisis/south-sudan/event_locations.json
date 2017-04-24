@@ -1,7 +1,7 @@
 {
   "name": "Conflict Event Locations",
   "description": "Event Locations",
-  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2016",
+  "sourceUrl": "https://data.humdata.org/dataset/acled-conflict-data-for-africa-realtime-2017",
   "url": "https://data.humdata.org/dataset/84f5cc34-8a17-4e62-a868-821ff3725c0d/resource/3480f362-67bb-44d0-b749-9e8fc0963fc0/download/South_Sudan_Recent_Conflict_Events.csv",
   "map": {
     "layers": [
@@ -23,6 +23,21 @@
           }
         ]
       }
-    ]
+    ],
+    "columnNames": {
+      "#event+code": "Event code",
+      "#date": "Date",
+      "#event+type": "Type",
+      "#actor": "Actor",
+      "#country+name": "Country",
+      "#adm1+name": "Region",
+      "#adm2+name": "District",
+      "#loc+name": "Location",
+      "#geo+lat": "Latitude",
+      "#geo+lon": "Longitude",
+      "#meta+source": "Meta source",
+      "#notes": "Notes",
+      "#affected+killed": "People killed"
+    }
   }
 }

@@ -1,8 +1,8 @@
 {
   "name": "Estimated Total Population",
   "description": "Estimated Total population",
-  "sourceUrl": "http://data.hdx.rwlabs.org/dataset/75ed82f7-b03d-47e4-ba9b-c746412effe9",
-  "url": "http://data.hdx.rwlabs.org/dataset/75ed82f7-b03d-47e4-ba9b-c746412effe9/resource/020000e5-e7aa-4027-b58a-efe7396ff32e/download/ORS-Total-Population-v2.csv",
+  "sourceUrl": "https://data.humdata.org/dataset/lake-chad-crisis-map-explorer-data",
+  "url": "https://data.humdata.org/dataset/27d2a6fd-4e12-4795-a5c8-a1714fbef8af/resource/048df35c-e35f-4b1f-aa1a-2d1ce1292f22/download/Lake_Chad_Basin_Estimated_Population_2017-02-23.csv",
   "map": {
     "shapefile": {
       "url": "assets/json/crisis/lake-chad/boundaries.geojson",
@@ -16,7 +16,13 @@
         "threshold": [0,250000,1000000,3000000,5000000,10000000],  
         "colors": ["#b5eef3","#82dde5","#4fcad5","#2fa8b4","#197b84","#084e55"]
       }
-    ]
+    ],
+    "columnNames":{
+      "#country+name": "Country Name",
+      "#adm1+name": "Region name",
+      "#date": "Date",
+      "#population": "Population"
+    }
   },
     "charts": [
     {
@@ -25,7 +31,10 @@
         "data": {
           "x": "#country+name",
           "y": "#population+sum",
-          "type": "bar"
+          "type": "bar",
+          "names": {
+            "#population+sum": "Population"
+          }
         },
         "axis": {
           "x": {

@@ -1,5 +1,6 @@
 (function (module) {
-    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, DataFetcher,
+    module.controller('HomeController', function ($scope, $http, $q, $templateCache, $window, $stateParams, $location,
+                                                  DataFetcher,
                                                   FilterBuilder, BaseLayers, LayerInfo, LayerTypes, ConfigManager) {
         var model = this;
 
@@ -53,7 +54,11 @@
                 $scope.$emit("addSlice", {url: $scope.loadConfigUrl});
             }
 
-
+            $scope.appHeaderConfig = {
+                showTitle: $location.search()['showTitle'] != 'false',
+                showSaveButton: $location.search()['showSaveButton'] != 'false',
+                showHeader: $location.search()['showHeader'] != 'false'
+            };
         }
 
         /**
@@ -61,7 +66,7 @@
          */
         function broadcastWindowResizeEvent() {
             console.log("Sending resized event");
-            $scope.$broadcast("windowRyesized", {});
+            $scope.$broadcast("windowResized", {});
         }
 
         function chartPointClicked(event, data) {
@@ -202,9 +207,10 @@
         function buildBaseMap() {
             var map = L.map("map", {zoomControl: true});//.setView([10, 10], 5);
             $scope.map = map;
-            map.on("resize", function () {
-                mapFitBounds();
-            });
+            //Disabled per HDX-4811
+            // map.on("resize", function () {
+            //     mapFitBounds();
+            // });
             BaseLayers.get().OpenStreetMap_HOT.addTo(map);
             //L.control.layers(BaseLayers, null, {collapsed: true, position: "topright"}).addTo(map);
             layerGroup.addTo(map);
@@ -332,10 +338,10 @@
                                 console.error("Unknown layer type");
                         }
 
-                        // Should be no longer needed. Added a removeSlice() call before addSlice()
-                        // if ($scope.layerMap[layerType]) {
-                        //     layerGroup.removeLayer($scope.layerMap[layerType]);
-                        // }
+                        // Don't remove check it is being used as a check for when we refresh the layer on various events
+                        if ($scope.layerMap[layerType]) {
+                            layerGroup.removeLayer($scope.layerMap[layerType]);
+                        }
 
                         $scope.layerMap[layerType] = newLayer;
                         newLayer.values = values;
@@ -355,7 +361,8 @@
                             $scope.layerMap[LayerTypes.POINT_TYPE].bringToFront();
                         }
 
-                        mapFitBounds();
+                        //Disabled per HDX-4811
+                        // mapFitBounds();
 
                     }, function (err) {
                         console.error(err);
@@ -389,7 +396,10 @@
             var pCodeValueMap = {};
             var pCodeInfoMap = {};
             var pcodeIndex, valueIndex;
+            var columnRow = data[0];
             var hxlRow = data[1];
+            var columnNames = {};
+
             for (var i = 0; i < hxlRow.length; i++) {
                 if (hxlRow[i] == layerData.joinColumn) {
                     pcodeIndex = i;
@@ -397,6 +407,7 @@
                 if (hxlRow[i] == layerData.valueColumn) {
                     valueIndex = i;
                 }
+                columnNames[hxlRow[i]] = columnRow[i];
             }
 
             var min = null, max = null;
@@ -418,6 +429,7 @@
             }
 
             return {
+                columnNames: columnNames,
                 map: pCodeValueMap,
                 infoMap: pCodeInfoMap,
                 min: min,

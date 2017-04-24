@@ -52,18 +52,26 @@
       "sourceName": "ACLED"
     },
     {
-      "name": "Baseline Change in Market Prices",
+      "name": "Quarterly Change in Market Prices",
       "id": "7",
+      "type": "FOOD SECURITY",
+      "url": "assets/json/crisis/south-sudan/market-last-quarter.json",
+      "sourceName": "WFP"
+    },
+    {
+      "name": "Baseline Change in Market Prices",
+      "id": "8",
       "type": "FOOD SECURITY",
       "url": "assets/json/crisis/south-sudan/market-baseline.json",
       "sourceName": "WFP"
     },
     {
-      "name": "Quarterly Change in Market Prices",
-      "id": "8",
-      "type": "FOOD SECURITY",
-      "url": "assets/json/crisis/south-sudan/market-last-quarter.json",
-      "sourceName": "WFP"
+      "name": "South Sudan HPF Budget",
+      "id": "9",
+      "type": "HUMANITARIAN FUNDING",
+      "url": "assets/json/crisis/south-sudan/budget.json",
+      "sourceName": "OCHA"
     }
+
   ]
 }
