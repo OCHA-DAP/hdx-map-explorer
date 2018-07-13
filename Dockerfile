@@ -1,14 +1,34 @@
-FROM alpine:3.5
+FROM unocha/nodejs-builder:8.11.3 AS builder
 
-MAINTAINER "Serban Teodorescu <teodorescu.serban@gmail.com>"
+WORKDIR /src
 
-COPY ./bin /var/www/
+COPY . .
 
-COPY env/etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+RUN apk add --update-cache \
+        git \
+        nodejs-lts && \
+    npm install -g \
+        bower \
+        grunt-cli && \
+    npm install && \
+    bower --allow-root install && \
+    grunt default-no-tests
+
+FROM unocha/nginx:1.14
 
 RUN apk add --update-cache \
         nginx && \
-    mkdir -p /run/nginx && \
-    rm -rf /var/cache/apk/*
+    rm -rv /var/cache/apk/* && \
+    rm -rf /var/www && \
+    mkdir -p /run/nginx
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+COPY --from=builder /src/bin /var/www/
+COPY --from=builder /src/docker/default.conf /etc/nginx/conf.d/
+
+VOLUME /var/log/nginx
+
+# Volumes
+# - Conf: /etc/nginx/conf.d (default.conf)
+# - Cache: /var/cache/nginx
+# - Logs: /var/log/nginx
+# - Data: /var/www
